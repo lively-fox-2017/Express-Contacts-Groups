@@ -14,9 +14,25 @@ app.use(bodyparser.urlencoded({
 
 app.get('/contacts', function(req, res){
   let query = 'select * from contacts;';
+  let contacts = null;
+  let groups = null;
+  let counter =0;
   db.all(query,function(err, rows){
-    res.render('./contacts',{contacts:rows, err:err});
-  })
+    contacts = rows;
+    counter++;
+    if(counter>1){
+      res.render('./contacts',{contacts, groups});
+    }
+  });
+
+  db.all('SELECT * FROM GROUPS;', function(err, rows){
+    groups = rows;
+    counter++;
+    if(counter>1){
+      res.render('./contacts', {contacts, groups});
+    }
+  });
+
 }).
 post('/contacts', function(req, res){
   let query = `insert into contacts (name, company, telp_number, email) values ('${req.body.name}', '${req.body.company}', '${req.body.telp_number}', '${req.body.email}');`;
@@ -71,13 +87,41 @@ get('/groups/delete/:id', function(req, res){
 //==================++++++++++++++++++++-------------------@@@@@@@@@@@@@@@@@@@@@@@@@@###########
 
 app.get('/addresses', function(req, res){
-  let query = 'select * from addresses;';
+  let addressesDetails = null;
+  let contactsDetails = null;
+  let counter = 0;
+  let query = 'select addresses.id, name, street, city, zipcode from addresses join contacts on contact_id = contacts.id;';
   db.all(query,function(err, rows){
-    res.render('./addresses',{addresses:rows, err:err});
-  })
+    addressesDetails = rows;
+    counter+=1;
+    if (counter>1){
+      res.render('./addresses',{addresses:addressesDetails, contacts:contactsDetails});
+    }
+  });
+  db.all('select id, name from contacts;',function(err, rows){
+    contactsDetails = rows;
+    counter+=1;
+    if(counter>1){
+      res.render('./addresses',{addresses:addressesDetails, contacts:contactsDetails});
+    }
+  });
+}).
+get('/addresses/:id', function(req, res){
+  let query = `select name, company, street, city, zipcode, contact_id from addresses, contacts where contact_id='${req.params.id}' and contacts.id='7';`;
+  db.all(query, function(err, rows){
+    if(rows.length>0){
+      res.render('./addresses-personal.ejs', {addresses:rows});
+    }else{
+      db.all(`select name, company from contacts where id=${req.params.id};`,function(err,rows){
+
+        res.render('./addresses-personal.ejs', {addresses:rows});
+      });
+    }
+  });
 }).
 post('/addresses', function(req, res){
-  let query = `INSERT INTO addresses (street, city, zipcode) VALUES ('${req.body.street}', '${req.body.city}', '${req.body.zipcode}');`;
+  console.log(req.body);
+  let query = `INSERT INTO addresses (street, city, zipcode, contact_id) VALUES ('${req.body.street}', '${req.body.city}', '${req.body.zipcode}', '${req.body.contact_id}');`;
   db.run(query, function(){});
   res.redirect('/addresses');
 }).

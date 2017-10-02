@@ -23,7 +23,11 @@
           <td><%=contacts[i].company%></td>
           <td><%=contacts[i].telp_number%></td>
           <td><%=contacts[i].email%></td>
-          <td><a href="/contacts/edit/:<%=contacts[i].id%>">edit</a>|<a href="/contacts/delete/:<%=contacts[i].id%>">delete</a></td>
+          <td>
+            <a href="/contacts/edit/:<%=contacts[i].id%>">edit</a>|
+            <a href="/contacts/delete/:<%=contacts[i].id%>">delete</a>|
+            <a href="/addresses/<%=contacts[i].id%>">address</a>
+          </td>
         </tr>
       <%}%>
 
@@ -37,7 +41,13 @@
     Telp Number:<br>
     <input type="text" name="telp_number"><br>
     Email:<br>
-    <input type="text" name="email">
+    <input type="text" name="email"><br>
+    <select name="group_id">
+      <%for(var i in groups){%>
+
+      <option value="<%=groups[i].id%>"><%=groups[i].name_of_group%></option>
+      <%}%>
+    </select><br>
     <input type="submit">
     </form>
 

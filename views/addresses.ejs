@@ -5,10 +5,11 @@
     <title></title>
   </head>
   <body>
-    GROUPS<br>
+    address<br>
     <table border="1">
       <tr>
         <td>id</td>
+        <td>name</td>
         <td>street</td>
         <td>city</td>
         <td>zipcode</td>
@@ -18,6 +19,7 @@
       <% for(var i in addresses) {%>
         <tr>
           <td><%=addresses[i].id%></td>
+          <td><%=addresses[i].name%></td>
           <td><%=addresses[i].street%></td>
           <td><%=addresses[i].city%></td>
           <td><%=addresses[i].zipcode%></td>
@@ -28,6 +30,12 @@
     </table>
 
     <form action="/addresses" method="POST">
+    <select name="contact_id">
+      <%for(var i in contacts){%>
+
+      <option value="<%=contacts[i].id%>"><%=contacts[i].name%></option>
+      <%}%>
+    </select><br>
     street :<br>
     <input type="text" name="street"><br>
     city :<br>
