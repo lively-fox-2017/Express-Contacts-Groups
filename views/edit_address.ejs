@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Address Edit</title>
+    <style>
+      html,body {margin: 0; padding: 0; font-family: arial; letter-spacing: 1px;}
+      .container {display:block; width: 80%; margin:auto;}
+      .c10{clear: both; height: 10px;}
+      a {text-decoration: none;}
+      h3 {font-size: 22px; color: red; text-align: left; margin: 5px;}
+      ul {display: block; height: 40px; margin: 0; padding: 0; text-align: center; background: #333; }
+      ul li {list-style: none; float: left; margin-right: 20px; margin-left: 5px; padding: 10px}
+      ul li a{text-decoration: none; color: #fff; font-weight: bold;}
+      ul li a:hover{color: #ccc;}
+      table{width:500px;border:1px solid #333;}
+      table th{padding:5px;background: #ccc; text-align: left;}
+      table td{padding:5px;}
+      input[type='text']{border: 1px solid #ccc; height: 20px; padding: 5px;}
+      .btn{border: 1px solid #ccc; height: 30px; padding: 5px; background: #fff; color: #999; text-decoration: none; margin: 10px 0; cursor: pointer; padding: 0 10px;}
+      .btn:hover {background: #ccc}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Edit Address</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contacts">Contact</a></li>
+        <li><a href="/profiles">Profile</a></li>
+        <li><a href="/address">Address</a></li>
+        <li><a href="/groups">Group</a></li>
+      </ul>
+      <div class="c10"></div>
+      <form action="/address/edit/<%=data.id%>" method="post">
+          <div>
+            <p>Street</p>
+            <input type="text" name="street" value="<%= data.street%>">
+          </div>
+          <div>
+            <p>City</p>
+            <input type="text" name="city" value="<%= data.city%>">
+          <div>
+            <p>Zipcode</p>
+            <input type="text" name="zipcode" value="<%= data.zipcode %>">
+          </div>
+          <div>
+            <p>Contact</p>
+            <select name="id_contact">
+              <option value="<%-data.id_contact%>" selected="selected"><%-data.name%></option>
+              <% contacts.forEach(i => {%>
+              <option value="<%-i.id%>"><%-i.name%></option>
+              <%})%>
+            </select>
+          </div>
+          <input class="btn" type="submit" name="submit" value='Update'>
+      </form>
+    </div>
+  </body>
+</html>
