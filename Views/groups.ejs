@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Groups</title>
+  </head>
+  <body>
+    <h1>TABLE GROUPS</h1>
+    <table border = "1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>GROUP NAME</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%data.forEach (row=> {%>
+          <tr>
+            <td><%= row.id%></td>
+            <td><%= row.name_of_group%></td>
+            <td>
+              <a href="groups/edit/<%=row.id%>">EDIT</a>
+              <a href="groups/delete/<%=row.id%>">DELETE</a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+      <h2>ADD GROUP</h2>
+      <form action="/groups" method="post">
+    Group Name: <br>
+    <input type="text" name="name_of_group">
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+  <h4>Navigate to Another Path Here:</h4>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/contacts">View Contacts Database</a></li>
+    <li><a href="/groups">View Groups Database</a></li>
+    <li><a href="/profiles">View Profiles Database</a></li>
+    <li><a href="/addresses">View Addresses Database</a></li>
+  </ul>
+  </body>
+</html>

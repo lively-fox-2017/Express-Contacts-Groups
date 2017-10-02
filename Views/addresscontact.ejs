@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AddressesContact</title>
+</head>
+<body>
+  <h1>TABLE CONTACT ADDRESSES</h1>
+  <br>
+  <h3>Name: </h3>
+  <h3><%=dataContacts.name%></h3>
+  <table border = "1">
+    <tr>
+      <td>Street</td>
+      <td>City</td>
+      <td>Zipcode</td>
+    </tr>
+
+    <%for(var i = 0; i < data.length; i++){%>
+      <tr>
+        <td><%=data[i].street%></td>
+        <td><%=data[i].city%></td>
+        <td><%=data[i].zipcode%></td>
+      </tr>
+      <%}%>
+
+    </table><br>
+    <h2>ADD ADDRESS</h2>
+    <form action="/contacts/address/<%=dataContacts.id%>" method="post">
+      Street :
+      <br>
+      <input type="text" name="street">
+      <br>
+      City:
+      <br>
+      <input type="text" name="city">
+      <br>
+      Zipcode:
+      <br>
+      <input type="text" name="zipcode">
+      <br>
+        <br>
+        <input type="submit" value="Submit">
+      </form>
+      <h4>Navigate to Another Path Here:</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contacts">View Contacts Database</a></li>
+        <li><a href="/groups">View Groups Database</a></li>
+        <li><a href="/profiles">View Profiles Database</a></li>
+        <li><a href="/addresses">View Addresses Database</a></li>
+      </ul>
+    </body>
+    </html>
