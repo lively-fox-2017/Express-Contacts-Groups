@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1><%=addresses[0].name%></h1>
+    <h1><%=addresses[0].company%></h1>
+    <%if(addresses[0].hasOwnProperty('street')){%>
+    <table border="1">
+      <tr>
+        <td>street</td>
+        <td>city</td>
+        <td>zipcode</td>
+      </tr>
+
+      <%for(var i in addresses){%>
+      <tr>
+        <td><%=addresses[i].street%></td>
+        <td><%=addresses[i].city%></td>
+        <td><%=addresses[i].zipcode%></td>
+      </tr>
+      <%}%>
+
+    </table>
+    <%}%>
+
+    <form action="/addresses" method="POST">
+    <input type="hidden" name="contact_id" value="<%=addresses[0].contact_id%>">
+    street :<br>
+    <input type="text" name="street"><br>
+    city :<br>
+    <input type="text" name="city"><br>
+    zipcode :<br>
+    <input type="text" name="zipcode"><br>
+    <input type="submit">
+    </form>
+
+  </body>
+</html>
