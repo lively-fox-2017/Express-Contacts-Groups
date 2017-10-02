@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Adresses</title>
+  </head>
+  <body>
+    <form action="/adresses/edit/<%= dataRows[0].id %>" method="post">
+      Street :<br>
+      <input type="text" name="street" placeholder="Street" value="<%= dataRows[0].street %>">
+      <br>
+      City :<br>
+      <input type="text" name="city" placeholder="Street" value="<%= dataRows[0].city %>">
+      <br>
+      Zipcode :<br>
+      <input type="text" name="zipcode" placeholder="Street" value="<%= dataRows[0].zipcode %>">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

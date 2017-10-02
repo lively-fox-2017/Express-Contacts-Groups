@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Profile</title>
+  </head>
+  <body>
+    <form action="/profiles/edit/<%= dataRows[0].id %>" method="post">
+      Username :<br>
+      <input type="text" name="username" placeholder="Your Username" value="<%= dataRows[0].username %>">
+      <br>
+      Password :<br>
+      <input type="password" name="password" placeholder="Your password" value="<%= dataRows[0].password %>">
+      <br>
+      Contacts :<br>
+      <select name="contact_id">
+        <% console.log(dataRows[0]);
+          for(var i =0;i<contactsRows.length;i++){
+            var selectedBool = "";
+            if(contactsRows[i].id == dataRows[0].Contact_ID){
+              selectedBool = "selected";
+            }
+        %>
+        <option value="<%= contactsRows[i].id %>" <%= selectedBool %> ><%= contactsRows[i].name %></option>
+        <%
+        }
+        %>
+      </select>
+      <br />
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

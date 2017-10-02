@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Contacts</title>
+  </head>
+  <body>
+    <form action="/contacts/edit/<%= dataRows[0].id %>" method="post">
+      Name :<br>
+      <input type="text" name="name" placeholder="Your Name" value="<%= dataRows[0].name %>">
+      <br>
+      Company:<br>
+      <input type="text" name="company" placeholder="Your Company" value="<%= dataRows[0].company %>">
+      <br>
+      Telp Number:<br>
+      <input type="text" name="telp_number" placeholder="Your Telp Number" value="<%= dataRows[0].telp_number %>">
+      <br>
+      Email:<br>
+      <input type="text" name="email" placeholder="Your Email Address" value="<%= dataRows[0].email %>">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
