@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit</title>
+</head>
+<body>
+	<p>Edit Data<p>
+	<form action="/addresses/edit/<%=data[0].id%>" method="post">
+      <select name="contact_id">
+            <%for(var i = 0; i < dataContacts.length; i++){%>
+               <option value="<%=dataContacts[i].id%>"><%=dataContacts[i].id%> <%=dataContacts[i].name%></option>
+            <%}%>
+      </select><br>
+         Street: <input type = "text" name = "street" value="<%=data[0].street%>" />
+         <br>
+         City: <input type = "text" name = "city" value="<%=data[0].city%>"/>
+         <br>
+         Zipcode: <input type = "text" name = "zipcode" value="<%=data[0].zipcode%>"/>
+         <br>
+         <input type = "submit" name = "submit" value = "Submit" />
+      </form>
+
+</body>
+</body>
+</html>

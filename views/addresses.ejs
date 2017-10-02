@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+</head>
+<body>
+   <h1>Halaman Address</h1>
+	<table border = "1">
+         <tr>
+         	<td>id</td>
+            <td>Street</td>
+            <td>City</td>
+            <td>Zipcode</td>
+            <td>Name</td>
+         </tr>
+         
+         	<%for(var i = 0; i < data.length; i++){%>
+        <tr>
+            <td><%=data[i].id%></td>
+            <td><%=data[i].street%></td>
+            <td><%=data[i].city%></td>
+            <td><%=data[i].zipcode%></td>
+            <td><%=data[i].name%></td>
+            <td><a href="/addresses/edit/<%= data[i].id %>">Edit</a></td>
+            <td><a href="/addresses/delete/<%= data[i].id %>">Delete</a></td>
+        </tr>
+            <%}%>
+        
+      </table>
+
+	<p>Masukan data baru <p>
+	<form action="/addresses" method="post">
+      <select name="contact_id">
+            <%for(var i = 0; i < dataContacts.length; i++){%>
+               <option value="<%=dataContacts[i].id%>"><%=dataContacts[i].id%> <%=dataContacts[i].name%></option>
+            <%}%>
+      </select><br>
+         Street: <input type = "text" name = "street" />
+         <br>
+         City: <input type = "text" name = "city" />
+         <br>
+         Zipcode: <input type = "text" name = "zipcode" />
+         <br>
+         <input type = "submit" name = "submit" value = "Submit" />
+      </form>
+
+</body>
+</html>

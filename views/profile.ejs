@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+</head>
+<body>
+   <h1>Halaman Profile</h1>
+
+	<table border = "1">
+         <tr>
+         	<td>id</td>
+            <td>Username</td>
+            <td>Password</td>
+            <!-- <td>Contact Id</td> -->
+            <td>Contact Name</td>
+         </tr>
+         
+         
+         	<%for(var i = 0; i < data.length; i++){%>
+        <tr>
+            <td><%=data[i].id%></td>
+            <td><%=data[i].username%></td>
+            <td><%=data[i].password%></td>
+            <!-- <td><%=data[i].contact_id%></td> -->
+            <td><%=data[i].name%></td>
+
+         
+            <td><a href="/profile/edit/<%= data[i].id %>">Edit</a></td>
+            <td><a href="/profile/delete/<%= data[i].id %>">Delete</a></td>
+        </tr>
+            <%}%>
+        
+      </table>
+
+	<p>Masukan data baru <p>
+	<form action="/profile" method="post">
+      
+         <select name="contact_id">
+            <%for(var i = 0; i < dataContacts.length; i++){%>
+               <option value="<%=dataContacts[i].id%>"><%=dataContacts[i].id%> <%=dataContacts[i].name%></option>
+            <%}%>
+         </select>
+       
+       <br>
+         Username: <input type = "text" name = "username" />
+         <br>
+         Password: <input type = "text" name = "password" />
+         <br>
+         <input type = "submit" name = "submit" value = "Submit" />
+      </form>
+
+
+	
+
+
+</body>
+</html>
