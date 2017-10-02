@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Express Contacts-Groups</title>
+</head>
+<body>
+	<% 
+	const group = record;
+	const id = group.id;
+	const name = group.name_of_group;
+	%>
+	<h3>Edit Group: <%= name %></h3>
+
+	<form action = "/groups/edit/<%= id %>" method="POST">
+  		Group Name:<br>
+  		<input type = "text" name = "name_of_group" value= "<%= name %>">
+  		<br>
+  		<br>
+  		<input type = "submit" value = "Submit">
+	</form>
+
+</body>
+</html>

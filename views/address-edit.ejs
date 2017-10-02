@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Express Contacts-Groups</title>
+</head>
+<body>
+  <% 
+  const address = data.address;
+  const contacts = data.contacts;
+  %>
+  <h3>Edit Address</h3>
+
+  <form action = "/addresses/edit/<%= address.id %>" method="POST">
+      Street:<br>
+      <input type = "text" name = "street" value= "<%= address.street %>">
+      <br>
+      City:<br>
+      <input type = "text" name = "city" value= "<%= address.city %>">
+      <br>
+      Zipcode:<br>
+      <input type = "text" name = "zipcode" value= "<%= address.zipcode %>">
+      <br>
+      Contacts:<br>
+      <select name="contactId">
+      <% contacts.forEach(contact => { %>
+      <p>contact</p>
+      <option value="<%= contact.id %>"><%= contact.name %></option>
+      <% }); %>
+      </select>
+      <br>
+      <br>
+      <input type = "submit" value = "Submit">
+  </form>
+
+</body>
+</html>

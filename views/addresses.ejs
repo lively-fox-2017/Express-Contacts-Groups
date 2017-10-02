@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Express Contacts-Groups</title>
+	<style>
+		table {
+			width: 62.8%;
+		}
+		th, td {
+		    border: 1px solid black;
+		}
+		td {
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<% 
+	const addresses = data.addresses;
+	const contacts = data.contacts;
+	%>
+	<a href="/">Home</a>
+	<h2>Address</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Street</th>
+			<th>City</th> 
+			<th>Zipcode</th>
+		</tr>
+		<%
+		addresses.forEach( address => {
+		%>
+		<tr>
+			<td><%= address.id %></td>
+			<td><%= address.street %></td>
+			<td><%= address.city %></td>
+			<td><%= address.zipcode %></td>
+			<td><%= contacts.filter(contact => contact.id === address.contactId)[0].name %></td>
+			<td><a href="/addresses/edit/<%= address.id %>">Edit</a></td>
+			<td><a href="/addresses/delete/<%= address.id %>">Delete</a></td>
+		</tr>
+		<%
+		});
+		%>
+	</table>
+	
+	<br>
+	<br>
+	
+	<h2>Create New Address</h2>
+	<form action = "/addresses" method="POST">
+  		Street:<br>
+  		<input type = "text" name = "street">
+  		<br>
+  		City:<br>
+  		<input type = "text" name = "city">
+  		<br>
+  		Zipcode:<br>
+  		<input type = "text" name = "zipcode">
+  		<br>
+  		Contacts:<br>
+  		<select name="contactId">
+  		<% contacts.forEach(contact => { %>
+		<p>contact</p>
+		<option value="<%= contact.id %>"><%= contact.name %></option>
+		<% }); %>
+		</select>
+  		<br>
+  		<br>
+  		<input type = "submit" value = "Submit">
+	</form>
+
+</body>
+</html>

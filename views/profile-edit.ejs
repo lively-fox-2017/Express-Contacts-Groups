@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Express Contacts-Groups</title>
+</head>
+<body>
+  <% 
+  const profile = data.profile;
+  const contacts = data.contacts;
+  %>
+  <h3>Edit Profile: <%= profile.username %></h3>
+
+  <form action = "/profiles/edit/<%= profile.id %>" method="POST">
+      Username:<br>
+      <input type = "text" name = "username" value= "<%= profile.username %>">
+      <br>
+      Password:<br>
+      <input type = "text" name = "password" value= "<%= profile.password %>">
+      <br>
+      Contact:<br>
+      <select name="contactId">
+      <% contacts.forEach(contact => { %>
+      <p>contact</p>
+      <option value="<%= contact.id %>"><%= contact.name %></option>
+      <% }); %>
+      </select>
+      <br>
+      <br>
+      <input type = "submit" value = "Submit">
+  </form>
+
+</body>
+</html>

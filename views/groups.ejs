@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Express Contacts-Groups</title>
+	<style>
+		table {
+			width: 62.8%;
+		}
+		th, td {
+		    border: 1px solid black;
+		}
+		td {
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<% 
+	const groups = records;
+	%>
+	<a href="/">Home</a>
+	<h2>Groups</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name Of Group</th>
+		</tr>
+		<%
+		groups.forEach(group => {
+		%>
+		<tr>
+			<td><%= group.id %></td>
+			<td><%= group.name_of_group %></td>
+			<td><a href="/groups/edit/<%= group.id %>">Edit</a></td>
+			<td><a href="/groups/delete/<%= group.id %>">Delete</a></td>
+		</tr>
+		<%
+		});
+		%>
+	</table>
+	
+	<br>
+	<br>
+	
+	<h2>Create New Group</h2>
+	<form action = "/groups" method="POST">
+  		Name:<br>
+  		<input type = "text" name = "name_of_group">
+  		<br>
+  		<br>
+  		<input type = "submit" value = "Submit">
+	</form>
+
+</body>
+</html>

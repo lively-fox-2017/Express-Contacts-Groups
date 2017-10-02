@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Express Contacts-Groups</title>
+	<style>
+		table {
+			width: 62.8%;
+		}
+		th, td {
+		    border: 1px solid black;
+		}
+		td {
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<% 
+	const contacts = records;
+	%>
+	<a href="/">Home</a>
+	<h2>Contacts</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Company</th> 
+			<th>Phone</th>
+			<th>Email</th>
+		</tr>
+		<%
+		contacts.forEach( contact => {
+		%>
+		<tr>
+			<td><%= contact.id %></td>
+			<td><%= contact.name %></td>
+			<td><%= contact.company %></td>
+			<td><%= contact.telp_number %></td>
+			<td><%= contact.email %></td>
+			<td><a href="/contacts/edit/<%= contact.id %>">Edit</a></td>
+			<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
+			<td><a href="/contacts/addresses/<%= contact.id %>">Address</a></td>
+		</tr>
+		<%
+		});
+		%>
+	</table>
+	
+	<br>
+	<br>
+	
+	<h2>Create New Contact</h2>
+	<form action = "/contacts" method="POST">
+  		Name:<br>
+  		<input type = "text" name = "name">
+  		<br>
+  		Company:<br>
+  		<input type = "text" name = "company">
+  		<br>
+  		Phone:<br>
+  		<input type = "text" name = "telp_number">
+  		<br>
+  		Email:<br>
+  		<input type = "text" name = "email">
+  		<br>
+  		<br>
+  		<input type = "submit" value = "Submit">
+	</form>
+
+</body>
+</html>

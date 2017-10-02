@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Express Contacts-Groups</title>
+</head>
+<body>
+	<% 
+	const welcome = 'Selamat Datang di Express Contacts-Groups';
+	const contactsUrl = '/contacts';
+	const groupsUrl = '/groups';
+	const profilesUrl = '/profiles'
+	const addressesUrl = '/addresses';
+	%>
+	<h1><%= welcome %></h1>
+	<ul>
+		<li><a href="<%= contactsUrl %>">Contacts</a></li>
+		<li><a href="<%= groupsUrl %>">Groups</a></li>
+		<li><a href="<%= profilesUrl %>">Profiles</a></li>
+		<li><a href="<%= addressesUrl %>">Addresses</a></li>
+	</ul>
+</body>
+</html>

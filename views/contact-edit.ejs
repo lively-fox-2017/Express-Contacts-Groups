@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Express Contacts-Groups</title>
+</head>
+<body>
+  <% 
+  const contact = record;
+  const id = contact.id;
+  const name = contact.name;
+  const company = contact.company;
+  const phone = contact.telp_number;
+  const email = contact.email;
+  %>
+  <h3>Edit Contact: <%= name %></h3>
+
+  <form action = "/contacts/edit/<%= id %>" method="POST">
+      Name:<br>
+      <input type = "text" name = "name" value= "<%= name %>">
+      <br>
+      Company:<br>
+      <input type = "text" name = "company" value= "<%= company %>">
+      <br>
+      Phone:<br>
+      <input type = "text" name = "telp_number" value= "<%= phone %>">
+      <br>
+      Email:<br>
+      <input type = "text" name = "email" value= "<%= email %>">
+      <br>
+      <br>
+      <input type = "submit" value = "Submit">
+  </form>
+
+</body>
+</html>
