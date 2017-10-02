@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Contacts</title>
+</head>
+<body>
+  <h1>Contacts Database</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>COMPANY</th>
+      <th>TEL. NUMBER</th>
+      <th>EMAIL</th>
+    </tr>
+    <% for (var i = 0; i < dataJsonContacts.length; i++) { %>
+      <tr>
+        <td><%= dataJsonContacts[i].id %></td>
+        <td><%= dataJsonContacts[i].name %></td>
+        <td><%= dataJsonContacts[i].company %></td>
+        <td><%= dataJsonContacts[i].telp_number %></td>
+        <td><%= dataJsonContacts[i].email %></td>
+        <td><a href="/contacts/edit/<%= dataJsonContacts[i].id %>">edit</a></td>
+        <td><a href="/contacts/delete/<%= dataJsonContacts[i].id %>">delete</a></td>
+      </tr>
+    <% } %>
+  </table>
+  <br><br>
+  <form action="/contacts" method="post">
+    Name:
+    <br>
+    <input type="text" name="name">
+    <br>
+    Company:
+    <br>
+    <input type="text" name="company">
+    <br>
+    Telp. Number:
+    <br>
+    <input type="text" name="telp_number">
+    <br>
+    Email:
+    <br>
+    <input type="text" name="email">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <h4>Navigate to Another Path Here:</h4>
+  <ul>
+    <li><a href="/contacts">View Contacts Database</a></li>
+    <li><a href="/groups">View Groups Database</a></li>
+    <li><a href="/profile">View Profiles Database</a></li>
+    <li><a href="/addresses">View Addresses Database</a></li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/addresses/edit/:id" method="post">
+    Street:
+    <br>
+    <input type="text" name="street" value="<%= dataJsonAddresses[0].street %>">
+    <br>
+    City:
+    <br>
+    <input type="text" name="city" value="<%= dataJsonAddresses[0].city %>">
+    <br>
+    Zipcode:
+    <br>
+    <input type="text" name="zipcode" value="<%= dataJsonAddresses[0].zipcode %>">
+    <br>
+    <select name="contact_id">
+    <% for(var y = 0; y < dataJsonContactId.length; y++){ %>
+      <option value="<%= dataJsonContactId[y].id %>"><%= dataJsonContactId[y].name %></option>
+    <% } %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
