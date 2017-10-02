@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table>
+    <a href="/contact">Back to Home</a>
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Street</th>
+    </thead>
+    <%for(var i=0;i< dataAddress.length;i++){ %>
+    <tbody>
+        <td><%=dataAddress[i].idContacts.id%></td>
+        <td><%=dataAddress[i].name%></td>
+        <td><%=dataAddress[i].street%></td>
+      <%}%>
+
+    </tbody>
+    </table>
+  </body>
+</html>
