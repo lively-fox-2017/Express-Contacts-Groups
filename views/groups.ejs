@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>this is Groups</title>
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="left_col">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profiles">profiles</a></li>
+      <li><a href="/groups">groups</a></li>
+      <li><a href="/contacts">Contact</a></li>
+      <li><a href="/addresses">Addresses</a></li>
+    </ul>
+  </div>
+
+  <div class="right_col">
+    <div style="margin-left:69px;">
+      <div class="content">
+        <div class="title_cont">
+          <h1>This is a Groups</h1>
+        </div>
+
+        <table >
+          <tr>
+            <th>ID</th>
+            <th>NAME OF GROUPS</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% for(let data=0; data< dataJsonGroups.length; data++) {%>
+        <tr>
+          <td><%= dataJsonGroups[data].id %></td>
+          <td><%= dataJsonGroups[data].name_of_group %></td>
+          <td><a style="text-decoration: none;" href='groups/edit/<%= dataJsonGroups[data].id %>'>Edit</a></td>
+          <td><a style="text-decoration: none;" href="groups/delete/<%= dataJsonGroups[data].id %>">Delete</a></td>
+        </tr>
+          <%}%>
+        </table>
+
+      <div style="margin-top:50px; width: 80%;">
+        <form action="/groups" method="post">
+        Name of Groups: <input type="text" name="nameOfGroups"><br>
+        <input type="submit" value="Submit">
+        </form>
+
+      </div>
+
+  </div>
+  </div>
+
+</div>
+
+</body>
+</html>

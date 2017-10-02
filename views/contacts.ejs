@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>this is Contacts</title>
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="left_col">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profiles">profiles</a></li>
+      <li><a href="/groups">groups</a></li>
+      <li><a href="/contacts">Contact</a></li>
+      <li><a href="/addresses">Addresses</a></li>
+    </ul>
+  </div>
+
+  <div class="right_col">
+
+    <div style="margin-left:69px;">
+      <div class="content">
+        <div class="title_cont">
+          <h1>This is a Contacts</h1>
+        </div>
+
+        <table >
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>COMPANY</th>
+            <th>PHONE</th>
+            <th>EMAIL</th>
+            <th></th>
+            <th></th>
+          </tr>
+            <% for(let data=0; data<dataJsonContact.length; data++) {%>
+          <tr>
+            <td><%= dataJsonContact[data].id %></td>
+            <td><%= dataJsonContact[data].name %></td>
+            <td><%= dataJsonContact[data].company %></td>
+            <td><%= dataJsonContact[data].telp_number %></td>
+            <td><%= dataJsonContact[data].email %></td>
+            <td><a style="text-decoration: none;" href='contacts/edit/<%= dataJsonContact[data].id %>'>Edit</a></td>
+            <td><a style="text-decoration: none;" href="contacts/delete/<%= dataJsonContact[data].id %>">Delete</a></td>
+          </tr>
+            <%}%>
+        </table>
+
+      <div style="margin-top:50px; width: 80%;">
+        <form action="/contacts" method="post">
+        Name: <input type="text" name="nama"><br>
+        Company: <input type="text" name="company"><br>
+        No Telp: <input type="text" name="notlp"><br>
+        E-mail: <input type="text" name="email"><br>
+        <input type="submit" value="Submit">
+        </form>
+      </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

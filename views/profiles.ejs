@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>this is Profiles</title>
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="left_col">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profiles">profiles</a></li>
+      <li><a href="/groups">groups</a></li>
+      <li><a href="/contacts">Contact</a></li>
+      <li><a href="/addresses">Addresses</a></li>
+    </ul>
+  </div>
+
+  <div class="right_col">
+    <div style="margin-left:69px;">
+      <div class="content">
+        <div class="title_cont">
+          <h1>This is a Profiles</h1>
+        </div>
+
+        <table >
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>USERNAME</th>
+            <th>PASSWORD</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% for(let data=0; data<dataJsonProfile.length; data++) {%>
+            <tr>
+              <td><%= dataJsonProfile[data].id %></td>
+              <td><%= dataJsonProfile[data].name %></td>
+              <td><%= dataJsonProfile[data].username %></td>
+              <td><%= dataJsonProfile[data].password %></td>
+              <td><a style="text-decoration: none;" href='profiles/edit/<%= dataJsonProfile[data].id %>'>Edit</a></td>
+              <td><a style="text-decoration: none;" href='profiles/delete/<%= dataJsonProfile[data].id %>'>Delete</a></td>
+            </tr>
+          <%}%>
+        </table>
+
+      <div style="margin-top:50px; width: 80%;">
+        <a style="color:red; text-decoration: none; font-weight:bold;" href="#"><%=pesanError%></a>
+        <form action="/profiles" method="post">
+        Username: <input type="text" name="user_name"><br>
+        Password: <input type="text" name="pass_word"><br>
+        <!-- <%= dataJsonProfile.name%> -->
+        <label for="#">Name</label>
+
+            <select name="name">
+              <% for(let i=0; i<dataJsonContact.length; i++) {%>
+              <option value="<%= dataJsonProfile[i].id %>"><%= dataJsonContact[i].name %></option>
+              <%}%>
+            </select>
+
+        <input type="submit" value="Submit">
+
+        <!-- <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+        </div> -->
+
+        </form>
+      </div>
+
+  </div>
+  </div>
+
+</div>
+
+</body>
+</html>
