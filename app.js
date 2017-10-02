@@ -12,8 +12,15 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
 
-    db.all('select c.id, c.name, c.company, c.telp_number, c.email, g.name_of_group from Contacts c left join konjungsi on c.id = konjungsi.id_contact left join Groups g on g.id = konjungsi.id_group;', (err, contacts) => {  
+    db.all('select c.id, c.name, c.company, c.telp_number, c.email, g.name_of_group from Contacts c left join konjungsi on c.id = konjungsi.id_contact left join Groups g on g.id = konjungsi.id_group order by c.name;', (err, contacts) => {  
       if(!err){
+        for(let i=0;i<contacts.length-1;i++){
+          if(contacts[i].name == contacts[i+1]){
+            contacts[i+1]+=contacts[i]
+            contacts.splice(i,1)
+          i--
+        }
+      }
         db.all('select * from Groups;', (err, groups) => {
           if(!err){
             res.render('pages/index', {temp : contacts, temp1 : groups})
@@ -26,7 +33,8 @@ app.get('/', (req, res) => {
 //buat group
 app.get('/group', (req, res) => {
 	
-  		db.all('select g.id, g.name_of_group, c.name from Groups g left join konjungsi on g.id = konjungsi.id_group left join Contacts c on konjungsi.id_contact = c.id;', function (err, groups) {
+  		db.all('select g.id, g.name_of_group, c.name from Groups g left join konjungsi on g.id = konjungsi.id_group left join Contacts c on konjungsi.id_contact = c.id group by g.name_of_group;', function (err, groups) {
+        console.log(groups[0])
         if(!err){
           res.render('pages/group', {temp : groups})
         }
@@ -72,7 +80,7 @@ app.get('/addressDetail/:id', (req, res) => {
       if(!err){
         db.all('select id, name from Contacts where id = (?);', (req.params.id), (err, contact) => {
           if(!err){
-            res.render('pages/address', {temp : temp, temp1 : temp1})
+            res.render('pages/address', {temp : address, temp1 : contact})
           }
         })
       }
