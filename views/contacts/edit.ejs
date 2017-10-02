@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EXPRESS DEMO</title>
+  </head>
+  <body>
+    <h1>EDIT CONTACTS</h1>
+
+    <!-- Form -->
+    <form action="/contacts/edit/<%= contacts.id %>" method="POST">
+      Name:<br>
+      <input type="text" name="name" value="<%= contacts.name %>">
+      <br>
+      Company:<br>
+      <input type="text" name="company" value="<%= contacts.company %>">
+      <br>
+      Phone:<br>
+      <input type="text" name="telp_number" value="<%= contacts.telp_number %>">
+      <br>
+      Email:<br>
+      <input type="text" name="email" value="<%= contacts.email %>">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>

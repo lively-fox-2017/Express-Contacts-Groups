@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EXPRESS DEMO</title>
+  </head>
+  <body>
+    <h1>CONTACTS</h1>
+    <!-- Menu -->
+    <table>
+      <tr>
+        <td><a href="/contacts">Contacts</a></td>
+      </tr>
+      <tr>
+        <td><a href="/groups">Groups</a></td>
+      </tr>
+      <tr>
+        <td><a href="/addresses">Addresses</a></td>
+      </tr>
+      <tr>
+        <td><a href="/profile">Profile</a></td>
+      </tr>
+    </table>
+    
+    <!-- Table -->
+    <table border="1px solid gray">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < contacts.length; i++) { %>
+        <tr>
+          <td><%= contacts[i].id %></td>
+          <td><%= contacts[i].name %></td>
+          <td><%= contacts[i].company %></td>
+          <td><%= contacts[i].telp_number %></td>
+          <td><%= contacts[i].email %></td>
+          <td>
+            <a href="/contacts/edit/<%= contacts[i].id %>">Edit</a>
+            <a href="/contacts/delete/<%= contacts[i].id %>">Delete</a>
+            <a href="/contacts/addresses/<%= contacts[i].id %>">Addresses</a>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <!-- Form -->
+    <form action="/contacts" method="POST">
+      Name:<br>
+      <input type="text" name="name" value="">
+      <br>
+      Company:<br>
+      <input type="text" name="company" value="">
+      <br>
+      Phone:<br>
+      <input type="text" name="telp_number" value="">
+      <br>
+      Email:<br>
+      <input type="text" name="email" value="">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>
