@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style>
+    table{
+      border:1;
+      width: 100%;
+    }
+    th,td{
+      text-align: left;
+      border: black;
+      padding: 8px;
+    }
+    h2{
+      text-align: center;
+    }
+  </style>
+
+  <h2>Address</h2>
+  <body>
+    <a href="/">Back to Home</a><br>
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Zipcode</th>
+        <th>Contact Name</th>
+        <th>Company</th>
+        <th>Telp</th>
+        <th>Email</th>
+        <th>Action</th>
+      </thead>
+      <%for(var i = 0 ; i < dataAddress.length;i++){%>
+        <tbody>
+          <td><%=dataAddress[i].id%></td>
+          <td><%=dataAddress[i].street%></td>
+          <td><%=dataAddress[i].city%></td>
+          <td><%=dataAddress[i].zipcode%></td>
+          <td><%=dataAddress[i].name%></td>
+          <td><%=dataAddress[i].company%></td>
+          <td><%=dataAddress[i].telp_number%></td>
+          <td><%=dataAddress[i].email%></td>
+          <th>
+            <a href="/address/edit/<%=dataAddress[i].id%>">Edit</a>
+            <a href="/address/delete/<%=dataAddress[i].id%>">Delete</a>
+          </th>
+          <%}%>
+        </tbody>
+      </table>
+      <form action="/address" method="POST">
+          <th>Street:<br>
+          <input type="text" name="street" placeholder="Street">
+          <br></th>
+          <th>City:<br>
+          <input type="text" name="city" placeholder="City">
+          <br></th>
+          <th>Zipcode:<br>
+          <input type="text" name="zipcode" placeholder="Zipcode">
+          <br></th>
+          <select name="idContacts">
+            <%for(var i=0;i < dataContacts.length;i++){%>
+              <option value="<%= dataContacts[i].id%>"><%=dataContacts[i].name%></option>
+            <%}%>
+          </select>
+        <th><br><input type="submit" value="Submit"></th>
+      </form>
+  </body>
+</html>
