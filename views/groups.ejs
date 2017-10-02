@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+</head>
+<body>
+
+	<table border = "1">
+         <tr>
+         	<td>id</td>
+            <td>Group Name</td>
+         </tr>
+         
+         	<%for(var i = 0; i < data.length; i++){%>
+        <tr>
+            <td><%=data[i].id%></td>
+            <td><%=data[i].name_of_group%></td>
+            <td><a href="/groups/edit/<%= data[i].id %>">Edit</a></td>
+            <td><a href="/groups/delete/<%= data[i].id %>">Delete</a></td>
+        </tr>
+            <%}%>
+        
+      </table>
+
+	<p>Masukan data baru <p>
+	<form action="/groups" method="post">
+         Group Name: <input type = "text" name = "name_of_group" />
+         <br>
+         <input type = "submit" name = "submit" value = "Submit" />
+      </form>
+
+
+	
+
+
+</body>
+</html>
