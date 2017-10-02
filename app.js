@@ -67,14 +67,12 @@ app.get('/contacts/delete/:id', function(req, res){
 });
 
 app.get('/contacts/addresses/:id', function(req, res){
-  db.all(`SELECT * FROM addresses WHERE id = ${req.params.id}`, function(err, rows1){
-    // res.send(rows1)
-    db.get(`SELECT * FROM contacts WHERE id = ${req.params.id}`, function(err, rows2){
-      // res.send(rows2)
+  db.all(`SELECT * FROM addresses WHERE id_contacts = ${req.params.id}`, function(err, rows1){
+    db.all(`SELECT * FROM contacts WHERE id = ${req.params.id}`, function(err, rows2){
     if(err){
       console.log('error to show data');
     }
-    res.render('addresses/index', {addresses: rows1, contacts: rows2});
+    res.render('contacts/addresses', {addresses: rows1, contacts: rows2});
     });
   });
 });

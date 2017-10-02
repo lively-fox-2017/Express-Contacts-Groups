@@ -21,29 +21,31 @@
         <td><a href="/profile">Profile</a></td>
       </tr>
     </table>
+    <!-- Name -->
+      <% for(let i = 0; i < contacts.length; i++) { %>
+      <h4>Name: <%= contacts[i].name %></h4>
+      <% } %>
     
     <!-- Table -->
     <table border="1px solid gray">
       <thead>
       	<tr>
-      	  <th>ID</th>
-          <th>Name</th>
+      	  
       	  <th>Street</th>
       	  <th>City</th>
       	  <th>Zipcode</th>
-          <th>ID Contacts</th>
+          
       	  <th>Options</th>
       	</tr>
       </thead>
       <tbody>
       	<% for (let i = 0; i < addresses.length; i++) { %>
       	<tr>
-      	  <td><%= addresses[i].id %></td>
-          <td><%= addresses[i].name %></td>
+      	  
       	  <td><%= addresses[i].street %></td>
       	  <td><%= addresses[i].city %></td>
       	  <td><%= addresses[i].zipcode %></td>
-          <td><%= addresses[i].id_contacts %></td>
+          
       	  <td>
       	  	<a href="/addresses/edit/<%= addresses[i].id %>">Edit</a>
       	  	<a href="/addresses/delete/<%= addresses[i].id %>">Delete</a>
@@ -64,12 +66,14 @@
       Zipcode:<br>
       <input type="text" name="zipcode" value="">
       <br>
+      <div style="display: none;">
       Name:<br>
       <select name="id_contacts">
       <% for(let i = 0; i < contacts.length; i++) { %>
       <option value="<%= contacts[i].id %>"><%= contacts[i].name %></option>
       <% } %>
       </select><br>
+      </div>
       <br>
       <input type="submit" value="Submit">
     </form> 
