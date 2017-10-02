@@ -15,15 +15,23 @@ function alterContactsProfiles() {
 }
 // db.run("CREATE TABLE IF NOT EXISTS Groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name_of_group TEXT)");
 
-function alterContactsContactsId() {
+function editContactsId() {
   // ALTER TABLE table_name
   // MODIFY COLUMN column_name datatype;
   let query = "create unique index unique_name on Profile(ContactsId);";
   db.run(query,(err)=>{
-    console.log('Tabel berhasil di Edit');
+    console.log('Kolom di Profile berhasil di Edit');
+  })
+  // db.run("ALTER TABLE Profile DROP nama")
+}
+function alterContactsAddress() {
+  let query = "ALTER TABLE Addresses ADD COLUMN ContactsId INTEGER REFERENCES Contacts('id')";
+  db.run(query,(err)=>{
+    console.log('Kolom di Addrees berhasil di tambah');
   })
   // db.run("ALTER TABLE Profile DROP nama")
 }
 
 // alterContactsProfiles();
-alterContactsContactsId();
+// editContactsId();
+// alterContactsAddress();

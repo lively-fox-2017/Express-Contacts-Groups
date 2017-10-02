@@ -15,6 +15,7 @@
            <li><a href="groups">Groups</a></li>
            <li><a href="addresses">Addresses</a></li>
            <li><a href="profiles">Profiles</a></li>
+           <li><a href="addresses_with_contact">Address with Contacts</a></li>
        </ul>
     </div>
   <div class="landing-page">
@@ -49,6 +50,7 @@
                   <td data-label=""><%= dataJsonContact[data].email %></td>
                   <td><a href='/contacts/edit/<%= dataJsonContact[data].id %>'>Edit</a></td>
                   <td><a href='/contacts/delete/<%= dataJsonContact[data].id %>'>Delete</a></td> 
+                  <td><a href='/contacts/<%= dataJsonContact[data].id %>/address'>Addresses</a></td>
                 </tr>
                 <% } %>
               </tbody>

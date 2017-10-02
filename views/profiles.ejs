@@ -15,17 +15,19 @@
            <li><a href="groups">Groups</a></li>
            <li><a href="addresses">Addresses</a></li>
            <li  class='active'><a href="profiles">Profiles</a></li>
+           <li><a href="addresses_with_contact">Address with Contacts</a></li>
        </ul>
     </div>
   <div class="landing-page">
     <div class="form-appointment">
       <div class="wpcf7" 
       id="wpcf7-f560-p590-o1">
-        <form action="/profiles" 
+        <form action="/profiles"
         method="post" 
         class="wpcf7-form">
         <div class="group">
         <div style="width: 48%; float: left;">
+         
         <span class="wpcf7-form-control-wrap text-680"></span>
           <select 
           name='name'>
@@ -34,8 +36,8 @@
             class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
             size="45"
             aria-required="true"
-            value='<%= NamaContacts[data].id %>'
-            ><%= NamaContacts[data].nama %></option> 
+            value='<%= NamaContacts[data].id %>'>
+            <%= NamaContacts[data].nama %></option> 
             <%}%>
           </select>
         </span>
@@ -89,7 +91,7 @@
           </tbody>
         </table>
         </div>
-        
+        <%=pesanError%>
         </form>
   </div>
 </body>

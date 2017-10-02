@@ -17,6 +17,20 @@
         class="wpcf7-form">
         <div class="group">
         <div style="width: auto;">
+            <span class="wpcf7-form-control-wrap text-680"></span>
+            <select 
+            name='name'>
+              <% for(let data = 0; data < NamaContacts.length; data++) { %>
+              <option 
+              class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+              size="45"
+              aria-required="true"
+              value='<%= NamaContacts[data].id %>'
+              ><%= NamaContacts[data].nama %></option> 
+              <%}%>
+            </select>
+          </span>
+          <br/>
         <span class="wpcf7-form-control-wrap text-680">
             Username: <input 
             type="text" 

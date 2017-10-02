@@ -15,6 +15,7 @@
            <li><a href="groups">Groups</a></li>
            <li class='active'><a href="addresses">Addresses</a></li>
            <li><a href="profiles">Profiles</a></li>
+           <li><a href="addresses_with_contact">Address with Contacts</a></li>
        </ul>
     </div>
   <div class="landing-page">
@@ -26,6 +27,20 @@
           class="wpcf7-form">
           <div class="group">
           <div style="width: 48%; float: left;">
+              <span class="wpcf7-form-control-wrap text-680"></span>
+              <select 
+              name='name'>
+                <% for(let data = 0; data < dataJsonContacts.length; data++) { %>
+                <option 
+                class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+                size="45"
+                aria-required="true"
+                value='<%= dataJsonContacts[data].id %>'>
+                <%= dataJsonContacts[data].nama %></option> 
+                <%}%>
+              </select>
+            </span>
+            <br/>
           <span class="wpcf7-form-control-wrap text-680">
               Jalan: <input 
               type="text" 
@@ -67,6 +82,7 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
+                <th scope="col">Nama</th>
                 <th scope="col">Jalan</th>
                 <th scope="col">Kota</th>
                 <th scope="col">Zip Code</th>
@@ -76,6 +92,7 @@
                 <% for(let data = 0; data < dataJsonAddresses.length; data++) { %>
               <tr>
                 <td data-label=""><%= dataJsonAddresses[data].id %></td>
+                <td data-label=""><%= dataJsonAddresses[data].nama %></td>
                 <td data-label=""><%= dataJsonAddresses[data].street %></td>
                 <td data-label=""><%= dataJsonAddresses[data].city %></td>
                 <td data-label=""><%= dataJsonAddresses[data].zipcode %></td>
