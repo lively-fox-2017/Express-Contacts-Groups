@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    profiles<br>
+    <table border="1">
+      <tr>
+        <td>id</td>
+        <td>username</td>
+        <td>password</td>
+        <td>contact_id</td>
+        <td>actions</td>
+      </tr>
+
+      <% for(var i in profiles) {%>
+        <tr>
+          <td><%=profiles[i].id%></td>
+          <td><%=profiles[i].username%></td>
+          <td><%=profiles[i].password%></td>
+          <td><%=profiles[i].name%></td>
+          <td><a href="/profiles/edit/:<%=profiles[i].id%>">edit</a>|<a href="/profiles/delete/:<%=profiles[i].id%>">delete</a></td>
+        </tr>
+      <%}%>
+
+    </table>
+
+    <form action="/profiles" method="POST">
+    id contact:<br>
+    <select name="contact_id">
+      <%for(var i in contacts){%>
+        <option value="<%=contacts[i].id%>"><%=contacts[i].name%></option>
+      <%}%>
+    </select><br>
+    username :<br>
+    <input type="text" name="username" required><br>
+    password :<br>
+    <input type="password" name="password"><br>
+    <input type="submit">
+    </form>
+
+  </body>
+</html>

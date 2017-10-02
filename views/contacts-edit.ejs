@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="/contacts/edit/:<%=contact.id%>" method="POST">
+
+      Name:<br>
+      <input type="text" name="name" value="<%=contact.name%>"><br>
+      Company:<br>
+      <input type="text" name="company" value="<%=contact.company%>"><br>
+      Telp Number:<br>
+      <input type="text" name="telp_number" value="<%=contact.telp_number%>"><br>
+      Email:<br>
+      <input type="text" name="email" value="<%=contact.email%>">
+      <input type="submit">
+    </form>
+  </body>
+</html>

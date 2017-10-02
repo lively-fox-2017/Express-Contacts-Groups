@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    GROUPS<br>
+    <table border="1">
+      <tr>
+        <td>id</td>
+        <td>street</td>
+        <td>city</td>
+        <td>zipcode</td>
+        <td>actions</td>
+      </tr>
+
+      <% for(var i in addresses) {%>
+        <tr>
+          <td><%=addresses[i].id%></td>
+          <td><%=addresses[i].street%></td>
+          <td><%=addresses[i].city%></td>
+          <td><%=addresses[i].zipcode%></td>
+          <td><a href="/addresses/edit/:<%=addresses[i].id%>">edit</a>|<a href="/addresses/delete/:<%=addresses[i].id%>">delete</a></td>
+        </tr>
+      <%}%>
+
+    </table>
+
+    <form action="/addresses" method="POST">
+    street :<br>
+    <input type="text" name="street"><br>
+    city :<br>
+    <input type="text" name="city"><br>
+    zipcode :<br>
+    <input type="text" name="zipcode"><br>
+    <input type="submit">
+    </form>
+
+  </body>
+</html>

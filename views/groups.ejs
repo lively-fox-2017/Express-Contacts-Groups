@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    GROUPS<br>
+    <table border="1">
+      <tr>
+        <td>id</td>
+        <td>name of group</td>
+        <td>actions</td>
+      </tr>
+
+      <% for(var i in groups) {%>
+        <tr>
+          <td><%=groups[i].id%></td>
+          <td><%=groups[i].name_of_group%></td>
+          <td><a href="/groups/edit/:<%=groups[i].id%>">edit</a>|<a href="/groups/delete/:<%=groups[i].id%>">delete</a></td>
+        </tr>
+      <%}%>
+
+    </table>
+
+    <form action="/groups" method="POST">
+    Name of Group :<br>
+    <input type="text" name="name_of_group"><br>
+
+    <input type="submit">
+    </form>
+
+  </body>
+</html>
