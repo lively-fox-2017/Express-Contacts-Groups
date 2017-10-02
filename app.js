@@ -139,11 +139,7 @@ app.get('/profiles', function(req, res) {
   Profile.viewProfiles(function(err, rows) {
     if (!err) {
       Contact.viewContacts((err, dataContacts) => {
-        res.render('profiles', {
-          dataProfiles: rows,
-          dataContacts: dataContacts,
-          errData: null
-        });
+        res.render('profiles', {dataProfiles: rows,dataContacts: dataContacts,errData: null});
       })
     }
   })
@@ -237,14 +233,10 @@ app.get('/addresses/delete/:id', function(req, res) {
 })
 
 app.get("/addresses/edit/:id", function(req, res) {
-  Address.geteditAddresses(req.params, function(err, rows) {
-    if (!err) {
+  Address.geteditAddresses(req.params, function(dataAddresses, dataContacts) {
       res.render('addresses_edit', {
-        data: rows[0]
+        dataAddresses: dataAddresses[0],dataContacts:dataContacts
       })
-    } else {
-      res.send('Error')
-    }
   })
 })
 

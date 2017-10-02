@@ -26,13 +26,17 @@ class Address {
   }
 
   static geteditAddresses(data,cb){
-    db.all(`SELECT * FROM addresses WHERE id=${data.id}`,function(err,rows){
-      cb(err,rows)
+    db.all(`SELECT * FROM addresses WHERE id=${data.id}`,function(err,dataAddresses){
+      db.all(`SELECT * FROM contacts`,function(err,dataContacts){
+        if(!err){
+          cb(dataAddresses,dataContacts)
+        }
+      })
     })
   }
 
   static posteditAddresses(data,params,cb){
-    let query = `UPDATE addresses SET street='${req.body.street}',city='${req.body.city}',zipcode='${req.body.zipcode}' WHERE id='${req.params.id}'`
+    let query = `UPDATE addresses SET street='${data.street}',city='${data.city}',zipcode='${data.zipcode}',idContacts='${data.idContacts}' WHERE id='${params.id}'`
     db.run(query,function(err){
       cb(err)
     })

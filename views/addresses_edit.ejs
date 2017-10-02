@@ -7,18 +7,24 @@
 </head>
 
 <body>
-  <h1>Halaman Edit Contacts</h1>
+  <h1>Halaman Edit Address</h1>
   </td>
   </tr>
     </tbody>
     </table>
 </body>
 <table border = '2px'>
-<form action="/addresses/edit/<%=data.id%>" method="post">
-  <label>Street : <input type="text" name="street" placeholder="Input Street" value = "<%=data.street%>"> </label>
-  <label>City : <input type="text" name="city" placeholder="Input City" value = "<%=data.city%>"></label>
-  <label>Zipcode : <input type="text" name="zipcode" placeholder="Input Zipcode" value = "<%=data.zipcode%>"></label>
+<form action="/addresses/edit/<%=dataAddresses.id%>" method="post">
+  <label>Street : <input type="text" name="street" placeholder="Input Street" value = "<%=dataAddresses.street%>"> </label>
+  <label>City : <input type="text" name="city" placeholder="Input City" value = "<%=dataAddresses.city%>"></label>
+  <label>Zipcode : <input type="text" name="zipcode" placeholder="Input Zipcode" value = "<%=dataAddresses.zipcode%>"></label>
+  <select class="" name="idContacts">
+    <% dataContacts.forEach(row => { %>
+     <option value="<%=row.id%>"><%=row.name%></option>
+    <% })%>
+  </select>
   <input type="submit" value="SUBMIT">
+
 </form>
 </table>
 </html>
