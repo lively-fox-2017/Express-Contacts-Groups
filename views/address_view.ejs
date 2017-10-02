@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halaman Address Views</title>
+  </head>
+  <body>
+
+    <table border="2px">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Street</td>
+          <td>City</td>
+          <td>Zipcode</td>
+
+        </tr>
+      </thead>
+    <tbody>
+      <%dataAlamat.forEach(row =>{ %>
+        <tr>
+          <td><%=row.id%></td>
+          <td><%=row.name%></td>
+          <td><%=row.street%></td>
+          <td><%=row.city%></td>
+          <td><%=row.zipcode%></td>
+        </tr>
+      <%})%>
+    </tbody>
+    </table>
+  </body>
+</html>
+
+<form action="/contacts/addresses/" method="POST">
+  Street :<br>
+  <input type="text" name="street" placeholder="street">
+  <br>
+  City :<br>
+  <input type="text" name="city" placeholder="city">
+  <br>
+  Zipcode :<br>
+  <input type="text" name="zipcode" placeholder="zipcode">
+  <br>
+  Name : <br />
+
+  <input type="submit" value="Submit">
+</form>

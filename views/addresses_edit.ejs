@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Halaman Edit Contacts</h1>
+  </td>
+  </tr>
+    </tbody>
+    </table>
+</body>
+<table border = '2px'>
+<form action="/addresses/edit/<%=data.id%>" method="post">
+  <label>Street : <input type="text" name="street" placeholder="Input Street" value = "<%=data.street%>"> </label>
+  <label>City : <input type="text" name="city" placeholder="Input City" value = "<%=data.city%>"></label>
+  <label>Zipcode : <input type="text" name="zipcode" placeholder="Input Zipcode" value = "<%=data.zipcode%>"></label>
+  <input type="submit" value="SUBMIT">
+</form>
+</table>
+</html>
