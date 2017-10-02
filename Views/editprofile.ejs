@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  <title>Edit</title>
+</head>
+<body>
+  <form action="/profiles/edit/<%=dataJsonProfile[0].id%>" method="post">
+    User Name:
+    <br>
+    <input type="text" name="username" value="<%= dataJsonProfile[0].username %>">
+    <br>
+    Password:
+    <br>
+    <input type="text" name="password" value="<%= dataJsonProfile[0].password %>">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

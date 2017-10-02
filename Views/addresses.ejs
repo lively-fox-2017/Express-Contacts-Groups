@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Addresses</title>
+</head>
+<body>
+  <h1>TABLE ADDRESSES</h1>
+  <table border = "1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>STREET</th>
+        <th>CITY</th>
+        <th>ZIPCODE</th>
+        <th>NAME</th>
+        <th>COMPANY</th>
+        <th>PHONE</th>
+        <th>EMAIL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%data.forEach (row=> {%>
+        <tr>
+          <td><%= row.id%></td>
+          <td><%= row.street%></td>
+          <td><%= row.city%></td>
+          <td><%= row.zipcode%></td>
+          <td><%= row.name%></td>
+          <td><%= row.company%></td>
+          <td><%= row.telp_number%></td>
+          <td><%= row.email%></td>
+          <td>
+            <a href="/addresses/edit/<%=row.id%>">EDIT</a>
+            <a href="/addresses/delete/<%=row.id%>">DELETE</a>
+          </td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+    <h2>ADD ADDRESS</h2>
+    <form action="/addresses" method="post">
+      Street :
+      <br>
+      <input type="text" name="street">
+      <br>
+      City:
+      <br>
+      <input type="text" name="city">
+      <br>
+      Zipcode:
+      <br>
+      <input type="text" name="zipcode">
+      <br>
+      Name: <br>
+      <select name="ContactId">
+        <%for(let i=0; i< dataContacts.length; i++){%>
+    <option value="<%=dataContacts[i].id%>"><%=dataContacts[i].name%></option>
+    <%}%>
+  </select>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    <h4>Navigate to Another Path Here:</h4>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/contacts">View Contacts Database</a></li>
+      <li><a href="/groups">View Groups Database</a></li>
+      <li><a href="/profiles">View Profiles Database</a></li>
+      <li><a href="/addresses">View Addresses Database</a></li>
+    </ul>
+  </body>
+  </html>
