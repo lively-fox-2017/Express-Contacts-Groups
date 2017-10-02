@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Unassign Contact of Groups <%=data.name%></title>
+  </head>
+  <body>
+    <h1>Unassign Contact of Groups <%=data.name%></h1>
+    <a href="/groups">Return to Groups</a><br><br>
+    <table>
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Email</th>
+        <th>Options</th>
+      </thead>
+      <tbody>
+        <%urut=0; if (data){dataMembers.forEach(rows=>{urut++;%>
+          <tr>
+            <td><%=urut%></td>
+            <td><%=rows.name%></td>
+            <td><%=rows.company%></td>
+            <td><%=rows.email%></td>
+            <td>
+              <!-- <a href="/groups/<%=rows.id%>/unassign_contacts">Unassign</a> -->
+              <a onclick="return confirm('Are you sure to unassign this contacts?')" href="/groups/<%=data.id%>/unassign_contact/<%=rows.ContactGroupId%>">Unassign</a>
+            </td>
+          </tr>
+        <%})}%>
+      </tbody>
+    </table><br>
+  </body>
+</html>

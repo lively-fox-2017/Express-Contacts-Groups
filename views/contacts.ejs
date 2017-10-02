@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contacts List</title>
+  </head>
+  <body>
+    <h1>Contacts List</h1>
+    <a href="/">Return to Home</a><br><br>
+    <table>
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>View Address</th>
+        <th>Options</th>
+      </thead>
+      <tbody>
+        <%urut=0; if (data){data.forEach(rows=>{ urut++; %>
+        <tr>
+          <td><%=urut%></td>
+          <td><%=rows.name%></td>
+          <td><%=rows.company%></td>
+          <td><%=rows.telp_number%></td>
+          <td><%=rows.email%></td>
+          <td><a href="contacts/<%=rows.id%>/addresses">Show Addresses</a></td>
+          <td>
+            <a href="/contacts/edit/<%=rows.id%>">Edit</a>
+            <a href="#">|</a>
+            <a onclick="return confirm('Are you sure to delete this data?')" href="/contacts/delete/<%=rows.id%>">Delete</a>
+          </td>
+        </tr>
+        <%})}%>
+      </tbody>
+    </table>
+    <br>
+    <form class="" action="/contacts" method="post">
+      Name <br>
+      <input type="text" name="name" placeholder="name"><br>
+      Company <br>
+      <input type="text" name="company" placeholder="company"><br>
+      Phone <br>
+      <input type="text" name="telp_number" placeholder="phone"><br>
+      Email <br>
+      <input type="email" name="email" placeholder="email"><br>
+      Groups <br>
+      <select class="" name="groupId">
+        <%if (dataGroups){dataGroups.forEach(rows=>{%>
+          <option value="<%=rows.id%>"><%=rows.name%></option>
+        <%})}%>
+      </select><br><br>
+      <button type="post" name="button">Add Data</button>
+    </form>
+  </body>
+</html>

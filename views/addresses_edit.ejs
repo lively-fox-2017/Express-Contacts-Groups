@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Addresses Edit</title>
+  </head>
+  <body>
+    <h1>Contacts Edit</h1>
+    <a href="/contacts">Return to Addresses</a><br><br>
+    <form class="" action="/addresses/edit/<%=data.id%>" method="post">
+      Name <br>
+      <select class="" name="contactId">
+        <%if (dataContacts){dataContacts.forEach(rows=>{%>
+          <%if (rows.id==data.contactId){%>
+            <option value="<%=rows.id%>" selected><%=rows.name%></option>
+          <%} else {%>
+            <option value="<%=rows.id%>"><%=rows.name%></option>
+          <%}%>
+        <%})}%>
+      </select><br>
+      Street <br>
+      <input type="text" name="street" value="<%=data.street%>" placeholder="street"><br>
+      City <br>
+      <input type="text" name="city" value="<%=data.city%>" placeholder="city"><br>
+      Zipcode <br>
+      <input type="text" name="zipcode" value="<%=data.zipcode%>" placeholder="zipcode"><br><br>
+      <button type="submit" name="button">Edit Data</button>
+    </form>
+  </body>
+</html>

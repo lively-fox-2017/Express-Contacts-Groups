@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Groups</title>
+  </head>
+  <body>
+    <h1>Edit Groups</h1>
+    <a href="/groups">Return to Groups</a><br><br>
+    <form class="" action="/groups/edit/<%=data.id%>" method="post">
+      Name of Groups <br>
+      <input type="text" name="name" value="<%=data.name%>" placeholder="name of groups"><br><br>
+      <button type="submit" name="button">Edit Data</button>
+    </form>
+  </body>
+</html>
