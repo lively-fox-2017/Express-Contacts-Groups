@@ -10,6 +10,7 @@
       <tr>
         <td>id</td>
         <td>name of group</td>
+        <td>people</td>
         <td>actions</td>
       </tr>
 
@@ -17,7 +18,8 @@
         <tr>
           <td><%=groups[i].id%></td>
           <td><%=groups[i].name_of_group%></td>
-          <td><a href="/groups/edit/:<%=groups[i].id%>">edit</a>|<a href="/groups/delete/:<%=groups[i].id%>">delete</a></td>
+          <td><%=groups[i].name%></td>
+          <td><a href="/groups/<%=groups[i].id%>">assign people</a>|<a href="/groups/edit/:<%=groups[i].id%>">edit</a>|<a href="/groups/delete/:<%=groups[i].id%>">delete</a></td>
         </tr>
       <%}%>
 

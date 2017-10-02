@@ -13,6 +13,7 @@
         <td>company</td>
         <td>telp_number</td>
         <td>email</td>
+        <td>groups</td>
         <td>actions</td>
       </tr>
 
@@ -23,6 +24,7 @@
           <td><%=contacts[i].company%></td>
           <td><%=contacts[i].telp_number%></td>
           <td><%=contacts[i].email%></td>
+          <td><%=contacts[i].name_of_group%></td>
           <td>
             <a href="/contacts/edit/:<%=contacts[i].id%>">edit</a>|
             <a href="/contacts/delete/:<%=contacts[i].id%>">delete</a>|

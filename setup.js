@@ -11,3 +11,5 @@ db.serialize(function() {
 });
 
 db.close();
+
+//select name, name_of_group from contacts inner join contact_group_relations on contacts.id=contact_group_relations.contact_id and groups.id=contact_group_relations.group_id join groups;

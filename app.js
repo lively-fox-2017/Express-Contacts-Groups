@@ -13,12 +13,20 @@ app.use(bodyparser.urlencoded({
 }));
 
 app.get('/contacts', function(req, res){
-  let query = 'select * from contacts;';
+  let query = 'select contacts.id, company, telp_number, email, name, name_of_group from contacts inner join contact_group_relations on contacts.id=contact_group_relations.contact_id and groups.id=contact_group_relations.group_id join groups order by contacts.id;';
   let contacts = null;
   let groups = null;
   let counter =0;
   db.all(query,function(err, rows){
     contacts = rows;
+    for(let i=0;i<contacts.length-1;i++){
+      if(contacts[i].name==contacts[i+1].name){
+        console.log(contacts[i].name_of_group);
+        contacts[i+1].name_of_group+=`, ${contacts[i].name_of_group}`;
+        contacts.splice(i,1);
+        i--;
+      }
+    }
     counter++;
     if(counter>1){
       res.render('./contacts',{contacts, groups});
@@ -35,8 +43,13 @@ app.get('/contacts', function(req, res){
 
 }).
 post('/contacts', function(req, res){
-  let query = `insert into contacts (name, company, telp_number, email) values ('${req.body.name}', '${req.body.company}', '${req.body.telp_number}', '${req.body.email}');`;
-  db.run(query, function(){});
+  db.serialize(function(){
+    let query = `insert into contacts (name, company, telp_number, email) values ('${req.body.name}', '${req.body.company}', '${req.body.telp_number}', '${req.body.email}');`;
+    db.run(query);
+    db.all(`SELECT id FROM contacts where name = '${req.body.name}' and telp_number = '${req.body.telp_number}';`,function(err, rows){
+      db.run(`INSERT INTO contact_group_relations (contact_id, group_id) values('${rows[0].id}', ${req.body.group_id})`);
+    });
+  });
   res.redirect('/contacts');
 }).
 get('/contacts/edit/:id', function(req, res){
@@ -57,14 +70,42 @@ get('/contacts/delete/:id', function(req, res){
   res.redirect('/contacts');
 }).
 get('/groups', function(req, res){
-  let query = 'select * from groups;';
+  let query = 'select contacts.name, name_of_group, groups.id from groups join contact_group_relations on  contact_group_relations.group_id=groups.id join contacts on contacts.id=contact_group_relations.contact_id order by groups.name_of_group;';
+  let groups = null;
+  let min =1;
   db.all(query,function(err, rows){
+    groups = rows;
+
+    for(let i =0; i<groups.length-1; i++){
+      //console.log(groups[i]);
+      if(groups[i].id==groups[i+1].id){
+        //console.log(rows[i+1].name);
+        groups[i+1].name+=`, ${groups[i].name}`;
+        groups.splice(i,1);
+        i--;
+      }
+    }
     res.render('./groups',{groups:rows, err:err});
   })
 }).
 post('/groups', function(req, res){
   let query = `INSERT INTO groups (name_of_group) VALUES ('${req.body.name_of_group}');`;
   db.run(query, function(){});
+  res.redirect('/groups');
+}).
+get('/groups/:id', function(req, res){
+  let contacts=null;
+  let query = `select id, name from contacts;`;
+  db.all(query, function(err, rows){
+    contacts = rows;
+    db.all(`select id, name_of_group from groups where id='${req.params.id}';`, function(err, rows){
+      res.render('./groups-assign-people.ejs', {contacts, groups:rows[0]})
+    });
+
+  });
+}).
+post('/groups/:idGroup',function(req, res){
+  db.run(`INSERT INTO contact_group_relations(contact_id, group_id) values('${req.body.contact_id}', '${req.params.idGroup}');`);
   res.redirect('/groups');
 }).
 get('/groups/edit/:id', function(req, res){
