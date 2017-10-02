@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Contacts</title>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id='cssmenu'>
+        <ul>
+           <li><a href='/'>Home</a></li>
+           <li class='active'><a href="contacts">Contacts</a></li>
+           <li><a href="groups">Groups</a></li>
+           <li><a href="addresses">Addresses</a></li>
+           <li><a href="profiles">Profiles</a></li>
+       </ul>
+    </div>
+  <div class="landing-page">
+    <div class="form-appointment">
+      <div class="wpcf7" 
+      id="wpcf7-f560-p590-o1">
+        <form action="/contacts" 
+        method="post" 
+        class="wpcf7-form">
+        <div class="group">
+        <div style="width: auto;">
+           <!-- TABEL -->
+           <table>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Hapus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let data = 0; data < dataJsonContact.length; data++) { %>
+                <tr>
+                  <td data-label=""><%= dataJsonContact[data].id %></td>
+                  <td data-label=""><%= dataJsonContact[data].nama %></td>
+                  <td data-label=""><%= dataJsonContact[data].company %></td>
+                  <td data-label=""><%= dataJsonContact[data].telp_number %></td>
+                  <td data-label=""><%= dataJsonContact[data].email %></td>
+                  <td><a href='/contacts/edit/<%= dataJsonContact[data].id %>'>Edit</a></td>
+                  <td><a href='/contacts/delete/<%= dataJsonContact[data].id %>'>Delete</a></td> 
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+        </div>
+       <br/>
+       <br/>
+       <br/>
+        <div style="width: auto;">
+        <span class="wpcf7-form-control-wrap text-680">
+          Name: <input 
+          type="text" 
+        name="nama"
+        size="45" 
+        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+        aria-required="true">
+      </span>
+      <br>
+      <span class="wpcf7-form-control-wrap email-680">
+          Company: <input type="text" 
+        name="company" 
+        value="" 
+        size="45" 
+        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+        aria-required="true">
+      </span>
+      <br>
+      <span class="wpcf7-form-control-wrap tel-630">
+          Telepon: <input type="text" 
+        name="phone" 
+        value="" 
+        size="45" 
+        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+        aria-required="true">
+      </span>
+      <br>
+      <span class="wpcf7-form-control-wrap tel-630">
+        Email: <input type="text" 
+      name="email" 
+      value="" 
+      size="45" 
+      class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+      aria-required="true">
+    </span>
+    <br>
+        <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
+        <input type="submit" 
+        value="Kirim" 
+        class="wpcf7-form-control wpcf7-submit">
+        </div>
+        </div>   
+      </form>
+  </div>
+</body>
+</html>

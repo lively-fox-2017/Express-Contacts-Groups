@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Addresses</title>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id='cssmenu'>
+        <ul>
+           <li><a href='/'>Home</a></li>
+           <li><a href="contacts">Contacts</a></li>
+           <li><a href="groups">Groups</a></li>
+           <li class='active'><a href="addresses">Addresses</a></li>
+           <li><a href="profiles">Profiles</a></li>
+       </ul>
+    </div>
+  <div class="landing-page">
+      <div class="form-appointment">
+        <div class="wpcf7" 
+        id="wpcf7-f560-p590-o1">
+          <form action="/addresses" 
+          method="post" 
+          class="wpcf7-form">
+          <div class="group">
+          <div style="width: 48%; float: left;">
+          <span class="wpcf7-form-control-wrap text-680">
+              Jalan: <input 
+              type="text" 
+            name="street"
+            size="45" 
+            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+            aria-required="true">
+          </span>
+          <br>
+          <span class="wpcf7-form-control-wrap email-680">
+              Kota: <input type="text" 
+            name="city" 
+            value="" 
+            size="45" 
+            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+            aria-required="true">
+          </span>
+          <br>
+          <span class="wpcf7-form-control-wrap tel-630">
+              Zip Code: <input type="text" 
+            name="zipcode" 
+            value="" 
+            size="45" 
+            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+            aria-required="true">
+          </span>
+          <br>
+            <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
+            <input type="submit" 
+            value="Kirim" 
+            class="wpcf7-form-control wpcf7-submit">
+            </div>
+          </div>
+          
+          <div style="width: 48%; float: right;">
+          <!-- TABEL -->
+
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Jalan</th>
+                <th scope="col">Kota</th>
+                <th scope="col">Zip Code</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(let data = 0; data < dataJsonAddresses.length; data++) { %>
+              <tr>
+                <td data-label=""><%= dataJsonAddresses[data].id %></td>
+                <td data-label=""><%= dataJsonAddresses[data].street %></td>
+                <td data-label=""><%= dataJsonAddresses[data].city %></td>
+                <td data-label=""><%= dataJsonAddresses[data].zipcode %></td>
+                  <td><a href='/addresses/edit/<%= dataJsonAddresses[data].id %>'>Edit</a></td>
+                  <td><a href='/addresses/delete/<%= dataJsonAddresses[data].id %>'>Delete</a></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+          </div>
+          
+          </form>
+    </div>
+</body>
+</html>
