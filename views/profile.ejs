@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PROFILE</title>
+  <style>
+    html,body {margin: 0; padding: 0; font-family: arial; letter-spacing: 1px;}
+    .container {display:block; width: 80%; margin:auto;}
+    .c10{clear: both; height: 10px;}
+    a {text-decoration: none;}
+    h3 {font-size: 22px; color: red; text-align: left; margin: 5px;}
+    ul {display: block; height: 40px; margin: 0; padding: 0; text-align: center; background: #333; }
+    ul li {list-style: none; float: left; margin-right: 20px; margin-left: 5px; padding: 10px}
+    ul li a{text-decoration: none; color: #fff; font-weight: bold;}
+    ul li a:hover{color: #ccc;}
+    table{width:100%;border:1px solid #333;}
+    table th{padding:5px;background: #ccc; text-align: left;}
+    table td{padding:5px;}
+    input[type='text']{border: 1px solid #ccc; height: 20px; padding: 5px;}
+    select{border: 1px solid #ccc; height: 30px; padding: 5px;}
+    .btn{border: 1px solid #ccc; height: 30px; padding: 5px; background: #fff; color: #999; text-decoration: none; margin: 10px 0; cursor: pointer; padding: 0 10px;}
+    .btn:hover {background: #ccc}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Profile</h3>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/contacts">Contact</a></li>
+      <li><a href="/profiles">Profile</a></li>
+      <li><a href="/address">Address</a></li>
+      <li><a href="/groups">Group</a></li>
+    </ul>
+    <div class="c10"></div>
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>ID</th>
+        <th>ID Contact</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Contact Name</th>
+        <th>&nbsp</th>
+        <th>&nbsp</th>
+      </tr>
+      <% profiles.forEach (i =>{%>
+        <tr>
+          <td>&nbsp<%= i.id %></td>
+          <td>&nbsp<%= i.id_contact %></td>
+          <td>&nbsp<%= i.username %></td>
+          <td>&nbsp<%= i.password %></td>
+          <td>&nbsp<%= i.name %></td>
+          <td><a href="/profiles/edit/<%= i.id %>">Edit</a></td>
+          <td><a href="/profiles/delete/<%= i.id %>">Delete</a></td>
+        </tr>
+        <% }) %>
+    </table>
+    <form action="/profiles" method="post">
+      <div>
+        <p>Username</p>
+        <input type="text" name="username" placeholder="your username">
+      </div>
+      <div>
+        <p>Password</p>
+        <input type="text" name="password" placeholder="your password">
+      </div>
+      <div>
+        <p>Contacts</p>
+        <select name="id_contact">
+          <% contacts.forEach(i => {%>
+          <option value="<%-i.id%>"><%-i.name%></option>
+          <%})%>
+        </select>
+      </div>
+      <label><%-msg%></label>
+      <button class="btn" type="submit" name="submit">Add</button>
+    </form>
+  </div>
+</body>
+</html>
