@@ -1,0 +1,63 @@
+<!-- views/pages/about.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="row">
+                <div class="jumbotron">
+                    <h1>CRUD</h1>
+                    <p>Contact Person</p>
+                    <table style="width:100%">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Jalan</th>
+                            <th>Kota</th>
+                            <th>Kode Pos</th>
+                            <th>ID Contact</th>
+                        </tr>
+                        <% temp.forEach(function(temps) { %>
+                        <tr>
+                            <td><%= temps.id%></td>
+                            <td><%= temps.street%></td>
+                            <td><%= temps.city%></td>
+                            <td><%= temps.zipcode%></td>
+                            <td><%= temps.id_contact%></td>
+                            <td>
+                                <a href="/deleteAddresses/<%= temps.id%>">Delete</a>
+                                <a href="/editAddresses/<%= temps.id%>">Edit</a>  
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </table>
+                </div>
+            </div>
+             <div>
+            <form action="/newaddress" method="POST">
+                <input type="text" placeholder="street" name="street">
+                <input type="text" placeholder="city" name="city">
+                <input type="text" placeholder="zipcode" name="zipcode">
+                <select name="id_contact">
+                <% temp1.forEach(function(temps1) { %>
+                    <option value=<%= temps1.id%>><%= temps1.name%></option>
+                <% }); %>
+                </select> 
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

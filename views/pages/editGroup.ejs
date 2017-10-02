@@ -1,0 +1,31 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div>
+        <% temp.forEach(function(temps) { %>
+            <form action="/editGroupFinal" method="POST">
+                <input type="text" value=<%= temps.id%> name="id">
+                <input type="text" value=<%= temps.name_of_group%> name="name">
+                <button type="submit">Submit</button>
+            </form>
+        <% }); %>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>CRUD</h1>
+            <p>Contact Person Apps</p>
+            <table style="width:100%">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Company</th>
+                <th>Telp Number</th>
+                <th>Email</th>
+                <th>Name of group</th>
+                <th>Action</th>
+            </tr>
+                <% temp.forEach(function(temps) { %>
+                <tr>
+                    <td><%= temps.id%></td>
+                    <td><%= temps.name%></td>
+                    <td><%= temps.company%></td>
+                    <td><%= temps.telp%></td>
+                    <td><%= temps.email%></td>
+                    <td><%= temps.name_of_group%></td>
+                    <td>
+                        <a href="/addressDetail/<%= temps.id%>">Detail Address</a> 
+                        <a href="/deleteContact/<%= temps.id%>">Delete</a> 
+                        <a href="/editContact/<%= temps.id%>">Edit</a>
+                    </td>
+                </tr>
+                <% }); %>
+                </table>
+        </div>
+        <div>
+            <form action="/newcontact" method="POST">
+                <input type="text" placeholder="name" name="name">
+                <input type="text" placeholder="company" name="company">
+                <input type="text" placeholder="telp" name="telp">
+                <input type="text" placeholder="email" name="email">
+                <select name="name_of_group">
+                    <% temp1.forEach((temps1) => {%>
+                     <option value=<%= temps1.id%>><%= temps1.name_of_group%></option>
+                    <% }) %>    
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>
