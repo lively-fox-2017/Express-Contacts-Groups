@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h3>Welcome, ? (Addresses Edit)</h3>
+
+  <form class="" action="/addresses/edit/<%= dataAdd[0].id %>" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Street: </td>
+        <td>
+          <input type="text" name="street" value="<%= dataAdd[0].street %>">
+        </td>
+      </tr>
+      <tr>
+        <td>City: </td>
+        <td>
+          <input type="text" name="city" value="<%= dataAdd[0].city %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Zipcode: </td>
+        <td>
+          <input type="text" name="zipcode" value="<%= dataAdd[0].zipcode %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Contact Name: </td>
+        <td>
+          <select name="contactName">
+            <option value=""> - choose - </option>
+            <% for(let i = 0; i < dataCon.length; i++){ %>
+              <% let selected = 'selected'
+                if(dataAdd[0].contact_id === dataCon[i].id){ %>
+                <option <%= selected %> value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+              <% }else{ %>
+                <option value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+              <% } %>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <br>
+
+  <a href="/addresses"> << back to address </a>
+
+</body>
+</html>

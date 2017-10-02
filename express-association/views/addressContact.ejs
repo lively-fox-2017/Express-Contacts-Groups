@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h3>Welcome, ? (Address Contact)</h3>
+
+  <table border="1" cellpadding="5">
+    <thead>
+      <th>No</th>
+      <th>Name</th>
+      <th>Company</th>
+      <th>Addresses</th>
+    </thead>
+    <% let j = 1
+      for(let i = 0; i < dataCon.length; i++){ %>
+      <tbody>
+        <td><%= j %></td>
+        <td><%= dataCon[i].name %></td>
+        <td><%= dataCon[i].company %></td>
+        <td>
+          <% for(let k = 0; k < dataAdd.length; k++){ %>
+            <%= dataAdd[k].street %>,
+          <% } %>
+        </td>
+      </tbody>
+    <% } %>
+  </table>
+  <% if (dataAdd.length > 0) {%>
+  <form class="" action="/contacts/address/<%= dataAdd[0].id %>" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Street: </td>
+        <td>
+          <input type="text" name="street" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>City: </td>
+        <td>
+          <input type="text" name="city" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Zipcode:</td>
+        <td>
+          <input type="text" name="zipcode" value="">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+  <% } else {%>
+    <a href="/addresses" style="margin: 20px 0; display:inline-block">Address</a>
+  <% } %>
+  <br>
+
+  <a href="/contacts"> << back to contacts </a>
+
+</body>
+</html>

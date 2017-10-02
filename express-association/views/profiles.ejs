@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h2>Welcome, ? (Profiles)</h2>
+
+  <table border="1" cellpadding="5">
+    <thead>
+      <th>No</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Contact Name</th>
+      <th>Action</th>
+    </thead>
+    <% let j = 1
+      if (dataPro) {
+      for(let i = 0; i < dataPro.length; i++){ %>
+      <tbody>
+        <td><%= j %></td>
+        <td><%= dataPro[i].username %></td>
+        <td><%= dataPro[i].password %></td>
+        <td><%= dataPro[i].name %></td>
+        <td>
+          <a href="/profiles/edit/<%= dataPro[i].ids %>">Edit</a>
+          <a href="/profiles/delete/<%= dataPro[i].ids %>">Delete</a>
+        </td>
+      </tbody>
+    <% j++ }} %>
+  </table>
+
+  <% if(dataErr) { %>
+    <p style="color: red; font-size: 13px"><%= dataErr %></p>
+  <% } %>
+
+  <form class="" action="/profiles" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Username: </td>
+        <td>
+          <input type="text" name="user" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Password: </td>
+        <td>
+          <input type="password" name="pass" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Contact Name</td>
+        <td>
+          <select name="contactName">
+            <option value=""> - choose - </option>
+            <% for(let i = 0; i < dataCon.length; i++){ %>
+              <option value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <br>
+
+  <a href="/"> << back to home </a>
+
+</body>
+</html>
