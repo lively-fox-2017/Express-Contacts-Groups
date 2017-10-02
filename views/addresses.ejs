@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>this is Addresses</title>
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="left_col">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profiles">profiles</a></li>
+      <li><a href="/groups">groups</a></li>
+      <li><a href="/contacts">Contact</a></li>
+      <li><a href="/addresses">Addresses</a></li>
+    </ul>
+  </div>
+
+  <div class="right_col">
+    <div style="margin-left:69px;">
+      <div class="content">
+        <div class="title_cont">
+          <h1>This is a Addresses</h1>
+        </div>
+
+        <table >
+          <tr>
+            <th>ID</th>
+            <th>STREET</th>
+            <th>CITY</th>
+            <th>ZIPCODE</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% for(let data=0; data<dataJsonAddresses.length; data++) {%>
+            <tr>
+              <td><%= dataJsonAddresses[data].id %></td>
+              <td><%= dataJsonAddresses[data].street %></td>
+              <td><%= dataJsonAddresses[data].city %></td>
+              <td><%= dataJsonAddresses[data].zipcode %></td>
+              <td><a style="text-decoration: none;" href='addresses/edit/<%= dataJsonAddresses[data].id %>'>Edit</a></td>
+              <td><a style="text-decoration: none;" href='addresses/delete/<%= dataJsonAddresses[data].id %>'>Delete</a></td>
+            </tr>
+          <%}%>
+
+        </table>
+
+      <div style="margin-top:50px; width: 80%;">
+        <form action="/addresses" method="post">
+        Street: <input type="text" name="street"><br>
+        City: <input type="text" name="city"><br>
+        Zipcode: <input type="text" name="zipcode"><br>
+        <input type="submit" value="Submit">
+        </form>
+      </div>
+
+  </div>
+  </div>
+
+</div>
+
+</body>
+</html>
