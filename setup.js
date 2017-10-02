@@ -23,8 +23,12 @@ function runSetup() {
         console.log('create Adresses',err);
       }
     })
+    db.run("create table if not exists Contact_Groups (id INTEGER PRIMARY KEY AUTOINCREMENT, Contact_ID INTEGER REFERENCES Contacts(id), Group_ID INTEGER REFERENCES Groups(id))", function(err){
+      if(err !== null) {
+        console.log('create Contact_Groups', err);
+      }
+    })
   });
-
 }
 
 function addDummyContent() {
@@ -48,5 +52,5 @@ function addContactIDColumn() {
 
 runSetup();
 // addUniqueConstraints()
-addContactIDColumn();
+// addContactIDColumn();
 // addDummyContent()

@@ -11,6 +11,30 @@ app.use(bodyParser.json())
 
 app.set('view engine', 'ejs');
 
+function joinConjuction(cb) {
+  db.all('select Contacts.id, Contacts.name, Contacts.company, Contacts.telp_number, Contacts.email, Contact_Groups.Group_ID, Groups.name_of_group from Contacts join Contact_Groups on Contacts.id = Contact_Groups.Contact_ID join Groups on Contact_Groups.Group_ID = Groups.id ORDER BY Contacts.id', function(err, rows) {
+    cb(err, rows);
+  })
+}
+
+function joinConjuctionGroups(cb) {
+  db.all('select Groups.id, Contacts.name, Contacts.telp_number, Contacts.email, Contact_Groups.Group_ID, Groups.name_of_group from Groups join Contact_Groups on Contact_Groups.Group_ID = Groups.id join Contacts on Contacts.id = Contact_Groups.Contact_ID order by Contact_Groups.Group_ID', function(err, rows) {
+    cb(err, rows);
+  })
+}
+
+function getGroupsPerID(id, cb) {
+  db.all('select name_of_group from Groups join Contact_Groups on Contact_Groups.Group_ID = Groups.id where Contact_Groups.Contact_ID ="' + id + '"', function(err, rows){
+    cb(err,rows);
+  });
+}
+
+function getGroupsByID(id, cb){
+  db.all('select * from Groups where id="'+id+'"', function(err, rows){
+    cb(err, rows);
+  })
+}
+
 function getAllContact(cb) {
   db.all('select * from Contacts', function(err, rows) {
     cb(err, rows);
@@ -24,9 +48,14 @@ function getContactById(id, cb) {
 }
 
 function insertContact(data, cb) {
-  db.all(`insert into contacts values(null,'${data.name}','${data.company}','${data.telp_number}','${data.email}')`, function(err) {
-    cb(err);
+  db.run(`insert into contacts values(null,'${data.name}','${data.company}','${data.telp_number}','${data.email}')`, function(err) {
+    cb(err, this.lastID);
   });
+}
+function insertContactGroup(data, cb) {
+  db.run(`insert into Contact_Groups values(null, '${data.Contact_ID}', '${data.Group_ID}')`, function(err) {
+    cb(err);
+  })
 }
 
 function editContact(data, cb) {
@@ -60,7 +89,7 @@ function getContactAdress(id, cb) {
 }
 
 function insertAdress(data, cb) {
-  db.all('insert into Adresses values(null,"'+data.street+'","'+data.city+'","'+data.zipcode+'","'+data.Contact_ID+'")', function(err){
+  db.all('insert into Adresses values(null,"' + data.street + '","' + data.city + '","' + data.zipcode + '","' + data.Contact_ID + '")', function(err) {
     cb(err);
   });
 }
@@ -82,11 +111,27 @@ app.get('/', function(req, res) {
 })
 
 app.get('/contacts', function(req, res) {
-  getAllContact((err, rows) => {
-    res.render('contacts', {
-      dataRows: rows,
-      message: req.query.message,
-    });
+  // getAllContact((err, rows) => {
+  //   res.render('contacts', {
+  //     dataRows: rows,
+  //     message: req.query.message,
+  //   });
+  // })
+  joinConjuction(function(err, rows) {
+    for (var i = 0; i < rows.length - 1; i++) {
+      if (rows[i].id === rows[i + 1].id) {
+        rows[i].name_of_group += ", " + rows[i + 1].name_of_group;
+        rows.splice(i + 1, 1);
+        i--;
+      }
+    }
+    getAllGroups((err2, rows2) => {
+      res.render('contacts', {
+        dataRows: rows,
+        groupRows: rows2,
+        message: req.query.message,
+      })
+    })
   })
 })
 
@@ -101,7 +146,7 @@ app.get('/contacts/adresses/:id', function(req, res) {
   })
 })
 
-app.post('/contacts/adresses/:id', function(req, res){
+app.post('/contacts/adresses/:id', function(req, res) {
   var data = {
     street: req.body.street,
     city: req.body.city,
@@ -114,7 +159,7 @@ app.post('/contacts/adresses/:id', function(req, res){
       str = "Failed";
     }
     // res.render('contacts', {dataRows:rows, message:str})
-    res.redirect('../../adresses'+'?message=' + str);
+    res.redirect('../../adresses' + '?message=' + str);
   });
 })
 
@@ -126,13 +171,19 @@ app.post('/contacts', function(req, res) {
       telp_number: req.body.telp_number,
       email: req.body.email
     }
-    insertContact(data, (err) => {
+    insertContact(data, function(err, lastID) {
       var str = "Success";
       if (err !== null) {
         str = "Failed";
       }
+      var data  = {
+        Contact_ID: lastID,
+        Group_ID: req.body.group_id
+      }
+      insertContactGroup(data, function(err){
+        res.redirect('contacts?message=' + str);
+      })
       // res.render('contacts', {dataRows:rows, message:str})
-      res.redirect('contacts?message=' + str);
     });
   }
 })
@@ -175,11 +226,41 @@ app.get('/contacts/delete/:id', function(req, res) {
   })
 })
 
+app.get('/groups/assign/:id', function(req, res){
+  getAllContact(function(err, rows){
+    getGroupsByID(req.param('id'), function(err2, rows2){
+      res.render('assign-group', {contactsRows: rows, groupsRows: rows2})
+    })
+  })
+})
+
+app.post('/groups/assign/:id', function(req, res){
+  var data = {
+    Contact_ID:req.body.contact_id,
+    Group_ID:req.param('id'),
+  }
+  insertContactGroup(data, function(err){
+    res.redirect('../../groups');
+  })
+})
+
 app.get('/groups', function(req, res) {
-  getAllGroups((err, rows) => {
+  // getAllGroups((err, rows) => {
+  //   res.render('groups', {
+  //     dataRows: rows
+  //   });
+  // })
+  joinConjuctionGroups(function(err, rows){
+    for (var i = 0; i < rows.length - 1; i++) {
+      if (rows[i].id === rows[i + 1].id) {
+        rows[i].name += ", " + rows[i + 1].name;
+        rows.splice(i + 1, 1);
+        i--;
+      }
+    }
     res.render('groups', {
       dataRows: rows
-    });
+    })
   })
 })
 
@@ -223,9 +304,10 @@ app.get('/groups/delete/:id', function(req, res) {
 
 app.get('/adresses', function(req, res) {
   getAllAdresses((err, rows) => {
-    getAllContact((err2, rows2)=>{
+    getAllContact((err2, rows2) => {
       res.render('adresses', {
-      dataRows: rows, contactsRows: rows2
+        dataRows: rows,
+        contactsRows: rows2
       });
     })
   })
@@ -234,7 +316,7 @@ app.get('/adresses', function(req, res) {
 app.post('/adresses', function(req, res) {
   if (req.body !== null) {
     var sqlQ = "insert into Adresses values(null,'" + req.body.street + "',' ";
-    sqlQ += req.body.city + "', '" + req.body.zipcode + "', "+req.body.contact_id+")";
+    sqlQ += req.body.city + "', '" + req.body.zipcode + "', " + req.body.contact_id + ")";
     db.all(sqlQ, function(err) {
       console.log(err);
       res.redirect('adresses')

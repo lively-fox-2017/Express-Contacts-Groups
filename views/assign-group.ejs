@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Assign Group</title>
+  </head>
+  <body>
+    <form action="/groups/assign/<%= groupsRows[0].id %>" method="post">
+    <a href="../../groups">back</a>
+    <p>Name of Group</p>
+    <p><%= groupsRows[0].name_of_group %></p>
+    <select name="contact_id">
+      <%
+        for(var i =0;i<contactsRows.length;i++){
+      %>
+      <option value="<%= contactsRows[i].id %>"><%= contactsRows[i].name %></option>
+      <%
+      }
+      %>
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+  </body>
+</html>

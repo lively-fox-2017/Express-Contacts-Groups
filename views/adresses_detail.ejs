@@ -5,10 +5,15 @@
     <title>Adress Detail</title>
   </head>
   <body>
-    <a href="contacts">back</a>
+    <a href="../../contacts">back</a>
     <p>ID :<%= dataRows[0].id %></p>
     <p>Name :<%= dataRows[0].name %></p>
     <table>
+      <tr>
+        <th>Street</th>
+        <th>City</th>
+        <th>ZipCode</th>
+      </tr>
     <%
       for(var i = 0;i<adressRows.length;i++) {
     %>
