@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halaman Groups</title>
+  </head>
+  <body>
+    <h1>Halaman Groups</h1>
+    <a href="/">Back to Home</a>
+    <table border="1"="width:25%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Groups Of Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%dataGroups.forEach(rows =>{ %>
+          <tr>
+            <td><%=rows.id%></td>
+            <td><%=rows.name_of_group%></td>
+            <td>
+              <a href="groups/edit/<%=rows.id%>">Edit</a>
+              <a href="groups/delete/<%=rows.id%>">Delete</a>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+   </table>
+   <br>
+   <form action="/groups" method="POST">
+     <fieldset>
+       <legend>Add Data Groups:</legend>
+       Name Of Groups:<br>
+       <input type="text" name="name_of_group" placeholder="Name Of Groups">
+       <br><br>
+       <input type="submit" value="SUBMIT">
+     </fieldset>
+   </form>
+  </body>
+</html>
