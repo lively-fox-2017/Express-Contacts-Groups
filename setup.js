@@ -38,14 +38,14 @@ function createRow(){
 //createRow()
 
 //let alter_table_Contacts = `ALTER TABLE Contacts ADD (username TEXT, firstname TEXT, lastname TEXT)`
-let alter_table_Profile = `ALTER TABLE Profile ADD id_Contacts INTEGER REFERENCES Contacts('id')`
+let alter_table_Addresses = `ALTER TABLE Addresses ADD id_Contacts INTEGER REFERENCES Contacts('id')`
 
 function createAlterTable(){
-	db.run(alter_table_Profile, (err) => {
+	db.run(alter_table_Addresses, (err) => {
 		if(err){
-			console.log('err alter table Profile')
+			console.log('err alter table Addresses')
 		}
-		console.log('alter table Profile succes')
+		console.log('alter table Addresses succes')
 	})
 }
 

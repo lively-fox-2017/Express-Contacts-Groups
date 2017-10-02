@@ -43,6 +43,15 @@
       Street: <input type="text" name="street" value="<%= dataJsonAddresses[0].street %>"><br>
       City: <input type="text" name="city" value="<%= dataJsonAddresses[0].city %>"><br>
       Zipcode: <input type="text" name="zipcode" value="<%= dataJsonAddresses[0].zipcode %>"><br>
+
+    
+      <label for="#">Name:</label>
+      <select name="name">
+        <% for(let i=0; i<dataJsonContact.length; i++) {%>
+        <option value="dataJsonContact[i].name"><%= dataJsonContact[i].name %></option>
+        <%}%>
+      </select>
+
       <input type="submit" value="Submit">
     </form>
     </div>

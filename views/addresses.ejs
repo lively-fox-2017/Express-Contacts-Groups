@@ -34,6 +34,10 @@
             <th>STREET</th>
             <th>CITY</th>
             <th>ZIPCODE</th>
+            <th>NAME</th>
+            <!-- <TH>COMPANY</TH>
+            <TH>TELP NUMBER</TH>
+            <TH>EMAIL</TH> -->
             <th></th>
             <th></th>
           </tr>
@@ -43,6 +47,10 @@
               <td><%= dataJsonAddresses[data].street %></td>
               <td><%= dataJsonAddresses[data].city %></td>
               <td><%= dataJsonAddresses[data].zipcode %></td>
+              <td><%= dataJsonAddresses[data].name %></td>
+              <!-- <td><%= dataJsonAddresses[data].company %></td>
+              <td><%= dataJsonAddresses[data].telp_number %></td>
+              <td><%= dataJsonAddresses[data].email %></td> -->
               <td><a style="text-decoration: none;" href='addresses/edit/<%= dataJsonAddresses[data].id %>'>Edit</a></td>
               <td><a style="text-decoration: none;" href='addresses/delete/<%= dataJsonAddresses[data].id %>'>Delete</a></td>
             </tr>
@@ -55,6 +63,15 @@
         Street: <input type="text" name="street"><br>
         City: <input type="text" name="city"><br>
         Zipcode: <input type="text" name="zipcode"><br>
+        <!-- <%= dataJsonContact.length%> -->
+        <label for="#">Name:</label>
+        <select name="name">
+          <% for(let i=0; i<dataJsonContact.length; i++) {%>
+          <option value="dataJsonAddresses[i].id"><%= dataJsonContact[i].name %></option>
+          <%}%>
+        </select>
+
+
         <input type="submit" value="Submit">
         </form>
       </div>

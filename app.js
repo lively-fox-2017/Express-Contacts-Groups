@@ -115,27 +115,48 @@ app.get('/groups/delete/:id', (req,res) =>{
 
 //*** addresses page // read
 app.get('/addresses',(req,res) =>{
-	db.all('select * from Addresses',(err,row) => {
-		if(err){
-			console.log(`db load error from Addresses`)
-		}else{
-			res.render('Addresses',{dataJsonAddresses:row})
-		}
-	})
+
+	db.all('SELECT Addresses.id, Addresses.street, Addresses.city, Addresses.zipcode, Contacts.name from Addresses LEFT JOIN Contacts ON Addresses.id_Contacts = Contacts.id',(err, rows)=>{
+    // SELECT Profile.id, Profile.username, Profile.password, Contacts.name from Profile LEFT JOIN Contacts ON Profile.ContactsId = Contacts.id'
+    if(!err){
+
+      db.all('SELECT * from Contacts',(err, rowsContact)=>{
+        // res.send(rows)
+        res.render('addresses',{dataJsonAddresses:rows, dataJsonContact:rowsContact});
+        console.log(rows);
+
+      })
+    }else {
+      console.log(err);
+    }
+
+  })
+
 })
 
 // addresses page // create
 app.post('/addresses',(req,res) => {
-	db.run(`insert into Addresses(street, city, zipcode) VALUES ('${req.body.street}','${req.body.city}','${req.body.zipcode}')`)
-	res.redirect('addresses')
+
+	db.run(`INSERT into Addresses (street, city, zipcode, id_Contacts) VALUES ('${req.body.street}','${req.body.city}','${req.body.zipcode}','${req.body.name}')`);
+  // db.run(`INSERT into Profile (username, password , ContactsId) VALUES ('${req.body.username}','${req.body.password}','${req.body.name}')`,(err)=>{
+  res.redirect('addresses');
+  console.log(req.body)
+
 })
+
 
 // addresses page // update => ambil edit
 app.get('/addresses/edit/:id',(req,res)=>{
-	db.all(`select * from Addresses where id="${req.param('id')}"`, function(err, row){
-		//console.log(row)
-		res.render('addresses-edit',{dataJsonAddresses:row})
-	})
+	db.all(`SELECT * from Addresses WHERE id = "${req.param('id')}"`,(err, row)=>{
+    // console.log(rows);
+    if(!err){
+      db.all('SELECT * from Contacts',(err, rows)=>{
+        // res.render('editProfiles',{NamaContacts:rowsContact,dataJsonProfiles:rows});
+        res.render('addresses-edit',{dataJsonAddresses:row, dataJsonContact:rows});
+      })
+    }
+
+  })
 })
 
 // addresses page // update => hasil edit
