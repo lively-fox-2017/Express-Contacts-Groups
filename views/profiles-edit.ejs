@@ -42,7 +42,15 @@
       <form action="<%= dataJsonProfile[0].id %>" method="post">
       Username: <input type="text" name="username" value="<%= dataJsonProfile[0].username %>"><br>
       Password: <input type="text" name="password" value="<%= dataJsonProfile[0].password %>"><br>
-      Name: <input type="text" name="password" value="<%= dataJsonProfile[0].name %>" readonly><br>
+
+      <label for="#">Name</label>
+
+          <select name="name">
+            <% for(let i=0; i<dataJsonProfile.length; i++) {%>
+            <option value="<%= dataJsonProfile[i].id %>"><%= dataJsonProfile[i].name %></option>
+            <%}%>
+          </select>
+
       <input type="submit" value="Submit">
     </form>
     </div>

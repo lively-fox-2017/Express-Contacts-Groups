@@ -206,28 +206,17 @@ app.post('/profiles',(req,res) => {
 
 // profiles page // update => ambil edit
 app.get('/profiles/edit/:id',(req,res)=>{
-	//let queryContacts = 'select * from Contacts'
+	let queryContacts = 'select * from Contacts'
   db.all(`select * from Profile where id="${req.param('id')}"`, function(err, row){
     //console.log(row)
 		if(err){
 			console.log('error update Profile')
 		}else{
-			let queryContacts = 'select * from Contacts'
-			//	ALTER TABLE Profile ADD id_Contacts INTEGER REFERENCES Contacts('id')
-			let joinQuery = 'select Profile.id, Profile.username, Profile.password, Contacts.name from Profile LEFT JOIN Contacts ON Profile.id_Contacts = Contacts.id'
-
-			db.all(joinQuery,(err,row) => {
+			db.all(queryContacts,(err,rows)=>{
 				if(err){
-					console.log(`db join load err`)
+					console.log('err load Contacts')
 				}else{
-					db.all(queryContacts,(err,rows)=>{
-						if(err){
-							console.log(`db load err from Profile`)
-						}else{
-							// console.log('rows ===' + rows)
-							res.render('profiles-edit',{pesanError:'',dataJsonProfile:row,dataJsonContact:rows})
-						}
-					})
+					res.render('profiles-edit',{dataJsonProfile:row,dataJsonContact:rows})
 				}
 			})
 		}
