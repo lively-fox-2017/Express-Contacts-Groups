@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Halaman Edit Address</h1>
+    <a href="/">Back to Home</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Contact ID</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>Zipcode</th>
+          <th>Contact Name</th>
+      </thead>
+      <tbody>
+        <%dataAddress.forEach( rows => { %>
+          <tr>
+            <td><%=rows.id%></td>
+            <td><%=rows.idContacts%></td>
+            <td><%=rows.street%></td>
+            <td><%=rows.city%></td>
+            <td><%=rows.zipcode%></td>
+            <td><%=rows.name%></td>
+          </tr>
+        <% })%>
+      </tbody>
+    </table>
+    <br>
+    <form action="/addresses/edit/<%=dataAddress[0].id%>" method="POST">
+      <fieldset>
+        <legend>Edit Data Address:</legend>
+        Street:<br>
+        <input type="text" name="street" value="<%=dataAddress[0].street%>" placeholder="Street">
+        <br>
+        City:<br>
+        <input type="text" name="city" value="<%=dataAddress[0].city%>" placeholder="City">
+        <br>
+        Zipcode:<br>
+        <input type="text" name="zipcode" value="<%=dataAddress[0].zipcode%>" placeholder="Zipcode">
+        <br>
+        Contacts Name:<br>
+        <select class="" name="idContacts">
+          <%if(dataContacts){dataContacts.forEach(row =>{%>
+          <% if (dataAddress[0].idContacts == row.id) {%>
+            <option value="<%=row.id%>" selected><%=row.name%></option>
+            <%} else {%>
+              <option value="<%=row.id%>"><%=row.name%></option>
+            <%}%>
+          <% })}%>
+        </select>
+        <br><br>
+        <input type="submit" value="SUBMIT">
+      </fieldset>
+    </form>
+  </body>
+</html>

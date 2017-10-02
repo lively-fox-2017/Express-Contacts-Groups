@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Halaman Edit Profile</h1>
+    <a href="/">Back to Home</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Contact ID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Contact Name</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%dataProfile.forEach(rows =>{ %>
+          <tr>
+            <td><%=rows.id%></td>
+            <td><%=rows.idContacts%></td>
+            <td><%=rows.username%></td>
+            <td><%=rows.password%></td>
+            <td><%=rows.name%></td>
+          </tr>
+        <%})%>
+      </tbody>
+    </table>
+    <br>
+    <form action="/profiles/edit/<%=dataProfile[0].id%>" method="POST">
+      <fieldset>
+        <legend>Edit Data Profile:</legend>
+        Username:<br>
+        <input type="text" name="username" value="<%=dataProfile[0].username%>" placeholder="Username">
+        <br>
+        Password:<br>
+        <input type="text" name="password" value="<%=dataProfile[0].password%>" placeholder="Password">
+        <br>
+        Contacts Name:<br>
+        <select class="" name="idContacts">
+          <%if(dataContacts){dataContacts.forEach(row =>{%>
+          <% if (dataProfile[0].idContacts == row.id) {%>
+            <option value="<%=row.id%>" selected><%=row.name%></option>
+            <%} else {%>
+              <option value="<%=row.id%>"><%=row.name%></option>
+            <%}%>
+          <% })}%>
+        </select>
+        <br><br>
+        <input type="submit" value="SUBMIT">
+      </fieldset>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halaman Address</title>
+  </head>
+  <body>
+    <h1>Halaman Address</h1>
+    <a href="/">Back to Home</a>
+    <table border="1"="width:25%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Contact ID</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>Zipcode</th>
+          <th>Contact Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%dataAddress.forEach(rows =>{ %>
+          <tr>
+            <td><%=rows.id%></td>
+            <td><%=rows.idContacts%></td>
+            <td><%=rows.street%></td>
+            <td><%=rows.city%></td>
+            <td><%=rows.zipcode%></td>
+            <td><%=rows.name%></td>
+            <td>
+              <a href="addresses/edit/<%=rows.id%>">Edit</a>
+              <a href="addresses/delete/<%=rows.id%>">Delete</a>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+   </table>
+   <br>
+   <form action="/addresses" method="POST">
+     <fieldset>
+       <br>
+       Contacts Name:<br>
+       <select name="idContacts">
+         <% dataContacts.forEach(row =>{%>
+           <option value="<%=row.id%>"><%=row.name%></option>
+         <% })%>
+       </select>
+       <br>
+       <legend>Add Data Address:</legend>
+       Street:<br>
+       <input type="text" name="street" placeholder="Street">
+       <br>
+       City:<br>
+       <input type="text" name="city" placeholder="City">
+       <br>
+       zipcode:<br>
+       <input type="text" name="zipcode" placeholder="Zipcode">
+       <br><br>
+       <input type="submit" value="SUBMIT">
+     </fieldset>
+   </form>
+  </body>
+</html>
