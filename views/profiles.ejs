@@ -1,98 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Profiles</title>
-  <link href="/style.css" rel="stylesheet" type="text/css">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  <title>Home</title>
 </head>
-<body>
-    <div id='cssmenu'>
+<body>     
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb is-right" aria-label="breadcrumbs">
         <ul>
-           <li><a href='/'>Home</a></li>
-           <li><a href="contacts">Contacts</a></li>
-           <li><a href="groups">Groups</a></li>
-           <li><a href="addresses">Addresses</a></li>
-           <li  class='active'><a href="profiles">Profiles</a></li>
-           <li><a href="addresses_with_contact">Address with Contacts</a></li>
-       </ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href="contacts">Contacts</a></li>
+          <li><a href="groups">Groups</a></li> 
+          <li><a href="addresses">Addresses</a></li>
+          <li class="is-active"><a href="profiles" aria-current="page">Profiles</a></li>
+          <li><a href="addresses_with_contact">Address with Contacts</a></li>
+        </ul>
+      </nav>
+      <br/><br/>
+      <div class="columns">
+      <div class="column">
+          <form action="/profiles" method="post" >
+            <div class="field-body">
+                <div class="field is-narrow">
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select name='name'>
+                          <% for(let data = 0; data < dataContacts.length; data++) { %>
+                        <option value='<%= dataContacts[data].id %>'><%= dataContacts[data].nama %></option>
+                        <%}%>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="username" placeholder="Username">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="password" name="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control">
+                  <button class="button is-success">
+                      Simpan
+                  </button>
+                </p>
+            </div>
+      </div>
+      <div class="column">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let data = 0; data < dataJsonProfiles.length; data++) { %>
+                <tr>
+                  <td><%= dataJsonProfiles[data].id %></td>
+                  <td><%= dataJsonProfiles[data].nama %></td>
+                  <td><%= dataJsonProfiles[data].username %></td>
+                  <td><%= dataJsonProfiles[data].password %></td>
+                  <td><a href='/profiles/edit/<%= dataJsonProfiles[data].id %>'>Edit</a></td>
+                  <td><a href='/profiles/delete/<%= dataJsonProfiles[data].id %>'>Delete</a></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+                <%=pesanError%>
+            </form>
+      </div>
     </div>
-  <div class="landing-page">
-    <div class="form-appointment">
-      <div class="wpcf7" 
-      id="wpcf7-f560-p590-o1">
-        <form action="/profiles"
-        method="post" 
-        class="wpcf7-form">
-        <div class="group">
-        <div style="width: 48%; float: left;">
-         
-        <span class="wpcf7-form-control-wrap text-680"></span>
-          <select 
-          name='name'>
-            <% for(let data = 0; data < NamaContacts.length; data++) { %>
-            <option 
-            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-            size="45"
-            aria-required="true"
-            value='<%= NamaContacts[data].id %>'>
-            <%= NamaContacts[data].nama %></option> 
-            <%}%>
-          </select>
-        </span>
-        <br/>
-        <span class="wpcf7-form-control-wrap text-680">
-            Username: <input 
-            type="text" 
-          name="username"
-          size="45" 
-          class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-          aria-required="true">
-        </span>
-        <br>
-        <span class="wpcf7-form-control-wrap email-680">
-            Password: <input 
-            type="text" 
-          name="password"
-          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
-        </span>
-        <br>
-          <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
-          <input type="submit" 
-          value="Kirim" 
-          class="wpcf7-form-control wpcf7-submit">
-          </div>
-        </div>
-        
-        <div style="width: 48%; float: right;">
-        <!-- TABEL -->
+     
+      
+     
 
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nama</th>
-              <th scope="col">Username</th>
-              <th scope="col">Password</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(let data = 0; data < dataJsonProfiles.length; data++) { %>
-            <tr>
-              <td data-label=""><%= dataJsonProfiles[data].id %></td>
-              <td data-label=""><%= dataJsonProfiles[data].nama %></td>
-              <td data-label=""><%= dataJsonProfiles[data].username %></td>
-              <td data-label=""><%= dataJsonProfiles[data].password %></td>
-              <td><a href='/profiles/edit/<%= dataJsonProfiles[data].id %>'>Edit</a></td>
-              <td><a href='/profiles/delete/<%= dataJsonProfiles[data].id %>'>Delete</a></td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-        </div>
-        <%=pesanError%>
-        </form>
+    </div>
+  </section>
+</body>
+</html>
+  
+        
   </div>
 </body>
 </html>

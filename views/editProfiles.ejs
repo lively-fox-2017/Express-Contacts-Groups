@@ -1,58 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  
   <title>Edit Profile</title>
-  <link href="/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div class="landing-page">
-    <div class="form-appointment">
-      <div class="wpcf7" 
-        id="wpcf7-f560-p590-o1">
-        <form action="/profiles/edit/<%= dataJsonProfiles[0].id %>" 
-        method="post" 
-        class="wpcf7-form">
-        <div class="group">
-        <div style="width: auto;">
-            <span class="wpcf7-form-control-wrap text-680"></span>
-            <select 
-            name='name'>
-              <% for(let data = 0; data < NamaContacts.length; data++) { %>
-              <option 
-              class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-              size="45"
-              aria-required="true"
-              value='<%= NamaContacts[data].id %>'
-              ><%= NamaContacts[data].nama %></option> 
-              <%}%>
-            </select>
-          </span>
-          <br/>
-        <span class="wpcf7-form-control-wrap text-680">
-            Username: <input 
-            type="text" 
-          name="username"
-          value="<%= dataJsonProfiles[0].username %>"
-          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
-        </span>
-        <br>
-        <span class="wpcf7-form-control-wrap email-680">
-            Password: <input type="text" 
-          name="password" 
-          value="<%= dataJsonProfiles[0].password %>"
-          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
-        </span>
-      <br>
-          <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
-          <input type="submit" 
-          value="Edit" 
-          class="wpcf7-form-control wpcf7-submit">
-          </div>
-        </div>          
-        </form>
-  </div>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                </div>
+                <div class="column">
+                    <form action="/profiles/edit/<%= dataJsonProfiles.id %>" 
+                      method="post">
+                      <div class="field-body">
+                          <div class="field is-narrow">
+                            <div class="control">
+                              <div class="select is-fullwidth">
+                                <select name='name'>
+                                    <% for(let data = 0; data < dataContacts.length; data++) { %>
+                                    
+                                  <option value='<%= dataContacts[data].id %>'
+                                      <% if(dataJsonProfiles.ContactsId === dataContacts[data].id){ %>
+                                        <%='selected'%>
+                                      <%}%> 
+                                    ><%= dataContacts[data].nama %></option>
+                                  <%}%>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br/>
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                              <input class="input" type="text" name="username" value="<%= dataJsonProfiles.username %>">
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-envelope"></i>
+                              </span>
+                              <span class="icon is-small is-right">
+                                <i class="fa fa-check"></i>
+                              </span>
+                            </p>
+                          </div>
+                          <div class="field">
+                            <p class="control has-icons-left">
+                              <input class="input" type="password" name="password"value="<%= dataJsonProfiles.password %>">
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-lock"></i>
+                              </span>
+                            </p>
+                          </div>
+                          <div class="field">
+                            <p class="control">
+                            <button class="button is-success">
+                                Edit
+                            </button>
+                          </p>
+                      </div>
+                </div>
+                <div class="column">
+                </div>
+              </div>
+        </div>
+    </section>
 </body>
 </html>

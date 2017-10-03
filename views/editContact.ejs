@@ -12,7 +12,7 @@
       <div class="form-appointment">
         <div class="wpcf7" 
           id="wpcf7-f560-p590-o1">
-          <form action="/contacts/edit/<%= dataJsonContact[0].id %>" 
+          <form action="/contacts/edit/<%= dataJsonContact.id %>" 
           method="post" 
           class="wpcf7-form">
           <div class="group">
@@ -21,28 +21,28 @@
               Name: <input 
               type="text" 
             name="nama"
-            value="<%= dataJsonContact[0].nama %>"
+            value="<%= dataJsonContact.nama %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
           <span class="wpcf7-form-control-wrap email-680">
               Company: <input type="text" 
             name="company" 
-            value="<%= dataJsonContact[0].company %>"
+            value="<%= dataJsonContact.company %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
           <span class="wpcf7-form-control-wrap tel-630">
               Telepon: <input type="text" 
             name="phone" 
-            value="<%= dataJsonContact[0].telp_number %>"
+            value="<%= dataJsonContact.telp_number %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
           <span class="wpcf7-form-control-wrap tel-630">
             Email: <input type="text" 
           name="email" 
-          value="<%= dataJsonContact[0].email %>"
+          value="<%= dataJsonContact.email %>"
           size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
         </span>
         <br>

@@ -12,7 +12,7 @@
     <div class="form-appointment">
       <div class="wpcf7" 
         id="wpcf7-f560-p590-o1">
-        <form action="/groups/edit/<%= dataJsonGroups[0].id %>" 
+        <form action="/groups/edit/<%= dataJsonGroups.id %>" 
         method="post" 
         class="wpcf7-form">
         <div class="group">
@@ -21,7 +21,7 @@
             Name Group: <input 
             type="text" 
           name="nama_group"
-          value="<%= dataJsonGroups[0].name_of_group %>"
+          value="<%= dataJsonGroups.name_of_group %>"
           size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
         </span>
       <br>

@@ -12,7 +12,7 @@
       <div class="form-appointment">
         <div class="wpcf7" 
           id="wpcf7-f560-p590-o1">
-          <form action="/addresses/edit/<%= dataJsonAddresses[0].id %>" 
+          <form action="/addresses/edit/<%= dataJsonAddresses.id %>" 
           method="post" 
           class="wpcf7-form">
           <div class="group">
@@ -25,8 +25,12 @@
               class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
               size="45"
               aria-required="true"
-              value='<%= NamaContacts[data].id %>'>
-              <%= NamaContacts[data].nama %></option> 
+              value='<%= NamaContacts[data].id %>'
+              <%if(dataJsonAddresses.ContactsId===NamaContacts[data]){%>
+                <%='selected'%>
+              <%}%>
+              >
+              <%= NamaContacts[data].nama %></option>  
               <%}%>
             </select>
           </span>
@@ -35,21 +39,21 @@
               Jalan: <input 
               type="text" 
             name="street"
-            value="<%= dataJsonAddresses[0].street %>"
+            value="<%= dataJsonAddresses.street %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
           <span class="wpcf7-form-control-wrap email-680">
               Kota: <input type="text" 
             name="city" 
-            value="<%= dataJsonAddresses[0].city %>"
+            value="<%= dataJsonAddresses.city %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
           <span class="wpcf7-form-control-wrap tel-630">
               Zip Code: <input type="text" 
             name="zipcode" 
-            value="<%= dataJsonAddresses[0].zipcode %>"
+            value="<%= dataJsonAddresses.zipcode %>"
             size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
           </span>
           <br>
