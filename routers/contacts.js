@@ -3,44 +3,42 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 
-// sqlite3
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data.db');
-
 // body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+// import model contact
 const Contact = require('../models/contacts');
+
 router.get('/contacts', function(req, res){
-  Contact.getAll((err, result) => {
-  	if(err){
-	  console.log('error to add data');
-	}
-  res.render('contacts/index', {contacts: result});	
+  Contact.getAllContacts(function(contacts){
+  res.render('contacts/index', {contacts: contacts});
+  });
+});
+
+router.get('/contacts/edit/:id', function(req, res){
+  Contact.getByIDContact(req.params.id, function(contact){
+	res.render('contacts/edit', {contacts: contact});
   });
 });
 
 router.post('/contacts', function(req, res){
-  Contact.create(req.body.name, req.body.company, req.body.telp_number, req.body.email);
-  res.redirect('/contacts');
-});
-
-router.get('/contacts/edit/:id', function(req, res){
-  Contact.getByID(req.params.id, (rows) => {
-	res.render('contacts/edit', {contacts: rows});
+  Contact.insertContact(req.body.name, req.body.company, req.body.telp_number, req.body.email, function(){
+  	res.redirect('/contacts');
   });
 });
 
 router.post('/contacts/edit/:id', function(req, res){
-  Contact.update(req.body.name, req.body.company, req.body.telp_number, req.body.email, req.params.id);
-  res.redirect('/contacts');
+  Contact.updateContact(req.body.name, req.body.company, req.body.telp_number, req.body.email, req.params.id, function(){
+  	res.redirect('/contacts');
+  });
 });
 
 router.get('/contacts/delete/:id', function(req, res){
-  Contact.delete(req.params.id);
-  res.redirect('/contacts');
+  Contact.deleteContact(req.params.id, function(){
+  	res.redirect('/contacts');
+  });
 });
 
 router.get('/contacts/addresses/:id', function(req, res){

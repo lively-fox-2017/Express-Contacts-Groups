@@ -11,34 +11,40 @@ class Contact {
 		this.email = email
 	}
 
-	static getAll(cb) {
+	static getAllContacts(callback) {
 		db.all('SELECT * FROM contacts', function(err, rows){
-			let result = [];
+			let contacts = [];
 			rows.forEach((row) => {
 				let contact = new Contact(row.id, row.name, row.company, row.telp_number, row.email);
-				result.push(contact);	
+				contacts.push(contact);	
 			})
-				cb(err, result);
+				callback(contacts);
   		});
 	}
 
-	static create(name, company, telp_number, email){
-		db.run(`INSERT INTO contacts (name, company, telp_number, email) VALUES ('${name}', '${company}', '${telp_number}', '${email}')`);
-	}
-
-	static getByID(params, cb) {
-		db.get(`SELECT * FROM contacts WHERE id = ${params}`, function(err, rows){
+	static getByIDContact(reqParams, callback) {
+		db.get(`SELECT * FROM contacts WHERE id = ${reqParams}`, function(err, rows){
 			let contact = new Contact(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
-			cb(contact);
+			callback(contact);
 		});
 	}
 
-	static update(name, company, telp_number, email, params){
-		db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${params}`);
+	static insertContact(name, company, telp_number, email, callback){
+		db.run(`INSERT INTO contacts (name, company, telp_number, email) VALUES ('${name}', '${company}', '${telp_number}', '${email}')`, function(err, rows){
+			callback();
+		});
 	}
 
-	static delete(params) {
-		db.run(`DELETE FROM contacts WHERE id = ${params}`);
+	static updateContact(name, company, telp_number, email, params, callback){
+		db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${params}`, function(err, rows){
+			callback();
+		});
+	}
+
+	static deleteContact(reParams, callback) {
+		db.run(`DELETE FROM contacts WHERE id = ${reParams}`, function(err, rows){
+			callback();
+		});
 	}
 
 	static getaddresses(params, cb) {
