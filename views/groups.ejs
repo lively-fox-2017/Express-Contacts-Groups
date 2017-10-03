@@ -4,40 +4,117 @@
 <head>
   <meta charset="utf-8">
   <title>Groups Data</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.min.css">
 </head>
 
 <body>
-  <a href="/">back</a>
-  <table style="width:50%" border='5'>
-    <tr>
-      <th>ID</th>
-      <th>Name of Group</th>
-      <th>Contacts Involved</th>
-      <th colspan="3">Action</th>
-    </tr>
-    <%
+
+  <div class="container">
+    <div class="row">
+      <a href="/"><button class="waves-effect waves-light btn red">back</button></a>
+      <%
+        if(message != 'undefined'){
+      %>
+        <h2><%= message %></h2>
+        <%
+      }%>
+
+      <div class="">
+        <div class="col s12">
+          <table id="example" class="table responsive highlight striped light-green" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name of Group</th>
+                <th>Contacts Involved</th>
+                <th></th>
+                <th>Action</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%
       for(var i=0;i<dataRows.length;i++){
     %>
-      <tr align="center">
-        <td><%= dataRows[i].id %></td>
-        <td><%= dataRows[i].name_of_group %></td>
-        <td><%= dataRows[i].name %></td>
-        <td><a href='/groups/edit/<%= dataRows[i].id %>'>Edit</a></td>
-        <td><a href="/groups/delete/<%= dataRows[i].id %>">Delete</a></td>
-        <td><a href="/groups/assign/<%= dataRows[i].id %>">Asign Contacts</a></td>
-      </tr>
-    <%
+                <tr align="center">
+                  <td>
+                    <%= dataRows[i].id %>
+                  </td>
+                  <td>
+                    <%= dataRows[i].name_of_group %>
+                  </td>
+                  <td>
+                    <%= dataRows[i].name %>
+                  </td>
+                  <td><a href='/groups/edit/<%= dataRows[i].id %>'>Edit</a></td>
+                  <td><a href="/groups/delete/<%= dataRows[i].id %>">Delete</a></td>
+                  <td><a href="/groups/assign/<%= dataRows[i].id %>">Asign Contacts</a></td>
+                </tr>
+                <%
     }
     %>
-  </table>
-  <br />
-  <form action="/groups" method="post">
-    Name of Group :<br>
-    <input type="text" name="name_of_group" placeholder="Name of Group">
-    <br>
-    <input type="submit" value="Submit">
-  </form>
-  <br />
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col s6">
+        <br />
+        <form action="/groups" method="post">
+          Name of Group :<br>
+          <input type="text" name="name_of_group" placeholder="Name of Group">
+          <br>
+          <input type="submit" value="Submit" class="btn waves-effect waves-light">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.min.js.map"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.min.js"></script>
+  <%
+  console.log(message.toLowerCase());
+    if(message == 'null'){
+  %>
+    <script>
+      swal({
+        title: 'Success!',
+        text: 'Success Update Data',
+        type: 'success',
+        confirmButtonText: 'OK'
+      })
+    </script>
+    <%
+    }
+    else if(message.toLowerCase().indexOf('error')> -1){
+      %>
+      <script>
+        swal({
+          title: 'Error!',
+          text: 'Oopss, Something wrong :(',
+          type: 'error',
+          confirmButtonText: 'OK'
+        })
+      </script>
+      <%
+    }
+  %>
 </body>
 
 </html>
