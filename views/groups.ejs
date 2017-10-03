@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome | PJAP17</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Raleway:300" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <h1>Halaman Groups</h1>
+    <table border="1px;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NAME OF GROUP</th>
+          <th colspan="2">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%dataGroups.forEach( row => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><%= row.name_of_group %></td>
+          <td>
+            <a href="/groups/edit/<%= row.id %>"><button class="button2">Edit</button></a>
+            <a href="/groups/delete/<%= row.id %>"><button class="button2">Hapus</button></a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div style="padding-left:54%;padding-top:10px;">
+      <a href="/groups/addgroups/%>"><button class="button2">Add Groups</button></a>
+      <a href = "/contacts" style="color:black"><button class="button2">Back To Contacts</button></a>
+      <a href = "/profiles" style="color:black"><button class="button2">Back To Profiles</button></a>
+      <a href = "/addresses" style="color:black"><button class="button2">Back To Addresses</button></a>
+    </div>
+
+  </body>
+</html>

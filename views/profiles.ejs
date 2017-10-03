@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome | PJAP17</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Raleway:300" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <h1>Halaman Profiles</h1>
+    <table border="1px;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>USERNAME</th>
+          <th>PASSWORD</th>
+          <th>ID CONTACTS</th>
+          <th>NAME CONTACTS</th>
+          <th colspan="2">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%dataProfiles.forEach( row => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><%= row.username %></td>
+          <td><%= row.password %></td>
+          <td><%= row.id_contacts %></td>
+          <td><%= row.name %></td>
+          <td>
+            <a href="/profiles/edit/<%= row.id %>"><button class="button2">Edit</button></a>
+            <a href="/profiles/delete/<%= row.id %>"><button class="button2">Hapus</button></a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div style="padding-left:54%;padding-top:10px;">
+      <a href="/profiles/addprofiles/%>"><button class="button2">Add Profiles</button></a>
+      <a href = "/contacts" style="color:black"><button class="button2">Back To Contacts</button></a>
+      <a href = "/groups" style="color:black"><button class="button2">Back To Groups</button></a>
+      <a href = "/addresses" style="color:black"><button class="button2">Back To Addresses</button></a>
+    </div>
+
+  </body>
+</html>
