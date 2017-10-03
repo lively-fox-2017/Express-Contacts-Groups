@@ -5,6 +5,10 @@
     <title>Halaman Contacts</title>
   </head>
   <body>
+    <a href="contacts">Contacts</a>
+    <a href="groups">Groups</a>
+    <a href="profiles">Profile</a>
+    <a href="addresses">Addresses</a>
     <table border="2px">
       <thead>
         <tr>
@@ -50,5 +54,10 @@
   Email:<br>
   <input type="text" name="email" placeholder="input email">
   <br>
+  <select class="" name="idContacts">
+    <% dataContacts.forEach(row => { %>
+     <option value="<%=row.id%>"><%=row.name%></option>
+    <% })%>
+  </select>
   <input type="submit" value="Submit">
 </form>

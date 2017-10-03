@@ -5,11 +5,16 @@
     <title>Halaman Groups</title>
   </head>
   <body>
+    <a href="contacts">Contacts</a>
+    <a href="groups">Groups</a>
+    <a href="profiles">Profile</a>
+    <a href="addresses">Addresses</a>
     <table border="2px">
       <thead?>
         <tr>
         <td>ID</td>
         <td>Name Groups</td>
+        <td>List Groups</td>
         <td>Action</td>
         </tr>
       </thead?>
@@ -18,8 +23,10 @@
           <tr>
             <td><%=row.id%></td>
             <td><%=row.name_of_group%></td>
+            <td><%=row.member%></td>
             <td>
-              <a href="/groups/edit/<%=row.id%>">Edit</a>
+              <a href="/groups/add/<%=row.id%>">Add_Member</a>|
+              <a href="/groups/edit/<%=row.id%>">Edit</a>|
               <a href="/groups/delete/<%=row.id%>">Delete</a>
             </td>
           </tr>

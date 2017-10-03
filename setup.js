@@ -41,3 +41,16 @@ function alterIndexUniqueProfiles() {
   })
 }
 alterIndexUniqueProfiles()
+
+function conjunctionTable(){
+  let query = `CREATE TABLE contacts_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, idContacts INTEGER, idGroups INTEGER,
+  FOREIGN KEY(idContacts) REFERENCES contacts(id), FOREIGN KEY (idGroups) REFERENCES groups(id))`
+  db.run(query,function(err){
+    if(err){
+      console.log(err);
+    }else {
+      console.log('Conjunction Table Success');
+    }
+  })
+}
+conjunctionTable()
