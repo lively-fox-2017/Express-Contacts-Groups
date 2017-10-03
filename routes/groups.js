@@ -4,8 +4,8 @@ const Group = require('../models/groups')
 
 router.get("/", function(req, res) {
   Group.viewGroups(function(err, rows) {
-    // res.render('groups', {dataGroups: rows});
-    res.send(rows)
+    res.render('groups', {dataGroups: rows});
+    // res.send(rows)
   })
 })
 //2.Add Groups
@@ -22,7 +22,6 @@ router.get("/delete/:id", function(req, res) {
 })
 
 router.get("/edit/:id", function(req, res) {
-  // console.log('asdfs');
   Group.geteditGroups(req.params, function(err, rows) {
     if (!err) {
       res.render('groups_edit', {data: rows[0]})
