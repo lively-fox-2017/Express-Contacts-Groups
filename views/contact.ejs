@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact</title>
+
+  </head><style media="screen">
+  table{
+    border:1;
+    width: 100%;
+  }
+  th,td{
+    text-align: left;
+    border: blue;
+    padding: 1px;
+  }
+  h2{
+    text-align: center;
+  }
+  </style>
+<h2>Contact</h3>
+  <body>
+    <table>
+      <form action="/contact" method="POST">
+        <th>Name:<br>
+        <input type="text" name="name" placeholder="name">
+        <br></th>
+        <th>Company:<br>
+        <input type="text" name="company" placeholder="company">
+        <br></th>
+        <th>Telephone:<br>
+        <input type="text" name="telp_number" placeholder="telphone number">
+        <br></th>
+        <th>Email:<br>
+        <input type="text" name="email" placeholder="Email">
+        <br></th>
+        <th><br><input type="submit" value="Submit"></th>
+      </form>
+        <a href="/">Back to Home</a><br>
+        <br>
+      <thead>
+        <th>id</th>
+        <th>name</th>
+        <th>company</th>
+        <th>telp</th>
+        <th>email</th>
+        <th>Action</th>
+      </thead>
+    <%for(var i=0;i< data.length;i++){ %>
+      <tbody>
+        <td><%=data[i].id%></td>
+        <td><%=data[i].name%></td>
+        <td><%=data[i].company%></td>
+        <td><%=data[i].telp_number%></td>
+        <td><%=data[i].email%></td>
+        <th>
+          <a href="/contact/edit/<%=data[i].id%>">Edit</a>
+          <a href="/contact/delete/<%=data[i].id%>">Delete</a>
+          <a href="/contact/addressview/<%=data[i].id%>">Address</a>
+        </th>
+      </tbody>
+    <%}%>
+
+    </table>
+  </body>
+</html>

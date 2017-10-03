@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    table{
+      border:1;
+      width: 100%;
+    }
+    th,td{
+      text-align: left;
+      border: black;
+      padding: 1px;
+    }
+    h2{
+      text-align: center;
+    }
+    </style>
+  </head>
+  <h2>Profile</h2>
+  <body>
+    <a href="/">Back to Home</a><br>
+    <table>
+      <thead>
+          <label><%=err%><label>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Contact Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <%for(var i=0;i < data.length;i++){%>
+      <tbody>
+            <td><%=data[i].id%></td>
+            <td><%=data[i].username%></td>
+            <td><%=data[i].password%></td>
+            <td><%=data[i].name%></td>
+            <th>
+              <a href="/profile/edit/<%=data[i].id%>">Edit</a>
+              <a href="/profile/delete/<%=data[i].id%>">Delete</a>
+            </th>
+          <%}%>
+
+      </tbody>
+    </table>
+      <td>
+        <form action="/profile" method="POST">
+        <th>Username:<input type="text" name="username" placeholder="username"></th>
+        <th>Password<input type="text" name="password" placeholder="usaername"></th>
+        <select name="Contactsid">
+          <%for(var i=0;i< data2.length;i++){%>
+            <option value="<%=data2[i].id%>"><%=data2[i].name%></option>
+            <%}%>
+          </select>
+        <th><input type="submit" value="Submit"></th>
+        </form>
+        </td>
+
+  </body>
+</html>

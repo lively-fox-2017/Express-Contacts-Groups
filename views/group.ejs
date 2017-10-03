@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table>
+      <a href="/">Back to Home</a><br>
+      <thead>
+        <th>ID</th>
+        <th>Name Of Groups</th>
+        <th>Action</th>
+      </thead>
+        <%for(var i=0;i < data.length;i++){%>
+      <tbody>
+          <td><%=data[i].id%></td>
+          <td><%=data[i].name_of_group%></td>
+          <th>
+            <a href="/group/edit/<%=data[i].id%>">Edit</a>
+            <a href="/group/delete/<%=data[i].id%>">Delete</a>
+          </th>
+        <%}%>
+      </tbody>
+    </table>
+      <form action="/group" method="POST">
+        <br>
+        Name Of Group:<br>
+        <input type="text" name="name_of_group" placeholder="Name Of Group">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

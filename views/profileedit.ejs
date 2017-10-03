@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class="" action="/profile/edit/<%=dataProfile.id%>" method="POST">
+      <input type="text" name="username" placeholder="Username" value="<%=dataProfile.username%>">
+      <input type="text" name="password" placeholder="Password" value="<%=dataProfile.password%>">
+      <select name="Contactsid">
+        <%for(var i=0;i< dataContacts.length;i++){%>
+          <option value="<%=dataContacts[i].id%>"><%=dataContacts[i].name%></option>
+          <%}%>
+        </select>
+      <button type="submit" name="submit">Submit</button>
+    </form>
+  </body>
+</html>
