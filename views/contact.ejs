@@ -7,12 +7,12 @@
   </head><style media="screen">
   table{
     border:1;
-    width: 80%;
+    width: 100%;
   }
   th,td{
     text-align: left;
     border: blue;
-    padding: 4px;
+    padding: 1px;
   }
   h2{
     text-align: center;
@@ -21,7 +21,23 @@
 <h2>Contact</h3>
   <body>
     <table>
+      <form action="/contact" method="POST">
+        <th>Name:<br>
+        <input type="text" name="name" placeholder="name">
+        <br></th>
+        <th>Company:<br>
+        <input type="text" name="company" placeholder="company">
+        <br></th>
+        <th>Telephone:<br>
+        <input type="text" name="telp_number" placeholder="telphone number">
+        <br></th>
+        <th>Email:<br>
+        <input type="text" name="email" placeholder="Email">
+        <br></th>
+        <th><br><input type="submit" value="Submit"></th>
+      </form>
         <a href="/">Back to Home</a><br>
+        <br>
       <thead>
         <th>id</th>
         <th>name</th>
@@ -44,21 +60,7 @@
         </th>
       </tbody>
     <%}%>
-    <form action="/contact" method="POST">
-      <th>Name:<br>
-      <input type="text" name="name" placeholder="name">
-      <br></th>
-      <th>Company:<br>
-      <input type="text" name="company" placeholder="company">
-      <br></th>
-      <th>Telephone:<br>
-      <input type="text" name="telp_number" placeholder="telphone number">
-      <br></th>
-      <th>Email:<br>
-      <input type="text" name="email" placeholder="Email">
-      <br></th>
-      <th><br><input type="submit" value="Submit"></th>
-    </form>
+
     </table>
   </body>
 </html>
