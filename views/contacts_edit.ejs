@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Contacts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+  </head>
+  <body>
+    <form action="/contacts/edit/<%= dataRows.id %>" method="post">
+      Name :<br>
+      <input type="text" name="name" placeholder="Your Name" value="<%= dataRows.name %>">
+      <br>
+      Company:<br>
+      <input type="text" name="company" placeholder="Your Company" value="<%= dataRows.company %>">
+      <br>
+      Telp Number:<br>
+      <input type="text" name="telp_number" placeholder="Your Telp Number" value="<%= dataRows.telp_number %>">
+      <br>
+      Email:<br>
+      <input type="text" name="email" placeholder="Your Email Address" value="<%= dataRows.email %>">
+      <br>
+      <input type="submit" value="Submit" class="btn waves-effect waves-light">
+    </form>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#example').DataTable();
+      });
+      $(document).ready(function() {
+        $('select').material_select();
+      });
+    </script>
+  </body>
+</html>

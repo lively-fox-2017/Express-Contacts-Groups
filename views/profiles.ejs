@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Profiles Data</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <a href="/"><button class="waves-effect waves-light btn red">back</button></a>
+          <%
+            if(message != 'undefined'){
+          %>
+            <h2><%= message %></h2>
+            <%
+          }%>
+            <div class="">
+              <div class="col s12">
+                <table id="example" class="table responsive highlight striped light-green" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Contact Name</th>
+                      <th>Action</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%
+      for(var i=0;i<dataRows.length;i++){
+        var str = "";
+    %>
+                      <tr align="center">
+                        <td>
+                          <%= dataRows[i].id %>
+                        </td>
+                        <td>
+                          <%= dataRows[i].username %>
+                        </td>
+                        <% for(var j=0;j<dataRows[i].password.length;j++){
+          str+= '*';
+        }%>
+                          <td>
+                            <%= str %>
+                          </td>
+                          <td>
+                            <%= dataRows[i].name %>
+                          </td>
+                          <td><a href='/profiles/edit/<%= dataRows[i].id %>'>Edit</a></td>
+                          <td><a href="/profiles/delete/<%= dataRows[i].id %>">Delete</a></td>
+                      </tr>
+                      <%
+    }
+    %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col s6">
+              <form action="/profiles" method="post">
+                Username :<br>
+                <input type="text" name="username" placeholder="Username">
+                <br> Password :<br>
+                <input type="password" name="password" placeholder="Password">
+                <br> Contacts :<br>
+
+                <div class="input-field">
+                  <select name="contact_id">
+      <%
+        for(var i =0;i<contactsRows.length;i++){
+      %>
+      <option value="<%= contactsRows[i].id %>"><%= contactsRows[i].name %></option>
+      <%
+      }
+      %>
+    </select>
+                </div>
+                <br>
+                <input type="submit" value="Submit" class="btn waves-effect waves-light">
+              </form>
+              <br />
+            </div>
+    </div>
+  </div>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.common.min.js.map"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.1/sweetalert2.min.js"></script>
+
+  <%
+  console.log(message.toLowerCase());
+    if(message == 'null'){
+  %>
+    <script>
+      swal({
+        title: 'Success!',
+        text: 'Success Update Data',
+        type: 'success',
+        confirmButtonText: 'OK'
+      })
+    </script>
+    <%
+    }
+    else if(message.toLowerCase().indexOf('error')> -1){
+      %>
+      <script>
+        swal({
+          title: 'Error!',
+          text: 'Oopss, Something wrong :(',
+          type: 'error',
+          confirmButtonText: 'OK'
+        })
+      </script>
+      <%
+    }
+  %>
+</body>
+
+</html>
