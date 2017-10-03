@@ -1,0 +1,34 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div>
+        <% temp.forEach(function(temps) { %>
+            <form action="/editContactFinal" method="POST">
+                <input type="text" value=<%= temps.id%> name="id">
+                <input type="text" value=<%= temps.name%> name="name">
+                <input type="text" value=<%= temps.company%> name="company">
+                <input type="text" value=<%= temps.telp_number%> name="telp_number">
+                <input type="text" value=<%= temps.email%> name="email">
+                <button type="submit">Submit</button>
+            </form>
+        <% }); %>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>
