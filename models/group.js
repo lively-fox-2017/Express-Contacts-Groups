@@ -3,74 +3,112 @@ const db = new sqlite3.Database('./db/database.db');
 const ContactGroup = require('./contactGroup')
 const Contact = require('./contact')
 class Group{
-	constructor(){
-
-	}
-	static findAll(cb){
-		let query = `SELECT * FROM Groups`
-		db.all(query, function (err, data) {
-	    	if (!err) {
-	    		let arrGroups = []
-	    		ContactGroup.findAll(rows => {
-	    			rows.forEach((conjunction,i) => {
-		    			Contact.findById(conjunction.id_contact, contact => {
-		    				conjunction['name'] = contact.name
-		    				arrGroups.push(conjunction)
-		    				if(i >= rows.length-1){
-			    				let newData = data.map(i => {
-									i["member"] = []	
-				    				let newData_con = arrGroups.map(j => {
-				    					if(i.id == j.id_group){
-				    						return i.member.push(j.name)
-				    					}
-			    					})
-			    					return i
+	static findAll(){
+		const promise = new Promise((resolve,reject) => {
+			let query = `SELECT * FROM Groups`
+			db.all(query, function (err, data) {
+		    	if (!err) {
+		    		let arrProm = []
+		    		ContactGroup.findAll().then(conjunctions => {
+						conjunctions.forEach((conjunction,i) => {
+							arrProm.push(Contact.findById(conjunction.id_contact))
+						})
+						Promise.all(arrProm).then(contacts => {
+							contacts.forEach((contact,i) => {
+								conjunctions[i]['name'] = contact.name
+							})
+							let arr_group = []
+			    			let groups = data.map(group => {
+								group["member"] = []
+				    			let new_conj = conjunctions.map(conj => {
+				    				if(group.id == conj.id_group){
+				    					return group.member.push(conj.name)
+				    				}
 			    				})
-			    				cb(newData)
-		    				}
-		    			})
-	    			})
-	    		})
-	    	}
-	  	});
-	}
-	static findById(id,cb){
-		let query = `SELECT * FROM Groups WHERE id = '${id}'` 
-		db.each(query, (err, row) => {
-			if(!err){
-				cb(row)
-			}
+			    				arr_group.push(group)
+			    			})
+			    			resolve(arr_group)
+						})
+		    		})
+		    	}
+		  	});
 		})
+		return promise
 	}
-	static findOne(params,cb){
-		let query = `SELECT * FROM Groups WHERE ${params.column} = '${params.find}'` 
-		db.all(query, function(err,rows){
-	    	if(!err){
-	    		cb(rows)
-	    	}
-	  	});
+	static findById(id){
+		const promise = new Promise((resolve,reject) => {
+			let query = `SELECT * FROM Groups where id='${id}'`
+			db.each(query, (err, row) => {
+				if(!err){
+					resolve(row)
+				} else {
+					reject(err)
+				}
+			})
+		})
+		return promise
+	}
+	static findWhere(params){
+		const promise = new Promise((resolve,reject) => {
+			let query = `SELECT * FROM Groups WHERE ${params.column} = '${params.find}'` 
+			db.all(query, function(err,rows){
+		    	if(!err){
+		    		resolve(rows)
+		    	} else {
+		    		reject(err)
+		    	}
+		  	});
+		})
+		return promise
 	}
 	static add(data){
-		let col = []
-		let val = []
-		for(let i in data){
-			col.push(i)
-			val.push(data[i])
-		}
-		let query = `INSERT INTO Groups (${col.join(',')}) VALUES ('${val.join("','")}')`
-		db.run(query)
+		const promise = new Promise((resolve,reject) => {
+			let col = []
+			let val = []
+			for(let i in data){
+				col.push(i)
+				val.push(data[i])
+			}
+			let query = `INSERT INTO Groups (${col.join(',')}) VALUES ('${val.join("','")}')`
+			db.run(query, (err,msg) => {
+				if(!err) {
+					resolve('Success add group!')
+				} else {
+					reject(err)
+				}
+			})
+		})
+		return promise
 	}
 	static edit(id,data){
-		let params = []
-		for(let i in data){
-			params.push(i+"="+"'"+data[i]+"'")
-		}
-		let query = `UPDATE Groups SET ${params} WHERE id = ${id}`
-		db.run(query)	
+		const promise = new Promise((resolve,reject) => {
+			let params = []
+			for(let i in data){
+				params.push(i+"="+"'"+data[i]+"'")
+			}
+			let query = `UPDATE Groups SET ${params} WHERE id = ${id}`
+			db.run(query, (err,msg) => {
+				if(!err) {
+					resolve('Success update group!')
+				} else {
+					reject(err)
+				}
+			})	
+		})
+		return promise
 	}
 	static del(id){
-		let query = `DELETE FROM Groups WHERE id = ${id}`
-		db.run(query)
+		const promise = new Promise((resolve,reject) => {
+			let query = `DELETE FROM Groups WHERE id = ${id}`
+			db.run(query, (err,msg) => {
+				if(!err) {
+					resolve('Success delete group!')
+				} else {
+					reject(err)
+				}
+			})
+		})
+		return promise
 	}
 }
 
