@@ -1,0 +1,48 @@
+<%- include('templates/header.ejs') %>
+  <div class = "flex-container">
+    <div class="form-flex">
+      <h3>Create New Group</h3>
+      <form action = "/groups" method="POST">
+        Name Of Group:<br>
+        <input type = "text" name = "name_of_group" autofocus required>
+        <br>
+        <br>
+        <input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+      </form>
+    </div>
+    <div class="table-flex">
+      <h2>List Of Groups</h2>
+    	<table class = "highlight">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Group Name</th>
+            <th>Members</th>
+          </tr>
+          <%data.groups.forEach(group => { %>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= group.id %></td>
+            <td><%= group.name_of_group %></td>
+            <td>
+            <%group.contacts.forEach(contact => {%>
+            <span><%= contact.name %></span>
+            <%})%>
+           	</td>
+            <td>
+              <a class = 'edit-btn z-depth-1' href="/groups/<%=group.id%>/edit">EDIT</a>
+            </td>
+            <td>
+              <a class = 'delete-btn z-depth-1' href="/groups/<%=group.id%>/delete">DELETE</a>
+            </td>
+            <td>
+              <a class = 'neutral-btn z-depth-1' href="/groups/<%=group.id%>/assign-contact">ASSIGN CONTACT</a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<%- include('templates/footer.ejs') %>

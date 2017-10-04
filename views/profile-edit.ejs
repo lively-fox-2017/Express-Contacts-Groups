@@ -1,0 +1,22 @@
+<%- include('templates/header.ejs') %>
+  <div class="form-container">
+  	<h3>Edit Profile</h3>
+  	<form action = "/profiles/<%= data.profile.id %>/edit" method="POST">
+    	Username:<br>
+    	<input type = "text" name = "username" value= "<%= data.profile.username %>">
+    	<br>
+    	Password:<br>
+    	<input type = "text" name = "password" value= "<%= data.profile.password %>">
+    	<br>
+      Contacts:<br>
+      <select name="contactId">
+        <% data.contacts.forEach(contact => { %>
+        <option value="<%= contact.id %>"><%= contact.name %></option>
+        <%})%>
+      </select>
+    	<br>
+    	<br>
+    	<input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+  	</form>
+  </div>
+<%- include('templates/footer.ejs') %>

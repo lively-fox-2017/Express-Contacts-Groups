@@ -1,0 +1,25 @@
+<%- include('templates/header.ejs') %>
+  <div class = "form-container">
+  	<h3>Edit Address</h3>
+  	<form action = "/addresses/<%= data.address.id %>/edit" method="POST">
+    	Street:<br>
+      <input type = "text" name = "street" value= "<%= data.address.street %>">
+    	<br>
+    	City:<br>
+    	<input type = "text" name = "city" value= "<%= data.address.city %>">
+    	<br>
+    	Zipcode:<br>
+    	<input type = "text" name = "zipcode" value= "<%= data.address.zipcode %>">
+      <br>
+      Contacts:<br>
+      <select name="contactId">
+        <% data.contacts.forEach(contact => { %>
+          <option value="<%= contact.id %>"><%= contact.name %></option>
+        <%})%>
+      </select>
+    	<br>
+    	<br>
+    	<input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+    </form>
+  </div>
+<%- include('templates/footer.ejs') %>

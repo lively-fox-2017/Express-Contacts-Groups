@@ -1,0 +1,12 @@
+<%- include('templates/header.ejs') %>
+  <div class="form-container">
+  	<h3>Edit Group</h3>
+  	<form action = "/groups/<%= data.group.id %>/edit" method="POST">
+    	Name Of Group:<br>
+    	<input type = "text" name = "name_of_group" value = "<%= data.group.name_of_group %>">
+    	<br>
+    	<br>
+    	<input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+  	</form>
+  </div>
+<%- include('templates/footer.ejs') %>

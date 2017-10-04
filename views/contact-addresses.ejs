@@ -1,0 +1,43 @@
+<%- include('templates/header.ejs') %>
+  <div class = "flex-container">
+    <div class = "form-flex">
+      <h3>Add New Address</h3>
+      <form action = "/contacts/<%= data.contact.id %>/address" method="POST">
+        Street:<br>
+        <input type = "text" name = "street">
+        <br>
+        City:<br>
+        <input type = "text" name = "city">
+        <br>
+        Zipcode:<br>
+        <input type = "text" name = "zipcode">
+        <br>
+        <br>
+        <input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+      </form>
+    </div>
+    <div class = "table-flex">
+      <h3>Addresses: <%= data.contact.name %></h3>
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zipcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%data.addresses.forEach(address => { %>
+          <tr>
+            <td><%= address.id %></td>
+            <td><%= address.street %></td>
+            <td><%= address.city %></td>
+            <td><%= address.zipcode %></td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+  	</div>
+  </div>
+<%- include('templates/footer.ejs') %>
