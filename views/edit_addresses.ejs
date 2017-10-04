@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pages Edit Addresses</title>
+  </head>
+  <body>
+  <table>
+    <%dataAddress.forEach(row=>{ %>
+    <form action="/addresses/edit/<%=row.id%>" method="post">
+      Street:<br>
+      <input type="text" name="street" value="<%=row.street%>">
+      <br>
+      City :<br>
+      <input type="text" name="city" value="<%=row.city%>">
+      <br>
+      Zipcode:<br>
+      <input type="text" name="zipcode" value="<%=row.zipcode%>">
+      <br>
+      Name:<br>
+      <select class="" name="idContacts">
+      <% dataContacts.forEach(row => { %>
+       <option value="<%=row.id%>"><%=row.name%></option>
+       <% })%>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+    <%})%>
+  </table>
+  </body>
+</html>

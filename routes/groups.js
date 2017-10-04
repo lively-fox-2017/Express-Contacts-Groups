@@ -1,41 +1,64 @@
 const express = require('express')
 const router = express.Router()
-const Group = require('../models/groups')
+const Group = require('../models/group')
 
-router.get("/", function(req, res) {
-  Group.viewGroups(function(err, rows) {
-    res.render('groups', {dataGroups: rows});
-    // res.send(rows)
+router.get('/', (req,res)=>{
+  Group.findAll()
+  .then(dataGroups => {
+    res.render('groups',{dataGroups:dataGroups})
   })
-})
-//2.Add Groups
-router.post("/", function(req, res) {
-  Group.addGroups(req.body, function() {
-    res.redirect("/groups")
-  })
-})
-//3.Delete Contacts
-router.get("/delete/:id", function(req, res) {
-  Group.deleteGroups(req.params, function() {
-    res.redirect("/groups")
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.get("/edit/:id", function(req, res) {
-  Group.geteditGroups(req.params, function(err, rows) {
-    if (!err) {
-      res.render('groups_edit', {data: rows[0]})
-    } else {
-      res.send(err)
-    }
+router.get('/add', (req,res)=>{
+  Group.findAll()
+  .then(dataGroups=>{
+    res.render('add_groups',{dataGroups:dataGroups})
+  })
+  .catch(err=>{
+    res.send(err)
   })
 })
 
-router.post("/edit/:id", (req, res) => {
-  Group.posteditGroups(req.body, req.params, function(err) {
-    if (!err) {
-      res.redirect("/groups")
-    }
+router.post('/add', (req,res)=>{
+  Group.add(req)
+  .then(dataGroups=>{
+    res.redirect('/groups')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.get('/delete/:id',(req,res)=>{
+  Group.delete(req)
+  .then(dataGroups=>{
+    res.redirect('/groups')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.get('/edit/:id',(req,res)=>{
+  Group.findById(req)
+  .then(groups=>{
+    res.render('edit_groups',{dataGroups:groups[0]})
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.post('/edit/:id',(req,res)=>{
+  Group.edit(req)
+  .then(groups=>{
+    res.redirect('/groups')
+  })
+  .catch(err=>{
+    res.send(err)
   })
 })
 

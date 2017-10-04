@@ -2,56 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Halaman Profiles</title>
+    <title>Pages Profiles</title>
   </head>
   <body>
-    <a href="contacts">Contacts</a>
-    <a href="groups">Groups</a>
-    <a href="profiles">Profile</a>
-    <a href="addresses">Addresses</a>
-    <table border="2px">
+    <tr>
+      <h1>MENU</h1>
+      <td><a href="/contacts">CONTACTS</a></td>
+      <td><a href="/groups">GROUPS</a></td>
+      <td><a href="/profiles">PROFILES</a></td>
+      <td><a href="/addresses">ADDRESSES</a></td>
+    </tr>
+    <table border='1px'>
       <thead>
         <tr>
-          <td>ID</td>
-          <td>Username</td>
-          <td>Password</td>
-          <td>ID_contacts</td>
-          <td>Name_Contacts</td>
-          <td>Action</td>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>idContacts</th>
+          <th colspan="3">Action</th>
         </tr>
       </thead>
-    <tbody>
-      <%dataProfiles.forEach(row => { %>
+      <tbody>
+        <% dataProfiles.forEach(row=>{ %>
         <tr>
-          <td><%=row.id%></td>
-          <td><%=row.username%></td>
-          <td><%=row.password%></td>
-          <td><%=row.idContacts%></td>
-          <td><%=row.name%></td>
-          <td>
-            <a href="/profiles/edit/<%=row.id%>">Edit</a>
-            <a href="/profiles/delete/<%=row.id%>">Delete</a>
-          </td>
+          <td><%= row.id%></td>
+          <td><%= row.username%></td>
+          <td><%= row.password%></td>
+          <td><%= row.name%></td>
+          <td><a href="/profiles/add">Add</td>
+          <td><a href="/profiles/edit/<%=row.id%>">Edit</td>
+          <td><a href="/profiles/delete/<%=row.id%>">Delete</td>
         </tr>
-    <%})%>
-    </tbody>
-  </table>
+      <% }) %>
+      </tbody>
+    </table>
   </body>
 </html>
-
-<form action="/profiles" method="POST">
-  Username:<br>
-  <input type="text" name="username" placeholder="username">
-  <br>
-  Password:<br>
-  <input type="password" name="password" placeholder="password">
-  <br>
-  <select class="" name="idContacts">
-    <% dataContacts.forEach(row => { %>
-     <option value="<%=row.id%>"><%=row.name%></option>
-    <% })%>
-  </select>
-  <label><%=errData%></label>
-  <br>
-  <input type="submit" value="Submit">
-</form>

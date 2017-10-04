@@ -1,48 +1,81 @@
 const express = require('express')
 const router = express.Router()
-const Address = require('../models/addresses')
-const Contact = require('../models/contacts')
+const Address = require('../models/address')
+const Contact = require('../models/contact')
 
-router.get("/", function(req, res) {
-  Address.viewAddresses(function(err, rows) {
-    if(!err){
-      Contact.viewContacts(function(err,dataContacts){
-        res.render('addresses', {
-          dataAddresses: rows,
-          dataContacts : dataContacts
-        });
-      })
-    }
+router.get('/', (req,res)=>{
+  Address.findAll()
+  .then(addresses => {
+    Contact.findAll()
+    .then(contacts =>{
+      for (var i = 0; i < addresses.length; i++) {
+        for (var j = 0; j < contacts.length; j++) {
+          if(addresses[i].idContacts == contacts[j].id){
+            addresses[i].name = contacts[j].name
+          }
+        }
+      }
+      res.render('addresses',{dataAddress:addresses})
+    })
+      .catch(err => {
+      res.send(err)
+    })
   })
 })
 
-router.post("/", function(req, res) {
-  Address.addAddresses(req.body, function() {
-    res.redirect("/addresses")
-  })
-})
-
-router.get("/delete/:id", function(req, res) {
-  Address.deleteAddresses(req.params, function() {
-    res.redirect("/addresses")
-  })
-})
-
-router.get("/edit/:id", function(req, res) {
-  Address.geteditAddresses(req.params, function(dataAddresses, dataContacts) {
-      res.render('addresses_edit', {
-        dataAddresses: dataAddresses[0],dataContacts:dataContacts
+router.get('/add', (req,res)=>{
+  Address.findAll()
+  .then(addresses =>{
+    Contact.findAll()
+      .then(contacts =>{
+      res.render('add_addresses',{dataAddress:addresses, dataContacts:contacts})
       })
   })
+  .catch(err=>{
+    res.send(err)
+  })
 })
 
-router.post("/edit/:id", function(req, res) {
-  Address.posteditAddresses(req.body, req.params, function(err) {
-    if (!err) {
-      res.redirect("/addresses")
-    } else {
-      res.send("Error")
-    }
+router.post('/add', (req,res)=>{
+  Address.add(req)
+  .then(addresses =>{
+    res.redirect('/addresses')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.get('/delete/:id',(req,res)=>{
+  Address.delete(req)
+  .then(addresses =>{
+    res.redirect('/addresses')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.get('/edit/:id',(req,res)=>{
+  Address.findById(req)
+  .then(addresses=>{
+    Contact.findAll()
+    .then(contacts=>{
+      res.render('edit_addresses',{dataAddress:addresses,dataContacts:contacts})
+    })
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.post('/edit/:id',(req,res)=>{
+  Address.edit(req)
+  .then(addresses=>{
+    res.redirect('/addresses')
+  })
+  .catch(err=>{
+    res.send(err)
   })
 })
 

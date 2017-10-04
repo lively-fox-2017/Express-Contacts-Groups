@@ -1,57 +1,65 @@
 const express = require('express')
 const router = express.Router()
-const Contact = require('../models/contacts')
+const Contact = require('../models/contact')
 
-router.get('/', function(req, res) {
-  Contact.viewContacts(function(err, rows) {
-    res.render('contacts', {
-      dataContacts: rows
-    })
+router.get('/', (req,res)=>{
+  Contact.findAll()
+  .then(contacts => {
+    res.render('contacts',{dataContacts:contacts})
   })
-})
-//2.Add Contacts
-router.post("/", function(req, res) {
-  Contact.addContacts(req.body, function() {
-    res.redirect("/contacts")
-  })
-})
-//3.Delete Contacts
-router.get("/delete/:id", function(req, res) {
-  Contact.deleteContacts(req.params, function() {
-    res.redirect("/contacts")
-  })
-})
-// 4.Edit Contacts (MAINTENANCE)
-router.get("/edit/:id", function(req, res) {
-  Contact.geteditContacts(req.params, function(err, rows) {
-    if (!err) {
-      res.render('contacts_edit', {
-        data: rows[0]
-      })
-    } else {
-      res.send('Error')
-    }
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.post("/edit/:id", (req, res) => {
-  Contact.posteditContacts(req.body, req.params, function(err,rows) {
-    if (!err) {
-      res.redirect("/contacts")
-    } else {
-      res.send("Error")
-    }
+router.get('/add', (req,res)=>{
+  Contact.findAll()
+  .then(contacts =>{
+    res.render('add_contacts',{dataContacts:contacts})
+  })
+  .catch(err=>{
+    res.send(err)
   })
 })
 
-router.get("/addresses/:id", function(req, res) {
-  Contact.geteditContactsAddress(req.params, function(err,dataAlamat){
-    if(!err){
-      Contact.viewContacts(function(err, dataContacts) {
-      res.render('address_view', {dataAlamat:dataAlamat, dataContacts:dataContacts})
-    })
-  }
+router.post('/add', (req,res)=>{
+  Contact.add(req)
+  .then(contacts =>{
+    res.redirect('/contacts')
+  })
+  .catch(err=>{
+    res.send(err)
   })
 })
 
-module.exports = router;
+router.get('/delete/:id',(req,res)=>{
+  Contact.delete(req)
+  .then(contacts =>{
+    res.redirect('/contacts')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.get('/edit/:id',(req,res)=>{
+  Contact.findById(req)
+  .then(contacts=>{
+    res.render('edit_contacts',{dataContacts:contacts})
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+router.post('/edit/:id',(req,res)=>{
+  Contact.edit(req)
+  .then(contacts=>{
+    res.redirect('/contacts')
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
+
+module.exports = router
