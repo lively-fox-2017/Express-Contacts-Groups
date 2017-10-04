@@ -1,5 +1,7 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('./db/database.db');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/database.db');
+const modelsContactsGroups = require('../models/contactsGroups');
+const modelsContacts = require('../models/contacts');
 
 class Groups {
   constructor() {
@@ -34,6 +36,39 @@ class Groups {
     db.run(`UPDATE groups SET name='${data.name}' WHERE id=${params.id}`,function(err,result){
       cb(err,result)
     });
+  }
+  static joinDataGroupsMembers(dataGroups,dataMembers,cb){
+    console.log('data members',dataMembers);
+    let newData=dataGroups.map(x=>{
+      x["members"]=[];
+      // console.log(dataMembers.length);
+      for (var i = 0; i < dataMembers.length; i++) {
+        // console.log(dataMembers[i].GroupId,'==',x.id);
+        if (dataMembers[i].GroupId==x.id){
+          // console.log(dataMembers);
+          x.members.push(dataMembers[i].name);
+        }
+      }
+      return x
+    })
+    cb(newData);
+    // let length=dataGroups.length-1;
+    // let newData=[]
+    // dataGroups.forEach((x,index)=>{
+    //   x["members"]=[]
+    //   for (var i = 0; i < dataMembers.length; i++) {
+    //     // console.log(dataMembers[i].GroupId,'==',x.id);
+    //     if (dataMembers[i].GroupId==x.id){
+    //       // console.log(dataMembers);
+    //       x.members.push(dataMembers[i].name);
+    //     }
+    //   }
+    //   newData.push(x)
+    //   if (index==length){
+    //     console.log(newData);
+    //     cb(newData);
+    //   }
+    // })
   }
 }
 

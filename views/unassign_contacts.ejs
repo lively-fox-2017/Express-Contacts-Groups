@@ -24,7 +24,7 @@
             <td><%=rows.email%></td>
             <td>
               <!-- <a href="/groups/<%=rows.id%>/unassign_contacts">Unassign</a> -->
-              <a onclick="return confirm('Are you sure to unassign this contacts?')" href="/groups/<%=data.id%>/unassign_contact/<%=rows.ContactGroupId%>">Unassign</a>
+              <a onclick="return confirm('Are you sure to unassign this contacts?')" href="/groups/<%=data.id%>/unassign_contact/<%=rows.id%>">Unassign</a>
             </td>
           </tr>
         <%})}%>

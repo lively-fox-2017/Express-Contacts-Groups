@@ -37,17 +37,21 @@ class Profiles {
     });
   }
   static findContact(dataProfile,cb){
-    let newData=[]
-    dataProfile.forEach((data,index)=>{
-      modelsContacts.findById(data.contactId,(err,rows)=>{
-        data["name"]=rows.name;
-        data["company"]=rows.company;
-        newData.push(data);
-        if (index>=dataProfile.length-1) {
-          cb(newData);
-        }
+    if (dataProfile.length==0) {
+      cb([])
+    } else {
+      let count=0;
+      dataProfile.forEach((data)=>{
+        modelsContacts.findById(data.contactId,(err,rows)=>{
+          data["name"]=rows.name;
+          data["company"]=rows.company;
+          count++;
+          if (count==dataProfile.length) {
+            cb(dataProfile);
+          }
+        })
       })
-    })
+    }
   }
 }
 

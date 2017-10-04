@@ -3,6 +3,7 @@ var router = express.Router();
 const modelsContacts = require('../models/contacts')
 const modelsGroups = require('../models/groups')
 const modelsAddresses = require('../models/addresses')
+const modelsContactsGroups = require('../models/contactsGroups')
 
 router.get('/', (req, res) => {
   modelsContacts.findAll(function(err,data){
@@ -20,7 +21,15 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   modelsContacts.insertData(req.body,function(err,result){
     if (!err) {
-      res.redirect('/contacts');
+      let newData={"contactId":result.lastID,"groupId":req.body.groupId}
+      modelsContactsGroups.insertData(newData,function(err,result){
+        if (!err) {
+          // res.send(result)
+          res.redirect('/contacts');
+        } else {
+          res.send(err)
+        }
+      })
     } else {
       res.send(err)
     }
@@ -58,7 +67,7 @@ router.post('/edit/:id', (req, res) => {
 
 router.get('/:id/addresses', (req, res) => {
   modelsContacts.findById(req.params.id,function(err,data){
-    modelsAddresses.findByField('contactId',req.params.id,function(err,dataAddresses){
+    modelsAddresses.findBy('contactId='+req.params.id,function(err,dataAddresses){
       if (!err) {
         // res.send(data)
         res.render('contact_addresses',{data:data,dataAddresses:dataAddresses})

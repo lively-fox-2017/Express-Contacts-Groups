@@ -1,12 +1,31 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('./db/database.db');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/database.db');
+const modelsContacts = require('../models/contacts');
+
 class ContactsGroups {
   constructor() {
 
   }
   static findAll(cb){
-    db.all(`SELECT a.id,a.groupId as groupId,b.name as name_of_contact,c.name FROM ContactsGroups a, groups b, contacts c WHERE a.groupId=b.id AND  a.contactId=c.id ORDER BY b.name`,(err,data)=>{
-      cb(err,data);
+    db.all(`SELECT * FROM ContactsGroups`,(err,data)=>{
+      if (data.length==0) {
+        cb(err,data)
+      } else {
+        let length=data.length-1
+        // console.log('test select all contactsGroups',data.length);
+        var count = 0
+        data.forEach((temp)=>{
+          modelsContacts.findById(temp.ContactId,(err,rows)=>{
+            temp["name"]=rows.name;
+            temp["company"]=rows.company;
+            temp["email"]=rows.email;
+            count++
+            if(count == data.length) {
+              cb(err,data);
+            }
+          })
+        })
+      }
     });
   }
   static insertData(data,cb){
@@ -15,8 +34,23 @@ class ContactsGroups {
     });
   }
   static findByGroupId(groupId,cb){
-    db.all(`SELECT a.id as ContactGroupId,a.contactId as contactId,b.name as name_of_contact,c.name,c.company,c.email FROM ContactsGroups a, groups b, contacts c WHERE a.groupId=b.id AND  a.contactId=c.id AND a.groupId=${groupId} ORDER BY b.name`,(err,data)=>{
-      cb(err,data);
+    db.all(`SELECT * FROM ContactsGroups WHERE GroupId=${groupId}`,(err,data)=>{
+      if (data.length==0) {
+        cb(err,data)
+      } else {
+        var count=0;
+        data.forEach((temp)=>{
+          modelsContacts.findById(temp.ContactId,(err,rows)=>{
+            temp["name"]=rows.name;
+            temp["company"]=rows.company;
+            temp["email"]=rows.email;
+            count++;
+            if (count==data.length) {
+              cb(err,data);
+            }
+          })
+        })
+      }
     });
   }
   static deleteData(params,cb){

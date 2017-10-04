@@ -3,12 +3,7 @@ const db = new sqlite3.Database('./db/database.db');
 const modelsContacts = require('../models/contacts')
 
 class Addresses {
-  constructor(data) {
-    // this.id=data.id
-    // this.street=data.street
-    // this.city=data.city
-    // this.zipcode=data.zipcode
-    // this.contactId=data.contactId
+  constructor() {
   }
   static findAll(cb){
     db.all('SELECT * FROM addresses ORDER BY street',function(err,data){
@@ -42,17 +37,21 @@ class Addresses {
     });
   }
   static findContact(dataAddress,cb){
-    let newData=[]
-    dataAddress.forEach((data,index)=>{
-      modelsContacts.findById(data.contactId,(err,rows)=>{
-        data["name"]=rows.name;
-        data["company"]=rows.company;
-        newData.push(data);
-        if (index>=dataAddress.length-1) {
-          cb(newData);
-        }
+    if (dataAddress.length==0) {
+      cb([])
+    } else {
+      let count=0;
+      dataAddress.forEach((data)=>{
+        modelsContacts.findById(data.contactId,(err,rows)=>{
+          data["name"]=rows.name;
+          data["company"]=rows.company;
+          count++;
+          if (count==dataAddress.length) {
+            cb(dataAddress);
+          }
+        })
       })
-    })
+    }
   }
 }
 

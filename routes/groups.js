@@ -9,23 +9,12 @@ var db = new sqlite3.Database('./db/database.db');
 
 //groups
 router.get('/', (req, res) => {
-  modelsGroups.findAll((err,data)=>{
-    modelsContactsGroups.findAll((err,dataMembers)=>{
-      if (!err) {
-        let newData=data.map(rows=>{
-          rows["members"]=[];
-          for (var i = 0; i < dataMembers.length; i++) {
-            // console.log(rows.id,'==',dataMembers[i].groupId);
-            if (rows.id==dataMembers[i].groupId) {
-              rows.members.push(dataMembers[i].name)
-            }
-          }
-          return rows
-        })
-        res.render('groups',{data:newData})
-      } else {
-        res.send(err)
-      }
+  modelsGroups.findAll((err,dataGroups)=>{
+    modelsContactsGroups.findAll((err,members)=>{
+      modelsGroups.joinDataGroupsMembers(dataGroups,members,(dataMembers)=>{
+        // res.send(dataMembers);
+        res.render('groups',{data:dataMembers})
+      })
     })
   });
 })
@@ -39,13 +28,6 @@ router.post('/', (req, res) => {
   });
 })
 router.get('/delete/:id', (req, res) => {
-  // db.run(`DELETE FROM groups WHERE id=${req.params.id}`,(err)=>{
-  //   if (!err) {
-  //     res.redirect('/groups');
-  //   } else {
-  //     res.send(err)
-  //   }
-  // });
   modelsGroups.deleteData(req.params,(err)=>{
     if (!err) {
       res.redirect('/groups');
@@ -105,7 +87,7 @@ router.get('/:id/unassign_contacts', (req, res) => {
       if (!err) {
         // console.log(data);
         res.render('unassign_contacts',{data:data,dataMembers:dataMembers})
-        // res.send(data);
+        // res.send(dataMembers);
       } else {
         res.send(err)
       }
@@ -114,6 +96,7 @@ router.get('/:id/unassign_contacts', (req, res) => {
 })
 
 router.get('/:id/unassign_contact/:ContactGroupId', (req, res) => {
+  // console.log(req.params);
   modelsContactsGroups.deleteData(req.params,function(err,result){
     if (!err) {
       res.redirect(`/groups/${req.params.id}/unassign_contacts`);
