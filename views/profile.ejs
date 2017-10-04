@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/">back</a>
+    <table border="2px">
+      <thead>
+        <th>id</th>
+        <th>username</th>
+        <th>password</th>
+        <th>Contactid</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+          <%dataProfile.forEach(data=>{%>
+            <tr>
+            <td><%=data.id%></td>
+            <td><%=data.username%></td>
+            <td><%=data.password%></td>
+            <td><%=data.name%></td>
+            <td>
+              <a href="/profile/addprofile">Add Contact</a>
+            <a href="/profile/edit/<%=data.id%>">edit</a>
+            <a href="/profile/delete/<%=data.id%>">delete</a></td>
+          </tr>
+          <%})%>
+      </tbody>
+    </table>
+  </body>
+</html>

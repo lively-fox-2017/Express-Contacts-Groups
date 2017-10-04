@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Address</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <td>
+        <th>street</th>
+        <th>city</th>
+        <th>zipcode</th>
+        <th>Name</th>
+        </td>
+      </thead>
+      <tbody>
+        <td>
+        <form action="/contact/edit/<%=dataAddress.id%>" method="post">
+          <td><input type="text" name="street" value="<%=dataAddress.street%>"placeholder="street"></td>
+          <td><input type="text" name="city" value="<%=dataAddress.city%>" placeholder="city"></td>
+          <td><input type="text" name="zipcode" value="<%=dataAddress.zipcode%>"placeholder="zipcode"></td>
+          <select name="Contactsid">
+            <%dataContact.forEach(data=>{%>
+              <option value="<%=data.id%>"><%=data.name%></option>
+            <%})%>
+          </select>
+          <td><input type="submit" value="submit"></td>
+        </form>
+        </td>
+      </tbody>
+    </table>
+  </body>
+</html>
