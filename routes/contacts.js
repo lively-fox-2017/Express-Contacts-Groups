@@ -3,41 +3,63 @@ const router = express.Router()
 const Contact = require('../models/contacts')
 
 router.get('/', function(req,res) {
-  Contact.getDataContacts((rows) => {
-    res.render('contacts', {dataContacts: rows})
+  Contact.findAll()
+  .then(dataContact => {
+    res.render('contacts/contacts', {dataContact: dataContact})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.get('/addcontacts', function(req,res) {
-  Contact.getDataContacts(() => {
-    res.render('addcontacts')
+router.get('/add', function(req,res) {
+  Contact.findAll()
+  .then(dataContact => {
+    res.render('contacts/add', {dataContact: dataContact})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.post('/addcontacts', function(req,res) {
-  Contact.addDataContact(req.body, () => {
+router.post('/add', function(req,res) {
+  Contact.createContact(req)
+  .then(dataContact => {
     res.redirect('/contacts')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.get('/delete/:id', function(req,res) {
-  Contact.deleteDataContact(req.params.id, () => {
+  Contact.deleteContact(req)
+  .then(deleteContact => {
     res.redirect('/contacts')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.get('/edit/:id', function(req,res) {
-  Contact.findDataById(req.params.id, (rows) => {
-    res.render('editcontacts', {dataContacts: rows})
-    // res.send(rows)
+  Contact.findById(req)
+  .then(dataContact => {
+    res.render('contacts/edit', {dataContact: dataContact[0]})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.post('/edit/:id', function(req,res) {
-  Contact.editDataContact(req.body, req.params.id, () => {
+  Contact.updateContact(req)
+  .then(dataContact => {
     res.redirect('/contacts')
   })
+  .catch(err => {
+    res.send(err)
+  })
 })
-
 
 module.exports = router

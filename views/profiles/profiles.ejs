@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halaman Profile</title>
+  </head>
+  <body>
+    <table border="1px solid black">
+      <thead>
+        <th>ID</th>
+        <th>USERNAME</th>
+        <th>PASSWORD</th>
+        <th>NAME CONTACTS</th>
+        <th colspan="3">STATUS</th>
+      </thead>
+      <tbody>
+        <% dataProfile.forEach(rows => { %>
+          <tr>
+            <td><%= rows.id %></td>
+            <td><%= rows.username %></td>
+            <td><%= rows.password %></td>
+            <td><%= rows.name %></td>
+            <td><a href="/profiles/add">ADD PROFILE</a></td>
+            <td><a href="/profiles/edit/<%= rows.id %>">EDIT</a></td>
+            <td><a href="/profiles/delete/<%= rows.id %>">HAPUS</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

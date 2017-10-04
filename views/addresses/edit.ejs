@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Ini Adalah Halaman Edit Address</h1>
+  </body>
+  <form class="" action="/addresses/edit/<%= dataAddress.id %>" method="post">
+    <input type="text" name="street" value="<%= dataAddress.street %>">
+    <input type="text" name="city" value="<%= dataAddress.city %>">
+    <input type="text" name="zipcode" value="<%= dataAddress.zipcode %>">
+    <select class="" name="id_contacts">
+    <%dataContact.forEach( row => { %>
+      <option value="<%= row.id %>"><%= row.name %></option>
+    <% }) %>
+    </select>
+    <input type="submit" value="SUBMIT">
+  </form>
+</html>

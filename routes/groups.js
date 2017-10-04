@@ -3,41 +3,63 @@ const router = express.Router()
 const Group = require('../models/groups')
 
 router.get('/', function(req,res) {
-  Group.getDataGroup((rows) => {
-    res.render('groups', {dataGroups: rows})
+  Group.findAll()
+  .then(dataGroup => {
+    res.render('groups/groups', {dataGroup: dataGroup})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.get('/addgroups', function(req,res) {
-  Group.getDataGroup(() => {
-    res.render('addgroups')
+router.get('/add', function(req,res) {
+  Group.findAll()
+  .then(dataGroup => {
+    res.render('groups/add', {dataGroup: dataGroup})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.post('/addgroups', function(req,res) {
-  Group.addDataGroup(req.body, () => {
+router.post('/add', function(req,res) {
+  Group.createGroup(req)
+  .then(dataGroup => {
     res.redirect('/groups')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.get('/delete/:id', function(req,res) {
-  Group.deleteDataGroup(req.params.id, () => {
+  Group.deleteGroup(req)
+  .then(dataGroup => {
     res.redirect('/groups')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.get('/edit/:id', function(req,res) {
-  Group.findDataById(req.params.id, (rows) => {
-    res.render('editgroups', {dataGroups: rows})
-    // res.send(rows)
+  Group.findById(req)
+  .then(dataGroup => {
+    res.render('groups/edit', {dataGroup: dataGroup[0]})
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.post('/edit/:id', function(req,res) {
-  Group.editDataGroup(req.body, req.params.id, () => {
+  Group.updateGroup(req)
+  .then(dataGroup => {
     res.redirect('/groups')
   })
+  .catch(err => {
+    res.send(err)
+  })
 })
-
 
 module.exports = router

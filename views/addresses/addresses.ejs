@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halaman Address</title>
+  </head>
+  <body>
+    <table border="1px solid black">
+      <thead>
+        <th>ID</th>
+        <th>STREET</th>
+        <th>CITY</th>
+        <th>ZIPCODE</th>
+        <th>NAME CONTACTS</th>
+        <th colspan="3">STATUS</th>
+      </thead>
+      <tbody>
+        <% dataAddress.forEach(rows => { %>
+          <tr>
+            <td><%= rows.id %></td>
+            <td><%= rows.street %></td>
+            <td><%= rows.city %></td>
+            <td><%= rows.zipcode %></td>
+            <td><%= rows.name %></td>
+            <td><a href="/addresses/add">ADD ADDRESS</a></td>
+            <td><a href="/addresses/edit/<%= rows.id %>">EDIT</a></td>
+            <td><a href="/addresses/delete/<%= rows.id %>">HAPUS</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

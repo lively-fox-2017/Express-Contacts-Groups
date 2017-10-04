@@ -1,69 +1,108 @@
 const express = require('express')
 const router = express.Router()
 const Profile = require('../models/profiles')
+const Contact = require('../models/contacts')
 
 router.get('/', function(req,res) {
-  Profile.getDataProfile((rowProfiles,rowContacts) => {
-    res.render('profiles', {dataProfiles: rowProfiles, dataContacts: rowContacts})
-    // res.send(rowContacts)
+  Profile.findAll()
+  .then(dataProfile => {
+    Contact.findAll()
+    .then(dataContact => {
+      for (let i = 0; i < dataProfile.length; i++) {
+        for (let j = 0; j < dataContact.length; j++) {
+          if (dataProfile[i].id_contacts == dataContact[j].id){
+            dataProfile[i].name = dataContact[j].name
+          }
+        }
+      }
+      res.render('profiles/profiles', {dataProfile: dataProfile, dataContact: dataContact})
+      // res.send(dataAddress)
+    })
   })
 })
 
-router.get('/addprofiles', function(req,res) {
-  Profile.getDataProfile((rowProfiles,rowContacts) => {
-    res.render('addprofiles', {dataProfiles: rowProfiles, dataContacts: rowContacts, dataError: null})
+router.get('/add', function(req,res) {
+  Profile.findAll()
+  .then(dataProfile => {
+    Contact.findAll()
+    .then(dataContact => {
+      res.render('profiles/add', {dataProfile: dataProfile, dataContact: dataContact, dataError: null})
+    })
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
-router.post('/addprofiles', function(req,res) {
-  Profile.addDataProfile(req.body, (err) => {
+router.post('/add', function(req,res) {
+  Profile.createProfile(req)
+  .then(dataAddress => {
+    if (!err) {
+      res.redirect('/profiles')
+    }
+  })
+  .catch(err => {
+    // res.send(err)
     if (err) {
-      // console.log(err.code);
-      if(err.code === 'SQLITE_CONSTRAINT') {
-        Profile.getDataProfile((rowProfiles,rowContacts) => {
-          res.render('addprofiles', {dataProfiles: rowProfiles, dataContacts: rowContacts, dataError: 'Nama Sudah ada'})
+      if (err.code === 'SQLITE_CONSTRAINT') {
+        Profile.findAll()
+        .then(dataProfile => {
+          Contact.findAll()
+          .then(dataContact => {
+            res.render('profiles/add', {dataProfile: dataProfile, dataContact: dataContact, dataError: 'NAMA CONTACT SUDAH DI PAKAI'})
+          })
         })
       }
-    } else {
-      res.redirect('/profiles')
     }
   })
 })
 
 router.get('/delete/:id', function(req,res) {
-  Profile.deleteDataProfile(req.params.id, () => {
+  Profile.deleteProfile(req)
+  .then(dataAddress => {
     res.redirect('/profiles')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.get('/edit/:id', function(req,res) {
-  // console.log("========",req.query);
-  let error = '';
-
-  if(req.query.hasOwnProperty('error')) {
-    error = "Double contact"
-  }
-
-  Profile.findDataById(req.params.id, (rowProfiles,rowContacts) => {
-    // if(req.query) {
-    //   error = req.query.error
-    // }
-    res.render('editprofiles', {dataProfiles: rowProfiles, dataContacts: rowContacts, error: error})
-    // res.send(rows)
+  Profile.findById(req)
+  .then(dataProfile => {
+    Contact.findAll()
+    .then(dataContact=> {
+      res.render('profiles/edit', {dataProfile: dataProfile[0], dataContact: dataContact, dataError: null})
+    })
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 
 router.post('/edit/:id', function(req,res) {
-  Profile.editDataProfile(req.body, req.params.id, (err) => {
+  Profile.updateProfile(req)
+  .then(dataProfile => {
+    res.redirect('/profiles')
+  })
+  .catch(err => {
+    // res.send(err)
     if (err) {
       if (err.code === 'SQLITE_CONSTRAINT') {
-        res.redirect(`/profiles/edit/${req.params.id}?error=error`)
+        Profile.findById(req)
+        .then(dataProfile => {
+          Contact.findAll()
+          .then(dataContact=> {
+            res.render('profiles/edit', {dataProfile: dataProfile[0], dataContact: dataContact, dataError:'ID CONTACT SUDAH DI PAKAI'})
+          })
+        })
+        .catch(err => {
+          res.send(err)
+        })
+
       }
-    }else{
-      res.redirect('/profiles')
     }
   })
 })
-
 
 module.exports = router

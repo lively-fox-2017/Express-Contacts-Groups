@@ -1,79 +1,77 @@
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('db/database.db')
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('db/database.db');
 
 class Address {
   constructor() {
 
   }
 
-// static getDataAddress(callback) {
-//   db.all(`SELECT * FROM Addresses`, (err,rows) => {
-//     if (!err) {
-//       callback(rows)
-//       } else {
-//         console.log(err);
-//       }
-//     })
-//   }
-
-static getDataAddress(callback) {
-  db.all(`SELECT Addresses.*, Contacts.name FROM Addresses LEFT JOIN Contacts ON Addresses.id_contacts = Contacts.id `, (errAddress,rowAddress) => {
-    db.all(`SELECT * FROM Contacts`, (errContacts,rowContacts) => {
-      if (!errContacts) {
-        callback(rowAddress,rowContacts)
-      } else {
-        console.log(errAddress);
-      }
+  static findAll() {
+    let promise = new Promise(function(resolve,reject) {
+      db.all(`SELECT * FROM Addresses`, (err,dataAddress) => {
+        if (!err) {
+          resolve(dataAddress)
+        } else {
+          reject(err)
+        }
+      })
     })
-  })
-}
+    return promise
+  }
 
-static addDataAddress(param,callback) {
-  db.run(`INSERT INTO Addresses (street,city,zipcode,id_contacts)
-  VALUES ('${param.street}','${param.city}','${param.zipcode}', '${param.id_contacts}')`, (err) => {
-    if (!err) {
-      callback()
-    } else {
-      console.log(err);
-    }
-  })
-}
-
-static deleteDataAddress(param,callback) {
-  db.run(`DELETE FROM Addresses WHERE id = ${param}`, (err,rows) => {
-    if (!err) {
-      callback(rows)
-    } else {
-      console.log(err);
-    }
-  })
-}
-
-static findDataById(param, callback) {
-  db.all(`SELECT Addresses.* FROM Addresses WHERE id = ${param}`, (errAddress,rowAddress) => {
-    db.all(`SELECT * FROM Contacts`, (errContacts,rowContacts) => {
-      if (!errContacts) {
-        callback(rowAddress,rowContacts)
-      } else {
-        console.log(errContacts);
-      }
+  static findById(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.all(`SELECT * FROM Addresses WHERE id = ${req.params.id}`, (err,dataAddress) => {
+        if (!err) {
+          resolve(dataAddress)
+        } else {
+          reject(err)
+        }
+      })
     })
-  })
-}
+    return promise
+  }
 
-static editDataAddress(body,param, callback) {
-  db.run(`UPDATE Addresses SET
-    street = '${body.street}',
-    city = '${body.city}',
-    zipcode = '${body.zipcode}',
-    id_contacts = '${body.id_contacts}' WHERE id = '${param}'`, (err) => {
-      if (!err) {
-        callback()
-      } else {
-        console.log(err);
-      }
+  static createAddress(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`INSERT INTO Addresses (street,city,zipcode,id_contacts)
+      VALUES ('${req.body.street}','${req.body.city}','${req.body.zipcode}','${req.body.id_contacts}')`, (err,dataAddress) => {
+        if (!err) {
+          resolve(dataAddress)
+        } else {
+          reject(err)
+        }
+      })
     })
-}
+    return promise
+  }
+
+  static deleteAddress(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`DELETE FROM Addresses WHERE id = ${req.params.id}`, (err,dataAddress) => {
+        if (!err) {
+          resolve(dataAddress)
+        } else {
+          reject(err)
+        }
+      })
+    })
+    return promise
+  }
+
+  static updateAddress(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`UPDATE Addresses SET street = '${req.body.street}', city = '${req.body.zipcode}',
+      zipcode = '${req.body.zipcode}', id_contacts = '${req.body.id_contacts}' WHERE id = ${req.params.id}`, (err,dataAddress) => {
+        if (!err) {
+          resolve(dataAddress)
+        } else {
+          reject(err)
+        }
+      })
+    })
+    return promise
+  }
 
 }
 

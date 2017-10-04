@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Ini Adalah Halaman Add Address</h1>
+  </body>
+  <form class="" action="/addresses/add" method="post">
+    <input type="text" name="street" placeholder="Input Nama Disini">
+    <input type="text" name="city" placeholder="Input Company Disini">
+    <input type="text" name="zipcode" placeholder="Input Telp Disini">
+    <select class="" name="id_contacts">
+    <%dataContact.forEach( row => { %>
+      <option value="<%= row.id %>"><%= row.name %></option>
+    <% }) %>
+    </select>
+    <input type="submit" value="SUBMIT">
+  </form>
+</html>

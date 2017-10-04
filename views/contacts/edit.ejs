@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Ini Adalah Halaman Edit Contact</h1>
+  </body>
+  <form class="" action="/contacts/edit/<%= dataContact.id %>" method="post">
+    <input type="text" name="name" value="<%= dataContact.name %>">
+    <input type="text" name="company" value="<%= dataContact.company %>">
+    <input type="text" name="telp" value="<%= dataContact.telp %>">
+    <input type="text" name="email" value="<%= dataContact.email %>">
+    <input type="submit" value="SUBMIT">
+  </form>
+</html>

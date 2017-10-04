@@ -1,21 +1,13 @@
 {
-  "name": "express-sqlite3-crud",
+  "name": "promise",
   "version": "1.0.0",
-  "description": "first-express-app",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lively-fox-2017/express-sqlite3-crud.git"
-  },
   "author": "pjap",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lively-fox-2017/express-sqlite3-crud/issues"
-  },
-  "homepage": "https://github.com/lively-fox-2017/express-sqlite3-crud#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",

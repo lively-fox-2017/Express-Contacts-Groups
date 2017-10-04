@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Ini Adalah Halaman Edit Profile</h1>
+    <% if(dataError) { %>
+      <p><%= dataError %></p>
+    <% } %>
+  </body>
+  <form class="" action="/profiles/edit/<%= dataProfile.id %>" method="post">
+    <input type="text" name="username" value="<%= dataProfile.username %>">
+    <input type="text" name="password" value="<%= dataProfile.password %>">
+    <select class="" name="id_contacts">
+    <%dataContact.forEach( row => { %>
+      <option value="<%= row.id %>"><%= row.name %></option>
+    <% }) %>
+    </select>
+    <input type="submit" value="SUBMIT">
+  </form>
+</html>

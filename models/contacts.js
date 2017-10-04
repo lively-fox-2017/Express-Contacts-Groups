@@ -1,64 +1,76 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db/database.db')
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('db/database.db');
 
 class Contact {
-  contructor() {
+  constructor() {
 
   }
 
-  static getDataContacts(callback){
-    db.all(`SELECT * FROM Contacts`, (err,rows) => {
-      if (!err) {
-        callback(rows)
-      } else {
-        console.log(err);
-      }
+  static findAll() {
+    let promise = new Promise(function(resolve,reject) {
+      db.all(`SELECT * FROM Contacts`, (err,dataContact) => {
+        if (!err) {
+          resolve(dataContact)
+        } else {
+          reject(err)
+        }
+      })
     })
+    return promise
   }
 
-  static addDataContact(param,callback) {
-    db.run(`INSERT INTO Contacts (name,company,telp,email)
-    VALUES ('${param.name}','${param.company}','${param.telp}','${param.email}')`, (err) => {
-      if (!err) {
-        callback()
-      } else {
-        console.log(err);
-      }
+  static findById(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.all(`SELECT * FROM Contacts WHERE id = ${req.params.id}`, (err,dataContact) => {
+        if (!err) {
+          resolve(dataContact)
+        } else {
+          reject(err)
+        }
+      })
     })
+    return promise
   }
 
-  static deleteDataContact(param,callback) {
-    db.run(`DELETE FROM Contacts WHERE id = ${param}`, (err,rows) => {
-      if (!err) {
-        callback(rows)
-      } else {
-        console.log(err);
-      }
+  static createContact(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`INSERT INTO Contacts (name,company,telp,email)
+      VALUES ('${req.body.name}','${req.body.company}','${req.body.telp}','${req.body.email}')`, (err,dataContact) => {
+        if (!err) {
+          resolve(dataContact)
+        } else {
+          reject(err)
+        }
+      })
     })
+    return promise
   }
 
-  static findDataById(param, callback) {
-    db.all(`SELECT * FROM Contacts WHERE id = ${param}`, (err,rows) => {
-      if (!err) {
-        callback(rows)
-      } else {
-        console.log(err);
-      }
+  static deleteContact(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`DELETE FROM Contacts WHERE id = ${req.params.id}`, (err,dataContact) => {
+        if (!err) {
+          resolve(dataContact)
+        } else {
+          reject(err)
+        }
+      })
     })
+    return promise
   }
 
-  static editDataContact(body,param, callback) {
-    db.run(`UPDATE Contacts SET
-    name = '${body.name}',
-    company = '${body.company}',
-    telp = '${body.telp}',
-    email ='${body.email}' WHERE id='${param}'`, (err) => {
-            if (!err) {
-                callback()
-            } else {
-                console.log(err)
-            }
-        })
+  static updateContact(req) {
+    let promise = new Promise(function(resolve,reject) {
+      db.run(`UPDATE Contacts SET name = '${req.body.name}', company = '${req.body.company}',
+      telp = '${req.body.telp}', email = '${req.body.email}' WHERE id = ${req.params.id}`, (err,dataContact) => {
+        if (!err) {
+          resolve(dataContact)
+        } else {
+          reject(err)
+        }
+      })
+    })
+    return promise
   }
 
 }
