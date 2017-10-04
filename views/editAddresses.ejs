@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>edit addresses</title>
+  </head>
+  <body>
+  <style>
+
+html, body {
+  font-family: Lobster, Monospace;
+}
+
+h1 {
+  border-left: 2px solid #00f28f ;
+  font-size: 48px;
+  font-weight: 400;
+  padding-left: 20px
+
+}
+
+.main{
+  margin-top: 20px;
+}
+
+.box, form input{
+  background: #f0f0f0;
+  border: none;
+  border-left: 20px solid #fff;
+  font-size: 20px;
+  padding: 3px;
+  width: 300px;
+
+}
+
+
+
+</style>
+
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <h1>Edit Addresses</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <div class="main">
+      <div class="cointainer">
+        <div class="row">
+
+      <form class="form" action="/addresses/edit/<%=data.id%>" method="post">
+        <div class="col-xs-8 col-md-10">
+          <br> Street:<br>
+          <input id="street" type="text" name= "street" value="<%=data.street%>">
+          <br>
+          <br> City:<br>
+          <input id="city" type="text" name= "city" value="<%=data.city%>">
+          <br>Zipcode<b>
+          <input id="zipcode" type="integer" name= "zipcode" value="<%=data.zipcode%>">
+          <br>
+          <br>
+          <select class="box" name="ContactsID">
+          <% for(let i = 0; i < dataContact.length; i++) {%>
+          <option value="<%=dataContact[i].id%>"><%=dataContact[i].name%></option>
+          <%}%>
+          </select>
+
+          <div class="col-xs-4 col-md-2">
+            <br>
+            <input type="submit" class="btn" value="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </body>
+</html>

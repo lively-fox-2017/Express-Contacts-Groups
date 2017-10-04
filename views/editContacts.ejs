@@ -1,0 +1,100 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CONTACTS</title>
+  </head>
+  <body>
+    <h1>EDIT CONTACT</h1>
+    <div id="form-input">
+      <form action="/contacts/edit/<%=data.id%>" method="post">
+        <input type="text" name="name" value="<%=data.name%>"> <br> Name:
+        </br>
+        <input type="text" name="company" value="<%=data.company%>"> <br> Company:
+        </br>
+        <input type="integer" name="telp_number" value="<%=data.telp_number%>"> <br> telp_number:
+        </br>
+        <input type="text" name="email" value="<%=data.email%>"> <br> Email:<br>
+        <input type="submit" value = "submit">
+      </form>
+    </div>
+  </body>
+</html>
+ -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>edit contact</title>
+  </head>
+  <body>
+  <style>
+
+html, body {
+  font-family: Lobster, Monospace;
+}
+
+h1 {
+  border-left: 2px solid #00f28f ;
+  font-size: 48px;
+  font-weight: 400;
+  padding-left: 20px
+
+}
+
+.main{
+  margin-top: 20px;
+}
+
+form input{
+  background: #f0f0f0;
+  border: none;
+  border-left: 20px solid #fff;
+  font-size: 20px;
+  padding: 3px;
+  width: 300px;
+
+}
+</style>
+
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <h1>Edit Contact</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <div class="main">
+      <div class="cointainer">
+        <div class="row">
+
+
+      <form class="form" action="/contacts/edit/<%=data.id%>" method="post">
+        <div class="col-xs-8 col-md-10">
+          <br> Name:<br>
+            <input type="text" name="name" value="<%=data.name%>">
+            <br> Company:<br>
+            <input type="text" name="company" value="<%=data.company%>">
+            <br> Telp:<br>
+            <input type="integer" name="telp_number" value="<%=data.telp_number%>">
+            <br> Email:<br>
+            <input type="text" name="email" value="<%=data.email%>">
+            <div class="col-xs-4 col-md-2">
+            <br>
+            <input type="submit" class="btn" value="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </body>
+</html>

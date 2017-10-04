@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>edit profile</title>
+  </head>
+  <body>
+  <style>
+
+html, body {
+  font-family: Lobster, Monospace;
+}
+
+h1 {
+  border-left: 2px solid #00f28f ;
+  font-size: 48px;
+  font-weight: 400;
+  padding-left: 20px
+
+}
+
+.main{
+  margin-top: 20px;
+}
+
+.box, form input{
+  background: #f0f0f0;
+  border: none;
+  border-left: 20px solid #fff;
+  font-size: 20px;
+  padding: 3px;
+  width: 300px;
+
+}
+
+
+
+</style>
+
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <h1>Edit Profile</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <div class="main">
+      <div class="cointainer">
+        <div class="row">
+
+
+      <form class="form" action="/profiles/edit/<%=data.id%>" method="post">
+        <div class="col-xs-8 col-md-10">
+          <br> Username:<br>
+          <input id="username" type="text" name= "username" value="<%=data.username%>">
+          <br>
+          <br> Password:<br>
+          <input id="password" type="text" name= "password" value="<%=data.password%>">
+          <br>
+          <br>
+          <select class="box" name="ContactsID">
+          <% for(let i = 0; i < data2.length; i++) {%>
+          <option value="<%=data2[i].id%>"><%=data2[i].name%></option>
+          <%}%>
+          </select>
+
+          <div class="col-xs-4 col-md-2">
+            <br>
+            <input type="submit" class="btn" value="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>CONTACTS</title>
+  </head>
+  <body>
+  <style>
+
+html, body {
+  font-family: Lobster, Monospace;
+}
+
+h1 {
+  border-left: 2px solid #00f28f ;
+  font-size: 48px;
+  font-weight: 400;
+  padding-left: 20px
+
+}
+th {
+  padding-right: 30px;
+
+}
+
+.main{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.thead{
+  padding-left: 20px;
+}
+form input{
+  margin-top: 20px;
+  margin-left: 0px;
+  background: #f0f0f0;
+  border: none;
+  border-left: 20px solid #fff;
+  font-size: 20px;
+  padding: 2px;
+  width: 300px;
+}
+
+ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;} li {float: left;}
+li a {display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;}
+/* Change the link color to #111 (black) on hover */
+li a:hover {background-color: #111;}th { padding-right: 30px;}
+
+</style>
+<% include partials/nav.ejs%>
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+    <h1>Contacts</h1>
+  </div>
+</div>
+</div>
+</header>
+
+<div class="main">
+  <div class="cointainer">
+    <div class="row">
+
+    <table>
+      <thead>
+        <div class="thead">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Telp_number</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      </thead>
+      <tbody>
+        <%data.forEach (row=> {%>
+          <tr>
+            <td><%= row.id%></td>
+            <td><%=row.name%></td>
+            <td><%=row.company%></td>
+            <td><%=row.telp_number%></td>
+            <td><%=row.email%></td>
+
+            <td>
+              <a href="contacts/viewAddresses/<%=row.id%>">View</a>
+              <a href="contacts/edit/<%=row.id%>">EDIT</a>
+              <a href="contacts/delete/<%=row.id%>">DELETE</a>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+</table>
+</div>
+</div>
+<form class ="" action="/contacts" method="POST">
+  <input id="name" type="text" name="name" placeholder="Name">
+  <br>
+  <input id= "company" type="text" name="company" placeholder="Company">
+  <br>
+  <input id="telp_number" type="text" name="telp_number" placeholder="Telp_number">
+  <br>
+  <input id="email" type="text" name="email" placeholder="Email">
+  <br>
+</div>
+<div class="col-xs-4 col-md-2">
+  <br>
+  <input type="submit" value ="Submit">
+  </div>
+</form>
+</body>
+</html>
