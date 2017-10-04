@@ -21,11 +21,12 @@
         </ul>
       </nav>
       <br/>
-
-      <div class="columns">
-          <div class="column">
-              <form action="/groups" 
-              method="post" >
+      <form action="/groups" 
+      method="post" >
+      <div class="tile is-ancestor">
+          <div class="tile is-4 is-vertical is-parent">
+            <div class="tile is-child box">
+              <!-- FORM -->
               <div class="field">
                   <p class="control has-icons-left has-icons-right">
                     <input class="input" type="text" name="nama_group" placeholder="Masukkan Grup">
@@ -44,31 +45,33 @@
                     </button>
                   </p>
               </div>
+              </div>
           </div>
-          <div class="column">
-              <table class="table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nama Group</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for(let data = 0; data < dataJsonGroups.length; data++) { %>
-                    <tr>
-                      <td><%= dataJsonGroups[data].id %></td>
-                      <td><%= dataJsonGroups[data].name_of_group %></td>
-                      <td><a href='/groups/edit/<%= dataJsonGroups[data].id %>'>Edit</a></td>
-                      <td><a href='/groups/delete/<%= dataJsonGroups[data].id %>'>Delete</a></td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-              </form>
+          <div class="tile is-parent">
+            <div class="tile is-child box">
+            <!-- TABEL   -->
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nama Group</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(let data = 0; data < dataJsonGroups.length; data++) { %>
+                  <tr>
+                    <td><%= dataJsonGroups[data].id %></td>
+                    <td><%= dataJsonGroups[data].name_of_group %></td>
+                    <td><a href='/groups/edit/<%= dataJsonGroups[data].id %>'>Edit</a></td>
+                    <td><a href='/groups/delete/<%= dataJsonGroups[data].id %>'>Delete</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-    </div>
-  </section>
+      </form>
 </body>
 </html>

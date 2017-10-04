@@ -9,7 +9,7 @@ let profiles = new Profiles();
 //Profile -------
 
 //DATA Profile
-function getContactsTable() {
+function getContactsTable() { 
   // db.all('SELECT * from Contacts',(err, rowsContact)=>{
   //   // res.send(rows)
   //   res.render('profiles',{dataJsonProfiles:rows,NamaContacts:rowsContact});
@@ -18,57 +18,45 @@ function getContactsTable() {
 }
 router.get('/', (req, res) => {
   let error = ''
-  // console.log("=======",req.query) 
-
   if(req.query.hasOwnProperty('error')) {
-    // console.log("=======",req.query)
     error = 'Contact Name already used'
   }
-  profiles.getDataProfiles((rows, rowsContact) => {
-    res.render('profiles',{pesanError:error,dataJsonProfiles:rows,dataContacts:rowsContact});
+  profiles.getDataProfiles().then((result)=>{
+    res.render('profiles',{
+      pesanError:error,
+      dataJsonProfiles:result.rows,
+      dataContacts:result.rowsContact});
   })
 });
 
 //TAMBAH DATA
 router.post('/', (req, res)=> {
-  profiles.insertDataProfiles(req.body,(err)=>{
-    if(err) {
-      res.redirect('/profiles?error=true')
-    } else {
-      res.redirect('/profiles')
-    }
-  });
+  profiles.insertDataProfiles(req.body).then(()=>{
+    res.redirect('/profiles')
+  }).catch((err)=>{
+    res.redirect('/profiles?error=true')
+  })
 });
 
 //AMBIL EDIT
 router.get('/edit/:id', (req, res) => {
-  profiles.editDataProfiles(req.params.id, (rowProfile, rowContact)=>{
-    res.render('editProfiles',{dataContacts:rowContact, dataJsonProfiles:rowProfile});
-  });
+  profiles.editDataProfiles(req.params.id).then((result)=>{
+    res.render('editProfiles',{dataContacts:result.rowContact, dataJsonProfiles:result.rowProfile});
+  })
 });
 
 //HASIL EDIT
 router.post('/edit/:id', (req, res) => {
-  profiles.hasilEditProfiles(req.params.id, req.body,(data, err)=>{
-    if(!err){
-      res.redirect('../../profiles');
-    }
-
+  profiles.hasilEditProfiles(req.params.id, req.body).then(()=>{
+    res.redirect('../../profiles');
   })
 });
 
 //HAPUS DATA
 router.get('/delete/:id', (req, res) => {
-  profiles.hapusProfile(req.params.id,(err, data)=>{
-      if(!err){
-        console.log('data '+data)
-          res.redirect('../../profiles');
-      } else {
-        console.log('error '+err);
-      }
-  });
+  profiles.hapusProfile(req.params.id).then(()=>{
+    res.redirect('../../profiles');
+  })
 });
-
-
 
 module.exports = router;

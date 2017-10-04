@@ -1,110 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
   <title>Addresses</title>
-  <link href="/style.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div id='cssmenu'>
+<body>     
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb is-right" aria-label="breadcrumbs">
         <ul>
-           <li><a href='/'>Home</a></li>
-           <li><a href="contacts">Contacts</a></li>
-           <li><a href="groups">Groups</a></li>
-           <li class='active'><a href="addresses">Addresses</a></li>
-           <li><a href="profiles">Profiles</a></li>
-           <li><a href="addresses_with_contact">Address with Contacts</a></li>
-       </ul>
-    </div>
-  <div class="landing-page">
-      <div class="form-appointment">
-        <div class="wpcf7" 
-        id="wpcf7-f560-p590-o1">
-          <form action="/addresses" 
-          method="post" 
-          class="wpcf7-form">
-          <div class="group">
-          <div style="width: 48%; float: left;">
-              <span class="wpcf7-form-control-wrap text-680"></span>
-              <select 
-              name='name'>
-                <% for(let data = 0; data < dataJsonContacts.length; data++) { %>
-                <option 
-                class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-                size="45"
-                aria-required="true"
-                value='<%= dataJsonContacts[data].id %>'>
-                <%= dataJsonContacts[data].nama %></option> 
-                <%}%>
-              </select>
-            </span>
-            <br/>
-          <span class="wpcf7-form-control-wrap text-680">
-              Jalan: <input 
-              type="text" 
-            name="street"
-            size="45" 
-            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-            aria-required="true">
-          </span>
-          <br>
-          <span class="wpcf7-form-control-wrap email-680">
-              Kota: <input type="text" 
-            name="city" 
-            value="" 
-            size="45" 
-            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-            aria-required="true">
-          </span>
-          <br>
-          <span class="wpcf7-form-control-wrap tel-630">
-              Zip Code: <input type="text" 
-            name="zipcode" 
-            value="" 
-            size="45" 
-            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
-            aria-required="true">
-          </span>
-          <br>
-            <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
-            <input type="submit" 
-            value="Kirim" 
-            class="wpcf7-form-control wpcf7-submit">
+          <li><a href='/'>Home</a></li>
+          <li><a href="contacts">Contacts</a></li>
+          <li><a href="groups">Groups</a></li> 
+          <li class="is-active"><a href="addresses"  aria-current="page">Addresses</a></li>
+          <li><a href="profiles">Profiles</a></li>
+          <li><a href="addresses_with_contact">Address with Contacts</a></li>
+        </ul>
+      </nav>
+      <br/>
+      <form action="/addresses" method="post">
+      <div class="tile is-ancestor">
+          <div class="tile is-4 is-vertical is-parent">
+            <div class="tile is-child box">
+            <!-- FORM   -->
+            <div class="field-body">
+                <div class="field is-narrow">
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                        <select name='name'>
+                            <% for(let data = 0; data < dataJsonContacts.length; data++) { %>
+                            <option value='<%= dataJsonContacts[data].id %>'>
+                            <%= dataJsonContacts[data].nama %></option> 
+                            <%}%>
+                        </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="street" placeholder="Jalan">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="city" placeholder="City">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="zipcode" placeholder="Zip code">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </p>
+              </div>
             </div>
           </div>
-          
-          <div style="width: 48%; float: right;">
-          <!-- TABEL -->
-
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Jalan</th>
-                <th scope="col">Kota</th>
-                <th scope="col">Zip Code</th>
-              </tr>
-            </thead>
-            <tbody>
-                <% for(let data = 0; data < dataJsonAddresses.length; data++) { %>
-              <tr>
-                <td data-label=""><%= dataJsonAddresses[data].id %></td>
-                <td data-label=""><%= dataJsonAddresses[data].nama %></td>
-                <td data-label=""><%= dataJsonAddresses[data].street %></td>
-                <td data-label=""><%= dataJsonAddresses[data].city %></td>
-                <td data-label=""><%= dataJsonAddresses[data].zipcode %></td>
-                  <td><a href='/addresses/edit/<%= dataJsonAddresses[data].id %>'>Edit</a></td>
-                  <td><a href='/addresses/delete/<%= dataJsonAddresses[data].id %>'>Delete</a></td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
+          <div class="tile is-parent">
+            <div class="tile is-child box">
+            <!-- TABEL   -->
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Jalan</th>
+                    <th scope="col">Kota</th>
+                    <th scope="col">Zip Code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% for(let data = 0; data < dataJsonAddresses.length; data++) { %>
+                  <tr>
+                    <td data-label=""><%= dataJsonAddresses[data].id %></td>
+                    <td data-label=""><%= dataJsonAddresses[data].contactName %></td>
+                    <td data-label=""><%= dataJsonAddresses[data].company %></td>
+                    <td data-label=""><%= dataJsonAddresses[data].street %></td>
+                    <td data-label=""><%= dataJsonAddresses[data].city %></td>
+                    <td data-label=""><%= dataJsonAddresses[data].zipcode %></td>
+                      <td><a href='/addresses/edit/<%= dataJsonAddresses[data].id %>'>Edit</a></td>
+                      <td><a href='/addresses/delete/<%= dataJsonAddresses[data].id %>'>Delete</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
           </div>
-          
-          </form>
-    </div>
+        </div>
+        </form>
 </body>
 </html>

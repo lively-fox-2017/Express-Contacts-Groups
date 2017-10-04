@@ -7,51 +7,58 @@ class Groups{
     this.name_of_group = inputGroups.name_of_group
   }
 
-  static getAllGroups(cb){
-    db.all('SELECT * from Groups',(err, rows)=>{
-      let hasil = []
-      rows.forEach((dataGroups)=> {
-        hasil.push(new Groups({
-          id : dataGroups.id,
-          name_of_group : dataGroups.name_of_group
-        }))
-      }, this);
-        cb(err, hasil);
-    });
-  }
-
-  static addGroups(dataGroups,cb){
-    db.run(`INSERT into Groups (name_of_group) VALUES ('${dataGroups.nama_group}')`,(err)=>{
-      if(!err){
-        cb(null);
-      } else {
-        cb(err);
-      }
+  static getAllGroups(){
+    return new Promise((resolve, reject)=>{
+      db.all('SELECT * from Groups',(err, rows)=>{
+        if(!err){
+          let hasil = []
+          rows.forEach((dataGroups)=> {
+            hasil.push(new Groups({
+              id : dataGroups.id,
+              name_of_group : dataGroups.name_of_group
+            }))
+          }, this);
+            resolve(hasil);
+        } else {
+          reject(err)
+        }
+      });
     })
   }
 
-  static getIdGroups(id, cb){
-    db.get(`SELECT * from Groups WHERE id = "${id}"`,(err, rowsGroups)=>{
-      if(!err){
-        console.log(rowsGroups);
-        cb(err, rowsGroups);
-      } else {
-        console.log(err);
-      }  
-    });
+  static addGroups(dataGroups){
+    return new Promise((resolve, reject)=>{
+      db.run(`INSERT into Groups (name_of_group) VALUES ('${dataGroups.nama_group}')`,(err)=>{
+        if(!err){resolve(null);} else {reject(err);}
+      })
+    })
   }
 
-  static processEditGroups(id, dataGroups, cb){
-    let str = `UPDATE Groups set name_of_group ='${dataGroups.nama_group}' WHERE id = '${id}'`;
-    db.all(str,(err, rows)=>{
-      if(!err){cb(err, rows)}else{console.log(err)};
-    });
+  static getIdGroups(id){
+    return new Promise((resolve, reject)=>{
+      db.get(`SELECT * from Groups WHERE id = "${id}"`,(err, rowsGroups)=>{
+        if(!err){resolve(rowsGroups);} else {reject(err);}  
+      });
+    })
   }
 
-  static  deleteGroups(id ,cb){
-    db.all(`DELETE from Groups WHERE id = "${id}"`,(err, rows)=>{
-      if(!err){cb(err, rows)}else{console.log(err)};
-    });
+  static processEditGroups(id, dataGroups){
+    return new Promise((resolve, reject)=>{
+      let str = `UPDATE Groups set name_of_group ='${dataGroups.nama_group}' WHERE id = '${id}'`;
+      db.all(str,(err, rows)=>{
+        if(!err){resolve(rows)}else{reject(err)};
+      });
+    })
+    
+  }
+
+  static  deleteGroups(id){
+    return new Promise((resolve, reject)=>{
+      db.all(`DELETE from Groups WHERE id = "${id}"`,(err, rows)=>{
+        if(!err){resolve(rows)}else{reject(err)};
+      });
+    })
+    
   }
 }
 module.exports = Groups; 

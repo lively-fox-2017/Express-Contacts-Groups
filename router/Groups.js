@@ -10,39 +10,35 @@ var db = new sqlite3.Database('data.db');
 
 //DATA GRUP
 router.get('/', (req, res) => {
-  Groups.getAllGroups((err, dataGroups)=>{
-    if(!err){res.render('groups',{dataJsonGroups:dataGroups});}else{console.log(err)};
+  Groups.getAllGroups().then((dataGroups)=>{
+    res.render('groups',{dataJsonGroups:dataGroups});
   })
 });
 //TAMBAH DATA
 router.post('/', (req, res) => {
-  Groups.getAllGroups(req.body,(err)=>{
-    if(!err){
-      res.redirect('groups');
-    } else {
-      console.log(err);
-    }
+  Groups.addGroups(req.body).then(()=>{
+    res.redirect('groups');
   })
 });
 
 //AMBIL EDIT
 router.get('/edit/:id', (req, res) => {
-  Groups.getIdGroups(req.params.id, (err, dataGroups)=>{
-    if(!err){res.render('editGroups',{dataJsonGroups:dataGroups});}else{console.log(err)};
+  Groups.getIdGroups(req.params.id).then((dataGroups)=>{
+    res.render('editGroups',{dataJsonGroups:dataGroups});
   })
 });
 
 //HASIL EDIT
 router.post('/edit/:id', (req, res) => {
-  Groups.processEditGroups(req.params.id, req.body,(err, data)=>{
-    if(!err){res.redirect('../../groups');}else{console.log(err)}
+  Groups.processEditGroups(req.params.id, req.body).then(()=>{
+    res.redirect('../../groups');
   })
 });
 
 //HAPUS DATA
 router.get('/delete/:id', (req, res) => {
-  Groups.deleteGroups(req.params.id, (err, data)=>{
-    if(!err){res.redirect('../../groups');}else{console.log(err)};
+  Groups.deleteGroups(req.params.id).then(()=>{
+    res.redirect('../../groups');
   })
 });
 
