@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Data Addresses</h1>
+      <a href = "/addresses">Back</a>
+      <form class="" action="/addresses/edit/<%=dataAddress[0].id%>" method="POST">
+        <input type="text" name="street" value="<%=dataAddress[0].street%>" placeholder="Street" required>
+        <input type="text" name="city" value="<%=dataAddress[0].city%>" placeholder="City" required>
+        <input type="text" name="zipcode" value="<%=dataAddress[0].zipcode%>" placeholder="ZIP Code" required>
+        <select name="contactsId">
+          <option name = "contactsId" value="<%=dataAddress[0].contactsId%>"><%=dataAddress[0].name%></option>
+          <% if(dataContact) {dataContact.forEach(rows => { %>
+            <<option name ="contactsId" value="<%=rows.id%>"><%=rows.name%></option>            
+          <% })}%>
+
+        </select>
+        <input type="submit" value="SUBMIT">
+      </form>
+  </body>
+</html>

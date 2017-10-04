@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Data Contacts</h1>
+    <a href="/">Back To Home</a>
+    <form class="" action="/contacts" method="POST">
+      <input type="text" name="name" placeholder="name" required>
+      <input type="text" name="company" placeholder="company" required>
+      <input type="text" name="telp" placeholder="telp" required>
+      <input type="text" name="email" placeholder="email" required>
+      <input type="submit" value="SUBMIT">
+    </form>
+    <br>
+
+    <table border = "1">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Telephone</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(row => { %>
+      <tr>
+        <td><%=row.id%></td>
+        <td><%=row.name%></td>
+        <td><%=row.company%></td>
+        <td><%=row.telp%></td>
+        <td><%=row.email%></td>
+        <td>
+          <a href = "/contacts/edit/<%=row.id%>">Edit</a> |
+          <a href = "/contacts/delete/<%=row.id%>">Delete</a>
+      </tr>
+      <%  }) %>
+    </tbody>
+    </table>
+
+  </body>
+</html>

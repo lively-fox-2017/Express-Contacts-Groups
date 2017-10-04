@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Data Contacts</h1>
+    <a href="/contacts">Back</a>
+    <form class="" action="/contacts/edit/<%=data[0].id%>" method="POST">
+      <input type="text" name="name" value="<%=data[0].name%>" placeholder="name" required>
+      <input type="text" name="company" value="<%=data[0].company%>" placeholder="company" required>
+      <input type="text" name="telp" value="<%=data[0].telp%>" placeholder="telp" required>
+      <input type="text" name="email" value="<%=data[0].email%>" placeholder="email" required>
+      <input type="submit" value="SUBMIT">
+    </form>
+
+  </body>
+</html>
