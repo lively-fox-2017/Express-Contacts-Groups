@@ -11,7 +11,12 @@
         <input type="text" name="street" placeholder="Street" required>
         <input type="text" name="city" placeholder="City" required>
         <input type="text" name="zipcode" placeholder="ZIP Code" required>
-        <input type="text" name="contactsId" placeholder="Contact ID" required>
+        <select name ="contactsId">
+          <option name = "contactsId"  value="">Pilih Contacts</option>
+          <% if(dataContact) {dataContact.forEach(rows => { %>
+            <<option name = "contactsId" value="<%=rows.id%>"><%=rows.name%></option>
+          <% })}%>
+        </select>
         <input type="submit" value="SUBMIT">
       </form>
       <table border="1">
@@ -20,23 +25,23 @@
           <td>Street</td>
           <td>City</td>
           <td>ZIP Code</td>
-          <td>Contact Id</td>
+          <td>Contact Name</td>
           <td>Action</td>
         </thead>
         <tbody>
-          <% data.forEach(row=> { %>
+          <% if(dataAddress) {dataAddress.forEach(row=> { %>
           <tr>
           <td><%=row.id%></td>
           <td><%=row.street%></td>
           <td><%=row.city%></td>
           <td><%=row.zipcode%></td>
-          <td><%=row.contactsId%></td>
+          <td><%=row.name%></td>
           <td>
             <a href = "/addresses/edit/<%=row.id%>">Edit</a> |
             <a href = "/addresses/delete/<%=row.id%>">Delete</a>
           </td>
           </tr>
-          <%  })%>
+          <%  })}%>
         </tbody>
       </table>
 

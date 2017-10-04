@@ -7,14 +7,29 @@ class Address{
 
 //start of getAll
 static getAll(callback){
-  let query = `SELECT * FROM addresses`;
+  let query1 = `SELECT addresses.id, addresses.street, addresses.city, addresses.zipcode,
+                addresses.contactsId, contacts.name FROM addresses LEFT JOIN contacts
+                on addresses.contactsId = contacts.id`;
 
-  db.all(query, (err,rows)=>{
-    if(err){
-      console.log(err);
-    };
-    callback(rows)
-  })
+  db.all(query1, (err, rows1)=>{
+    let query2 = `SELECT * FROM contacts`;
+    db.all(query2, (err, rows2)=>{
+      if(err){
+        console.log(err);
+      };
+      callback(rows1, rows2)
+    });
+  });
+
+
+  // let query = `SELECT * FROM addresses`;
+  //
+  // db.all(query, (err,rows)=>{
+  //   if(err){
+  //     console.log(err);
+  //   };
+  //   callback(rows)
+  // })
 }
 //end of getAll
 
@@ -34,13 +49,27 @@ static create(req, callback){
 
 //start of getEdit
 static getEdit(req, callback){
-  let query = `SELECT * FROM addresses WHERE id = ${req.params.id}`;
-  db.all(query, (err,rows)=>{
-    if(err){
-      console.log(err);
-    };
-    callback(rows);
-  });
+  let query1 = `SELECT addresses.id, addresses.street, addresses.city, addresses.zipcode,
+                addresses.contactsId, contacts.name FROM addresses LEFT JOIN contacts
+                on addresses.contactsId = contacts.id WHERE addresses.id = ${req.params.id}`;
+
+  db.all(query1, (err, rows1)=>{
+    let query2 = `SELECT * FROM contacts`;
+    db.all(query2, (err, rows2)=>{
+      if(err){
+        console.log(err);
+        return ;
+      };
+      callback(rows1, rows2)
+    })
+  })
+  // let query = `SELECT * FROM addresses WHERE id = ${req.params.id}`;
+  // db.all(query, (err,rows)=>{
+  //   if(err){
+  //     console.log(err);
+  //   };
+  //   callback(rows);
+  // });
 };
 //end of getEdit
 

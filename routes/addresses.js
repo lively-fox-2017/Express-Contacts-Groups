@@ -8,8 +8,8 @@ const model = require('../models/address');
 
 
 router.get('/', (req, res) => {
-    model.getAll((rows)=>{
-      res.render('address', {data:rows});
+    model.getAll((rows1, rows2)=>{
+      res.render('address', {dataAddress:rows1, dataContact:rows2});
     });
 
     // db.all('SELECT * FROM addresses', (err, rows)=> {
@@ -32,8 +32,8 @@ router.post('/', (req,res)=>{
 });
 
 router.get('/edit/:id', (req,res)=>{
-  model.getEdit(req, (rows)=>{
-    res.render('addressEdit', {data: rows});
+  model.getEdit(req, (rows1, rows2)=>{
+    res.render('addressEdit', {dataAddress: rows1, dataContact:rows2});
   })
   // db.all(`SELECT * FROM addresses WHERE id = ${req.params.id}`, (err,rows)=>{
   //   res.render('addressEdit', {data: rows});

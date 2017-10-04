@@ -47,11 +47,11 @@ db.run(`CREATE TABLE IF NOT EXISTS users
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           username VARCHAR,
           password VARCHAR,
-          contactsId INTEGER,
+          contactsId INTEGER UNIQUE,
           FOREIGN KEY(contactsId) REFERENCES contacts(id)
         )`, function(err){
           if(!err){
-            console.log('table user berhasil dibuat');
+            console.log('table users berhasil dibuat');
           }
         });
 

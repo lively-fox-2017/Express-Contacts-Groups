@@ -5,12 +5,17 @@
     <title></title>
   </head>
   <body>
-    <h1>Data Contacts</h1>
+    <h1>Data Profile</h1>
     <a href="/">Back To Home</a>
     <form class="" action="/profiles" method="POST">
       <input type="text" name="username" placeholder="username" required>
       <input type="text" name="password" placeholder="password" required>
-      <input type="text" name="contactsId" placeholder="contactsId" required>
+      <select name="contactsId">
+        <option name="contactsId" value="">Pilih Contact</option>
+        <% if(dataContact) {dataContact.forEach(rows => { %>
+          <option name="contactsId" value="<%=rows.id%>"><%=rows.name%></option>
+        <% })}%>
+      </select>
       <input type="submit" value="SUBMIT">
     </form>
     <br>
@@ -21,22 +26,22 @@
         <th>Id</th>
         <th>Username</th>
         <th>Password</th>
-        <th>Contact Id</th>
+        <th>Name</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <% data.forEach(row => { %>
+      <% if(dataUser) {dataUser.forEach(row => { %>
       <tr>
         <td><%=row.id%></td>
         <td><%=row.username%></td>
         <td><%=row.password%></td>
-        <td><%=row.contactsId%></td>
+        <td><%=row.name%></td>
         <td>
           <a href = "/profiles/edit/<%=row.id%>">Edit</a> |
           <a href = "/profiles/delete/<%=row.id%>">Delete</a>
       </tr>
-      <%  }) %>
+      <%  })} %>
     </tbody>
     </table>
 

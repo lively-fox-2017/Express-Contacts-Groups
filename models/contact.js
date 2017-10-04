@@ -67,6 +67,10 @@ static getDelete(req, callback){
 };
 //end of getDelete
 
+//start of getById
+
+//end og getById
+
 };
 
 module.exports = Contact

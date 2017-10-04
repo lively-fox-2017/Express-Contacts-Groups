@@ -7,8 +7,8 @@ const model = require('../models/profile');
 router.get('/', (req, res)=>{
   // res.send('Profile Here')
   // res.render('profile')
-  model.getAll((rows)=>{
-    res.render('profile', {data:rows})
+  model.getAll((rows1, rows2)=>{
+    res.render('profile', {dataUser:rows1, dataContact:rows2})
   });
 });
 
@@ -19,9 +19,13 @@ router.post('/', (req, res)=>{
 });
 
 router.get('/edit/:id', (req, res)=>{
-  model.getEdit(req, (rows)=>{
-    res.render('profileEdit', {data:rows});
+  model.getEdit(req, (rows1, rows2)=>{
+    res.render('profileEdit', {dataUser:rows1, dataContact:rows2})
   });
+
+  // model.getEdit(req, (rows)=>{
+  //   res.render('profileEdit', {data:rows});
+  // });
 });
 
 router.post('/edit/:id', (req,res)=>{
@@ -35,5 +39,6 @@ router.get('/delete/:id', (req, res)=>{
     res.redirect('/profiles')
   });
 });
+
 
 module.exports = router;

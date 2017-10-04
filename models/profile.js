@@ -7,17 +7,25 @@ class Profile {
 
 //start of getAll
 static getAll(callback){
-  let query = `SELECT * FROM users`;
-  db.all(query, (err, rows)=>{
-    if(err){
-      console.log(err);
-    };
-    callback(rows)
+  let query1 = `SELECT users.id, users.username, users.password,
+               users.contactsId, contacts.name FROM users
+               LEFT JOIN contacts
+               on users.contactsId = contacts.id`;
+
+  db.all(query1, (err, rows1)=>{
+    let query2 = `SELECT * FROM contacts`
+    db.all(query2, (err, rows2)=>{
+      if(err){
+        console.log(err);
+        return;
+      }
+      callback(rows1, rows2);
+    })
   })
 }
 //end of getAll
 
-//star of create
+//start of create
 static create(req, callback){
   let query = `INSERT INTO users (username, password, contactsId)
              VALUES ('${req.body.username}', '${req.body.password}',
@@ -34,14 +42,33 @@ static create(req, callback){
 
 //star of getEdit
 static getEdit(req, callback){
-  let query = `SELECT * FROM users WHERE id = ${req.params.id}`;
-  db.all(query, (err, rows)=>{
-    if (err){
-      console.log(err);
-    };
-    callback(rows);
-  });
+  let query1 = `SELECT users.id, users.username, users.password,
+               users.contactsId, contacts.name FROM users
+               LEFT JOIN contacts
+               on users.contactsId = contacts.id WHERE users.id = ${req.params.id}`;
+
+  db.all(query1, (err, rows1)=>{
+    let query2 = `SELECT * FROM contacts`
+    db.all(query2, (err, rows2)=>{
+      if(err){
+        console.log(err);
+        return;
+      }
+      callback(rows1, rows2);
+    })
+  })
+
+
+  // let query = `SELECT * FROM users WHERE id = ${req.params.id}`
+  // db.all(query, (err, rows) => {
+  //   if (err) {
+  //     console.log(err);
+  //     return;
+  //   }
+  //   callback(rows);
+  // });
 }
+
 
 //end of getEdit
 

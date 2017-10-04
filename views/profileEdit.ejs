@@ -7,10 +7,16 @@
   <body>
     <h1>Data Contacts</h1>
     <a href="/profiles">Back</a>
-    <form class="" action="/profiles/edit/<%=data[0].id%>" method="POST">
-      <input type="text" name="username" value="<%=data[0].username%>" placeholder="username" required>
-      <input type="text" name="password" value="<%=data[0].password%>" placeholder="password" required>
-      <input type="text" name="contactsId" value="<%=data[0].contactsId%>" placeholder="contactsId" required>
+    <form class="" action="/profiles/edit/<%=dataUser[0].id%>" method="POST">
+      <input type="text" name="username" value="<%=dataUser[0].username%>" placeholder="username" required>
+      <input type="text" name="password" value="<%=dataUser[0].password%>" placeholder="password" required>
+      <select name="contactsId">
+        <option name="contactsId" value="<%=dataUser[0].contactsId%>"><%=dataUser[0].name%></option>
+        <% if(dataContact) {dataContact.forEach(rows => { %>
+          <option name="contactsId" value="<%=rows.id%>"><%=rows.name%></option>
+        <% })}%>
+      </select>
+
       <input type="submit" value="SUBMIT">
     </form>
     <br>
