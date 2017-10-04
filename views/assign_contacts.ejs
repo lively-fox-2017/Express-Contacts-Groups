@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Assign Groups Contacts</title>
+  </head>
+  <body>
+    <h1>Assign Groups <%=data.name%></h1>
+    <a href="/groups">Return to Groups</a><br><br>
+    <form class="" action="/groups/<%=data.id%>/assign_contacts" method="post">
+      Contacts <br>
+      <select class="" name="contactId">
+        <%if (dataContacts){dataContacts.forEach(rows=>{%>
+          <option value="<%=rows.id%>"><%=rows.name%></option>
+        <%})}%>
+      </select><br><br>
+      <button type="submit" name="button">Assign Contacts</button>
+    </form>
+  </body>
+</html>
