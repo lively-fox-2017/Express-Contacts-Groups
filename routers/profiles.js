@@ -9,7 +9,7 @@ const db = new sqlite3.Database('./data.db');
 // import model profile
 const Profile = require('../models/profiles');
 
-// import model profile
+// import model contact
 const Contact = require('../models/contacts');
 
 router.get('/profile', function(req, res){

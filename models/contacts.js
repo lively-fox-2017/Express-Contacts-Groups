@@ -24,8 +24,8 @@ class Contact {
 
 	static getByIDContact(reqParams, callback) {
 		db.get(`SELECT * FROM contacts WHERE id = ${reqParams}`, function(err, rows){
-			let contact = new Contact(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
-			callback(contact);
+			let address = new Contact(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
+			callback(address);
 		});
 	}
 
