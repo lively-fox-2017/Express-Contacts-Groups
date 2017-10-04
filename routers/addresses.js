@@ -6,6 +6,9 @@ const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./data.db');
 
+// import model contact
+const Address = require('../models/addresses');
+
 router.get('/addresses', function(req, res){
   db.all('SELECT addresses.*, contacts.name FROM addresses LEFT JOIN contacts ON addresses.id_contacts = contacts.id', function(err, rows1){
     db.all('SELECT * FROM contacts', function(err, rows2){

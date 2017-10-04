@@ -35,14 +35,14 @@ class Contact {
 		});
 	}
 
-	static updateContact(name, company, telp_number, email, params, callback){
-		db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${params}`, function(err, rows){
+	static updateContact(name, company, telp_number, email, reqParams, callback){
+		db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${reqParams}`, function(err, rows){
 			callback();
 		});
 	}
 
-	static deleteContact(reParams, callback) {
-		db.run(`DELETE FROM contacts WHERE id = ${reParams}`, function(err, rows){
+	static deleteContact(reqParams, callback) {
+		db.run(`DELETE FROM contacts WHERE id = ${reqParams}`, function(err, rows){
 			callback();
 		});
 	}
