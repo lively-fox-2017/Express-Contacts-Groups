@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Data Addresses</h1>
+      <a href = "/">Back To Home</a>
+      <form class="" action="/addresses" method="POST">
+        <input type="text" name="street" placeholder="Street" required>
+        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="zipcode" placeholder="ZIP Code" required>
+        <input type="text" name="contactsId" placeholder="Contact ID" required>
+        <input type="submit" value="SUBMIT">
+      </form>
+      <table border="1">
+        <thead>
+          <td>Id</td>
+          <td>Street</td>
+          <td>City</td>
+          <td>ZIP Code</td>
+          <td>Contact Id</td>
+          <td>Action</td>
+        </thead>
+        <tbody>
+          <% data.forEach(row=> { %>
+          <tr>
+          <td><%=row.id%></td>
+          <td><%=row.street%></td>
+          <td><%=row.city%></td>
+          <td><%=row.zipcode%></td>
+          <td><%=row.contactsId%></td>
+          <td>
+            <a href = "/addresses/edit/<%=row.id%>">Edit</a> |
+            <a href = "/addresses/delete/<%=row.id%>">Delete</a>
+          </td>
+          </tr>
+          <%  })%>
+        </tbody>
+      </table>
+
+  </body>
+</html>
