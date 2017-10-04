@@ -11,6 +11,7 @@
         <input type="text" name="street" placeholder="Street" required>
         <input type="text" name="city" placeholder="City" required>
         <input type="text" name="zipcode" placeholder="ZIP Code" required>
+        <input type="text" name="contactsId" placeholder="Contact ID" required>
         <input type="submit" value="SUBMIT">
       </form>
       <table border="1">
@@ -19,6 +20,7 @@
           <td>Street</td>
           <td>City</td>
           <td>ZIP Code</td>
+          <td>Contact Id</td>
           <td>Action</td>
         </thead>
         <tbody>
@@ -28,6 +30,7 @@
           <td><%=row.street%></td>
           <td><%=row.city%></td>
           <td><%=row.zipcode%></td>
+          <td><%=row.contactsId%></td>
           <td>
             <a href = "/addresses/edit/<%=row.id%>">Edit</a> |
             <a href = "/addresses/delete/<%=row.id%>">Delete</a>

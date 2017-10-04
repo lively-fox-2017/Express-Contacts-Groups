@@ -22,12 +22,13 @@ let index = require('./routes/index');
 let contact = require('./routes/contacts');
 let grup = require('./routes/groups');
 let address = require('./routes/addresses');
-
+let profile = require('./routes/profiles');
 
 app.use('/', index);
 app.use('/contacts', contact);
 app.use('/groups', grup);
 app.use('/addresses', address);
+app.use('/profiles', profile);
 
 
 app.listen(3000, function () {

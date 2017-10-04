@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Data Contacts</h1>
+    <a href="/profiles">Back</a>
+    <form class="" action="/profiles/edit/<%=data[0].id%>" method="POST">
+      <input type="text" name="username" value="<%=data[0].username%>" placeholder="username" required>
+      <input type="text" name="password" value="<%=data[0].password%>" placeholder="password" required>
+      <input type="text" name="contactsId" value="<%=data[0].contactsId%>" placeholder="contactsId" required>
+      <input type="submit" value="SUBMIT">
+    </form>
+    <br>
+
+  </body>
+</html>
