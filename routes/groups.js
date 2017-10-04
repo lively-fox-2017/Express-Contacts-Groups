@@ -1,27 +1,35 @@
+"use strict"
+
 const express = require('express');
 const router = express.Router();
-const GroupsController = require('./../controllers/groups-controller');
-
-let groupsController = new GroupsController();
+const GroupsCtrl = require('./../controllers/groups');
 
 router.get('/', (req, res) => {
-	groupsController.serveGroups(req, res);
+	GroupsCtrl.serveGroups(req, res);
 });
 
 router.post('/', (req, res) => {
-	groupsController.createGroup(req, res);
+	GroupsCtrl.createGroup(req, res);
 });
 
-router.get('/edit/:id', (req, res) => {
-	groupsController.serveGroup(req, res);
+router.get('/:id/edit', (req, res) => {
+	GroupsCtrl.editGroup(req, res);
 });
 
-router.post('/edit/:id', (req, res) => {
-	groupsController.updateGroup(req, res);
+router.post('/:id/edit', (req, res) => {
+	GroupsCtrl.updateGroup(req, res);
 });
 
-router.get('/delete/:id', (req, res) => {
-	groupsController.deleteGroup(req, res);
+router.get('/:id/delete', (req, res) => {
+	GroupsCtrl.deleteGroup(req, res);
+});
+
+router.get('/:id/assign-contact', (req, res) => {
+	GroupsCtrl.assignContact(req, res);
+});
+
+router.post('/:id/assign-contact', (req, res) => {
+	GroupsCtrl.updateContact(req, res);
 });
 
 module.exports = router;

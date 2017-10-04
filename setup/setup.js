@@ -49,7 +49,7 @@ db.serialize(() => {
     });
 
 
-    // add one to one contacts-profiles feature
+    // change added for one to one contacts-profiles feature
 	db.run(
 		'ALTER TABLE profiles ADD COLUMN contactId INTEGER REFERENCES contacts(id)',
 		err => {
@@ -64,7 +64,7 @@ db.serialize(() => {
 			else console.log('Set "contactId" column as unique success');
 	});
 
-	// add one to many contacts-addresses feature
+	// change added for one to many contacts-addresses feature
 	db.run(
 		'ALTER TABLE addresses ADD COLUMN contactId INTEGER REFERENCES contacts(id)',
 		err => {
@@ -72,7 +72,7 @@ db.serialize(() => {
 			else console.log('Add "contactId" column to "addresses" table and set it as foreign key success');
 		});
 
-	// add many to many contacts-groups
+	// change added for many to many contacts-groups
     db.run(
     	'CREATE TABLE IF NOT EXISTS contacts_groups (' +
     	'id INTEGER PRIMARY KEY AUTOINCREMENT, ' + 

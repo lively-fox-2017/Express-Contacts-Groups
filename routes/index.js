@@ -1,11 +1,11 @@
+"use strict"
+
 const express = require('express');
 const router = express.Router();
-const IndexController = require('./../controllers/index-controller');
-
-let indexController = new IndexController();
+const Index = require('./../controllers/index');
 
 router.get('/', (req, res) => {
-	indexController.serveIndex(req, res);
+	Index.serveIndex(req, res);
 });
 
 module.exports = router;

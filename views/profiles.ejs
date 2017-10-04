@@ -1,75 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Express Contacts-Groups</title>
-	<style>
-		table {
-			width: 62.8%;
-		}
-		th, td {
-		    border: 1px solid black;
-		}
-		td {
-			font-size: 12px;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<% 
-	const profiles = data.profiles;
-	const contacts = data.contacts;
-	%>
-	<a href="/">Home</a>
-	<h2>Profiles</h2>
-
-
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Username</th>
-			<th>Password</th> 
-			<th>Name</th>
-		</tr>
-		<%
-		profiles.forEach(profile => {
-		%>
-		<tr>
-			<td><%= profile.id %></td>
-			<td><%= profile.username %></td>
-			<td><%= profile.password %></td>
-			<td><%= contacts.filter(contact => contact.id === profile.contactId)[0].name %></td>
-			<td><a href="/profiles/edit/<%= profile.id %>">Edit</a></td>
-			<td><a href="/profiles/delete/<%= profile.id %>">Delete</a></td>
-		</tr>
-		<%
-		});
-		%>
-	</table>
-	
-	<br>
-	<br>
-	
-	<h2>Create New Profile</h2>
-	<form action = "/profiles" method="POST">
-  		Username:<br>
-  		<input type = "text" name = "username">
-  		<br>
-  		Password:<br>
-  		<input type = "text" name = "password">
-  		<br>
-  		Contacts:<br>
-  		<select name="contactId">
-  		<% contacts.forEach(contact => { %>
-		<p>contact</p>
-		<option value="<%= contact.id %>"><%= contact.name %></option>
-		<% }); %>
-		</select>
-  		<br>
-  		<br>
-  		<input type = "submit" value = "Submit">
-	</form>
-
-</body>
-</html>
+<%- include('templates/header.ejs') %>
+  <div class="flex-container">
+    <div class="form-flex">
+      <h3>Create New Profiles</h3>
+      <form action = "/profiles" method="POST">
+        Username:<br>
+        <input type = "text" name = "username" autofocus required>
+        <br>
+        Password:<br>
+        <input type = "text" name = "password" required>
+        <br>
+        Contact:<br>
+        <select name="contactId">
+          <% data.contacts.forEach(contact => { %>
+          <option value="<%= contact.id %>"><%= contact.name %></option>
+          <%})%>
+        </select>
+        <br>
+        <br>
+        <input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+      </form>
+    </div>
+    <div class="table-flex">
+      <h2>List Of Profiles</h2>
+      <table class = "highlight">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Contact</th>
+        </tr>
+        </thead>
+        <tbody>
+          <%data.profiles.forEach(profile => { %>
+          <tr>
+            <td><%= profile.id %></td>
+            <td><%= profile.username %></td>
+            <td><%= profile.password %></td>
+            <td><%= profile.contact.name %></td>
+            <td>
+              <a class = 'edit-btn z-depth-1' href="/profiles/<%=profile.id%>/edit">EDIT</a>
+            </td>
+            <td>
+              <a class = 'delete-btn z-depth-1' href="/profiles/<%=profile.id%>/delete">DELETE</a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<%- include('templates/footer.ejs') %>

@@ -1,51 +1,90 @@
 "use strict"
 
-const Crud = require('./crud');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/data.db');
 
-class Profiles extends Crud {
-	constructor() {
-		super('profiles', ['username', 'password', 'contactId']);
+class Profiles {
+	constructor(id, username, password, contactId) {
+		this._id = id;
+		this._username = username;
+		this._password = password;
+		this._contactId = contactId; 
 	}
 
-	// // override Crud method
-	// readRecords() {
-	// 	return new Promise((resolve, reject) => {
-	// 		let query = `SELECT profiles.*, contacts.name, FROM profiles LEFT JOIN contacts ON profiles.contactId = contacts.id`;
-	// 		db.all(query, (err, records) => {
-	// 			if (err) reject(err);
-	// 			console.log(records); // array of objects
-	// 			resolve(records);
-	// 		});
-	// 	});
-	// }
+	get id() {
+		return this._id;
+	}
 
-	// // override Crud method
-	// readRecord(id) {
-	// 	return new Promise((resolve, reject) => {
-	// 		let query = `SELECT profiles.*, contacts.name, FROM profiles LEFT JOIN contacts ON profiles.contactId = contacts.id AND profiles.id = ${id}`;
-	// 		db.get(query, (err, record) => {
-	// 			if (err) reject(err);
-	// 			resolve(record); // object
-	// 		});
-	// 	});
-	// }
+	get username() { 
+		return this._username;
+	}
 
-	// // override Crud method
-	// createRecord() {
-	// 	return new Promise((resolve, reject) => {
-	// 		columnValues = columnValues.map(cv => '\'' + cv + '\'').join(', ');
-	// 		let colStatement = this._columns.join(', ')
-	// 		let query = `INSERT INTO ${this._table} (${colStatement}) VALUES (${columnValues})`;
+	get password() {
+		return this._password;
+	}
 
-	// 		db.run(query, err => {
-	// 			if (err) reject(err);
-	// 			resolve();
-	// 		})
-	// 	});
-	// }
+	get contactId() {
+		return this._contactId;
+	}
+
+	static createRecord(values) {
+		let query = `INSERT INTO profiles (username, password, contactId) VALUES (${values.join(', ')})`;
+
+		return new Promise((resolve, reject) => {
+			db.exec(query, err => {
+				if (err) reject(err);
+				resolve(/*what?*/);
+			});
+		});
+	}
+
+	static readRecord(id) {
+		let query = `SELECT * FROM profiles WHERE id = ${id}`;
+		
+		return new Promise((resolve, reject) => {
+			db.get(query, (err, rec) => {
+				if (err) reject(err);
+
+				let profile = new Profiles(rec.id, rec.username, rec.password, rec.contactId);
+				resolve(profile);
+			});
+		});
+	}
+
+	static updateRecord(id, values) {
+		let query = `UPDATE profiles SET username = '${values[0]}', password = '${values[1]}', contactId = '${values[2]}' WHERE id = ${id}`;
+
+		return new Promise((resolve, reject) => {
+			db.exec(query, err => {
+				if (err) reject(err);
+				resolve(/*what?*/);
+			});
+		});
+	}
+
+	static deleteRecord(id) {
+		let query = `DELETE FROM profiles WHERE id = ${id}`;
+
+		return new Promise((resolve, reject) => {
+			db.exec(query, err => {
+				if (err) reject(err);
+				resolve(/*what?*/);
+			});
+		});
+	}
+
+	static readAllRecords() {
+		let query = `SELECT * FROM profiles`;
+
+		return new Promise((resolve, reject) => {
+			db.all(query, (err, recs) => {
+				if (err) reject(err);
+
+				let profiles = recs.map(rec => new Profiles(rec.id, rec.username, rec.password, rec.contactId));
+				resolve(profiles);
+			});
+		});
+	}
 }
-
-// let profiles =  new Profiles();
-// profiles.readRecords().catch(err);
 
 module.exports = Profiles;

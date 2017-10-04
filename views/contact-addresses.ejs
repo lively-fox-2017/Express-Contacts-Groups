@@ -1,62 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Express Contacts-Groups</title>
-	<style>
-		table {
-			width: 62.8%;
-		}
-		th, td {
-		    border: 1px solid black;
-		}
-		td {
-			font-size: 12px;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<% 
-	const contact = data.contact;
-	const addresses = data.addresses;
-	%>
-	<a href="/">Home</a>
-	<h2><%= contact.name %></h2>
-
-	<table>
-		<tr>
-			<th>Street</th>
-			<th>City</th> 
-			<th>Zipcode</th>
-		</tr>
-		<% addresses.forEach(address => { %>
-		<tr>
-			<td><%= address.street %></td>
-			<td><%= address.city %></td>
-			<td><%= address.zipcode %></td>
-		</tr>
-		<% }); %>
-	</table>
-	
-	<br>
-	<br>
-	
-	<h2>Add New Address</h2>
-	<form action = "/addresses" method="POST">
-  		Street:<br>
-  		<input type = "text" name = "street">
-  		<br>
-  		City:<br>
-  		<input type = "text" name = "city">
-  		<br>
-  		Zipcode:<br>
-  		<input type = "text" name = "zipcode">
-  		<input type = "hidden" name="contactId" value="<%= contact.id %>">
-  		<br>
-  		<br>
-  		<input type = "submit" value = "Submit">
-	</form>
-
-</body>
-</html>
+<%- include('templates/header.ejs') %>
+  <div class = "flex-container">
+    <div class = "form-flex">
+      <h3>Add New Address</h3>
+      <form action = "/contacts/<%= data.contact.id %>/address" method="POST">
+        Street:<br>
+        <input type = "text" name = "street">
+        <br>
+        City:<br>
+        <input type = "text" name = "city">
+        <br>
+        Zipcode:<br>
+        <input type = "text" name = "zipcode">
+        <br>
+        <br>
+        <input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+      </form>
+    </div>
+    <div class = "table-flex">
+      <h3>Addresses: <%= data.contact.name %></h3>
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zipcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%data.addresses.forEach(address => { %>
+          <tr>
+            <td><%= address.id %></td>
+            <td><%= address.street %></td>
+            <td><%= address.city %></td>
+            <td><%= address.zipcode %></td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+  	</div>
+  </div>
+<%- include('templates/footer.ejs') %>

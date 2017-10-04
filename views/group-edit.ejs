@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Express Contacts-Groups</title>
-</head>
-<body>
-	<% 
-	const group = record;
-	const id = group.id;
-	const name = group.name_of_group;
-	%>
-	<h3>Edit Group: <%= name %></h3>
-
-	<form action = "/groups/edit/<%= id %>" method="POST">
-  		Group Name:<br>
-  		<input type = "text" name = "name_of_group" value= "<%= name %>">
-  		<br>
-  		<br>
-  		<input type = "submit" value = "Submit">
-	</form>
-
-</body>
-</html>
+<%- include('templates/header.ejs') %>
+  <div class="form-container">
+  	<h3>Edit Group</h3>
+  	<form action = "/groups/<%= data.group.id %>/edit" method="POST">
+    	Name Of Group:<br>
+    	<input type = "text" name = "name_of_group" value = "<%= data.group.name_of_group %>">
+    	<br>
+    	<br>
+    	<input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+  	</form>
+  </div>
+<%- include('templates/footer.ejs') %>

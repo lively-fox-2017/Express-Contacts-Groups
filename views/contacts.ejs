@@ -1,74 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Express Contacts-Groups</title>
-	<style>
-		table {
-			width: 62.8%;
-		}
-		th, td {
-		    border: 1px solid black;
-		}
-		td {
-			font-size: 12px;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<% 
-	const contacts = records;
-	%>
-	<a href="/">Home</a>
-	<h2>Contacts</h2>
-
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Company</th> 
-			<th>Phone</th>
-			<th>Email</th>
-		</tr>
-		<%
-		contacts.forEach( contact => {
-		%>
-		<tr>
-			<td><%= contact.id %></td>
-			<td><%= contact.name %></td>
-			<td><%= contact.company %></td>
-			<td><%= contact.telp_number %></td>
-			<td><%= contact.email %></td>
-			<td><a href="/contacts/edit/<%= contact.id %>">Edit</a></td>
-			<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
-			<td><a href="/contacts/addresses/<%= contact.id %>">Address</a></td>
-		</tr>
-		<%
-		});
-		%>
-	</table>
-	
-	<br>
-	<br>
-	
-	<h2>Create New Contact</h2>
-	<form action = "/contacts" method="POST">
+<%- include('templates/header.ejs') %>
+  <div class="table-container">
+    <h2>List Of Contacts</h2>
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Group(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%data.contacts.forEach(contact => { %>
+        <tr>
+          <td><%= contact.id %></td>
+          <td><%= contact.name %></td>
+          <td><%= contact.company %></td>
+          <td><%= contact.telp_number %></td>
+          <td><%= contact.email %></td>
+          <td>
+            <%contact.groups.forEach(group => {%>
+            <span><%= group.name_of_group %></span>
+            <%})%>
+          </td>
+          <td>
+            <a class = 'edit-btn z-depth-1' href="/contacts/<%=contact.id%>/edit">EDIT</a>
+          </td>
+          <td>
+            <a class = 'delete-btn z-depth-1' href="/contacts/<%=contact.id%>/delete">DELETE</a>
+          </td>
+          <td>
+            <a class = 'neutral-btn z-depth-1' href="/contacts/<%=contact.id%>/address">ADDRESS</a>
+          </td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </div>
+  <div class="form-container">
+    <h3>Create New Contact</h3>
+    <form action = "/contacts" method="POST">
   		Name:<br>
-  		<input type = "text" name = "name">
+  		<input type = "text" name = "name" autofocus>
   		<br>
   		Company:<br>
-  		<input type = "text" name = "company">
+  		<input type = "text" name = "company" required>
   		<br>
   		Phone:<br>
-  		<input type = "text" name = "telp_number">
+  		<input type = "text" name = "telp_number" required>
   		<br>
   		Email:<br>
-  		<input type = "text" name = "email">
+  		<input type = "text" name = "email" required>
+      <br>
+      Group:<br>
+      <select name="groupId">
+        <% data.groups.forEach(group => { %>
+        <option value="<%= group.id %>"><%= group.name_of_group %></option>
+        <%})%>
+      </select>
   		<br>
   		<br>
-  		<input type = "submit" value = "Submit">
-	</form>
-
-</body>
-</html>
+  		<input class="waves-effect waves-light btn-large teal accent-4" type = "submit" value = "Submit">
+    </form>
+  </div>
+<%- include('templates/footer.ejs') %>

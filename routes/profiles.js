@@ -1,27 +1,27 @@
+"use strict"
+
 const express = require('express');
 const router = express.Router();
-const ProfilesController = require('./../controllers/profiles-controller');
-
-let profilesController = new ProfilesController();
+const ProfilesCtrl = require('./../controllers/profiles');
 
 router.get('/', (req, res) => {
-	profilesController.serveProfiles(req, res);
+	ProfilesCtrl.serveProfiles(req, res);
 });
 
 router.post('/', (req, res) => {
-	profilesController.createProfile(req, res);
+	ProfilesCtrl.createProfile(req, res);
 });
 
-router.get('/edit/:id', (req, res) => {
-	profilesController.serveProfile(req, res);
+router.get('/:id/edit', (req, res) => {
+	ProfilesCtrl.editProfile(req, res);
 });
 
-router.post('/edit/:id', (req, res) => {
-	profilesController.updateProfile(req, res);
+router.post('/:id/edit', (req, res) => {
+	ProfilesCtrl.updateProfile(req, res);
 });
 
-router.get('/delete/:id', (req, res) => {
-	profilesController.deleteProfile(req, res);
+router.get('/:id/delete', (req, res) => {
+	ProfilesCtrl.deleteProfile(req, res);
 });
 
 module.exports = router;

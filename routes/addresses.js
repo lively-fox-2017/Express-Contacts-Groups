@@ -1,27 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const AddressesController = require('./../controllers/addresses-controller');
-
-let addressesController = new AddressesController();
+const AddressesCtrl = require('./../controllers/addresses');
 
 router.get('/', (req, res) => {
-	addressesController.serveAddresses(req, res);
+	AddressesCtrl.serveAddresses(req, res);
 });
 
 router.post('/', (req, res) => {
-	addressesController.createAddress(req, res);
+	AddressesCtrl.createAddress(req, res);
 });
 
-router.get('/edit/:id', (req, res) => {
-	addressesController.serveAddress(req, res);
+router.get('/:id/edit', (req, res) => {
+	AddressesCtrl.editAddress(req, res);
 });
 
-router.post('/edit/:id', (req, res) => {
-	addressesController.updateAddress(req, res);
+router.post('/:id/edit', (req, res) => {
+	AddressesCtrl.updateAddress(req, res);
 });
 
-router.get('/delete/:id', (req, res) => {
-	addressesController.deleteAddress(req, res);
+router.get('/:id/delete', (req, res) => {
+	AddressesCtrl.deleteAddress(req, res);
 });
 
 module.exports = router;
