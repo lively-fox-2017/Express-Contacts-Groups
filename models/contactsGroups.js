@@ -6,57 +6,81 @@ class ContactsGroups {
   constructor() {
 
   }
-  static findAll(cb){
-    db.all(`SELECT * FROM ContactsGroups`,(err,data)=>{
-      if (data.length==0) {
-        cb(err,data)
-      } else {
-        let length=data.length-1
-        // console.log('test select all contactsGroups',data.length);
-        var count = 0
-        data.forEach((temp)=>{
-          modelsContacts.findById(temp.ContactId,(err,rows)=>{
-            temp["name"]=rows.name;
-            temp["company"]=rows.company;
-            temp["email"]=rows.email;
-            count++
-            if(count == data.length) {
-              cb(err,data);
-            }
+  static findAll(){
+    return new Promise(function(resolve,reject){
+      db.all(`SELECT * FROM ContactsGroups`,(err,data)=>{
+        if (data.length==0) {
+          resolve(data)
+        } else {
+          // console.log('test select all contactsGroups',data.length);
+          var count = 0
+          data.forEach((temp)=>{
+            modelsContacts.findById(temp.ContactId)
+            .then((rows)=>{
+              temp["name"]=rows.name;
+              temp["company"]=rows.company;
+              temp["email"]=rows.email;
+              count++;
+              if(count == data.length) {
+                resolve(data);
+              }
+            })
+            .catch((err)=>{
+              reject(err);
+            })
           })
-        })
-      }
-    });
+        }
+      })
+    })
   }
-  static insertData(data,cb){
-    db.run(`INSERT INTO ContactsGroups (ContactId,GroupId) VALUES (${data.contactId},${data.groupId})`,function(err,result){
-      cb(err,result);
-    });
+  static insertData(data){
+    return new Promise(function(resolve,reject){
+      db.run(`INSERT INTO ContactsGroups (ContactId,GroupId) VALUES (${data.contactId},${data.groupId})`,function(err,result){
+        if (!err) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      })
+    })
   }
-  static findByGroupId(groupId,cb){
-    db.all(`SELECT * FROM ContactsGroups WHERE GroupId=${groupId}`,(err,data)=>{
-      if (data.length==0) {
-        cb(err,data)
-      } else {
-        var count=0;
-        data.forEach((temp)=>{
-          modelsContacts.findById(temp.ContactId,(err,rows)=>{
-            temp["name"]=rows.name;
-            temp["company"]=rows.company;
-            temp["email"]=rows.email;
-            count++;
-            if (count==data.length) {
-              cb(err,data);
-            }
+  static findByGroupId(groupId){
+    return new Promise(function(resolve,reject){
+      db.all(`SELECT * FROM ContactsGroups WHERE GroupId=${groupId}`,(err,data)=>{
+        if (data.length==0) {
+          resolve(data)
+        } else {
+          // console.log('test select all contactsGroups',data.length);
+          var count = 0
+          data.forEach((temp)=>{
+            modelsContacts.findById(temp.ContactId)
+            .then((rows)=>{
+              temp["name"]=rows.name;
+              temp["company"]=rows.company;
+              temp["email"]=rows.email;
+              count++;
+              if(count == data.length) {
+                resolve(data);
+              }
+            })
+            .catch((err)=>{
+              reject(err);
+            })
           })
-        })
-      }
-    });
+        }
+      })
+    })
   }
-  static deleteData(params,cb){
-    db.run(`DELETE FROM ContactsGroups WHERE id=${params.ContactGroupId}`,function(err,result){
-      cb(err,result);
-    });
+  static deleteData(params){
+    return new Promise(function(resolve,reject){
+      db.run(`DELETE FROM ContactsGroups WHERE id=${params.ContactGroupId}`,function(err,result){
+        if ((!err)) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      })
+    })
   }
 }
 

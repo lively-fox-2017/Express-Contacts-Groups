@@ -9,101 +9,106 @@ var db = new sqlite3.Database('./db/database.db');
 
 //groups
 router.get('/', (req, res) => {
-  modelsGroups.findAll((err,dataGroups)=>{
-    modelsContactsGroups.findAll((err,members)=>{
-      modelsGroups.joinDataGroupsMembers(dataGroups,members,(dataMembers)=>{
+  modelsGroups.findAll()
+  .then((dataGroups)=>{console.log('------');
+    modelsContactsGroups.findAll()
+    .then((members)=>{console.log('asdfas');
+      modelsGroups.joinDataGroupsMembers(dataGroups,members)
+      .then((dataMembers)=>{
         // res.send(dataMembers);
         res.render('groups',{data:dataMembers})
       })
     })
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 router.post('/', (req, res) => {
-  modelsGroups.insertData(req.body,(err,result)=>{
-    if (!err) {
+  modelsGroups.insertData(req.body)
+  .then((result)=>{
       res.redirect('/groups');
-    } else {
-      res.send(err)
-    }
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 router.get('/delete/:id', (req, res) => {
-  modelsGroups.deleteData(req.params,(err)=>{
-    if (!err) {
-      res.redirect('/groups');
-    } else {
-      res.send(err)
-    }
-  });
+  modelsGroups.deleteData(req.params)
+  .then((result)=>{
+      res.redirect('/groups')
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 router.get('/edit/:id', (req, res) => {
-  modelsGroups.findById(req.params.id,(err,data)=>{
-    if (!err) {
+  modelsGroups.findById(req.params.id)
+  .then((data)=>{
       // res.send(data)
       res.render('groups_edit',{data:data});
-    } else {
-      res.send(err)
-    }
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 router.post('/edit/:id', (req, res) => {
-  modelsGroups.updateData(req.body,req.params,(err)=>{
-    if (!err) {
+  modelsGroups.updateData(req.body,req.params)
+  .then((result)=>{
       res.redirect('/groups');
-    } else {
-      res.send(err)
-    }
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 
 router.get('/:id/assign_contacts', (req, res) => {
-  modelsGroups.findById(req.params.id,(err,data)=>{
-    modelsContacts.findAll((err,dataContacts)=>{
-      if (!err) {
-        // console.log(data);
+  modelsGroups.findById(req.params.id)
+  .then((data)=>{
+    modelsContacts.findAll()
+    .then((dataContacts)=>{
         res.render('assign_contacts',{data:data,dataContacts:dataContacts})
-        // res.send(data);
-      } else {
-        res.send(err)
-      }
     })
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 
 router.post('/:id/assign_contacts', (req, res) => {
   req.body["groupId"]=req.params.id;
-  modelsContactsGroups.insertData(req.body,(err)=>{
-    if (!err) {
+  modelsContactsGroups.insertData(req.body)
+  .then((err)=>{
       res.redirect(`/groups`);
-    } else {
-      res.send(err)
-    }
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 
 router.get('/:id/unassign_contacts', (req, res) => {
-  modelsGroups.findById(req.params.id,(err,data)=>{
-    modelsContactsGroups.findByGroupId(req.params.id,(err,dataMembers)=>{
-      if (!err) {
-        // console.log(data);
-        res.render('unassign_contacts',{data:data,dataMembers:dataMembers})
-        // res.send(dataMembers);
-      } else {
-        res.send(err)
-      }
+  modelsGroups.findById(req.params.id)
+  .then((data)=>{
+    modelsContactsGroups.findByGroupId(req.params.id)
+    .then((dataMembers)=>{
+      // console.log(data);
+      res.render('unassign_contacts',{data:data,dataMembers:dataMembers})
     })
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 
 router.get('/:id/unassign_contact/:ContactGroupId', (req, res) => {
   // console.log(req.params);
-  modelsContactsGroups.deleteData(req.params,function(err,result){
-    if (!err) {
+  modelsContactsGroups.deleteData(req.params)
+  .then(function(result){
       res.redirect(`/groups/${req.params.id}/unassign_contacts`);
-    } else {
-      res.send(err)
-    }
-  });
+  })
+  .catch((err)=>{
+    res.send(err);
+  })
 })
 
 module.exports = router;

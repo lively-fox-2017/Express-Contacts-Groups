@@ -7,68 +7,89 @@ class Groups {
   constructor() {
 
   }
-  static findAll(cb){
-    db.all('SELECT * FROM groups ORDER BY name',function (err,data){
-      cb(err,data);
-    });
-  }
-  static insertData(data,cb){
-    db.run(`INSERT INTO groups (name) VALUES ('${data.name}')`,function(err,result){
-      cb(err,result)
-    })
-  }
-  static deleteData(params,cb){
-    db.run(`DELETE FROM groups WHERE id=${params.id}`,function(err,result){
-      cb(err,result)
-    });
-  }
-  static findById(id,cb){
-    db.each(`SELECT * FROM groups WHERE id=${id}`,(err,data)=>{
-      cb(err,data);
-    });
-  }
-  static findBy(param,cb){
-    db.all(`SELECT * FROM groups WHERE ${param}`,(err,data)=>{
-      cb(err,data);
-    });
-  }
-  static updateData(data,params,cb){
-    db.run(`UPDATE groups SET name='${data.name}' WHERE id=${params.id}`,function(err,result){
-      cb(err,result)
-    });
-  }
-  static joinDataGroupsMembers(dataGroups,dataMembers,cb){
-    console.log('data members',dataMembers);
-    let newData=dataGroups.map(x=>{
-      x["members"]=[];
-      // console.log(dataMembers.length);
-      for (var i = 0; i < dataMembers.length; i++) {
-        // console.log(dataMembers[i].GroupId,'==',x.id);
-        if (dataMembers[i].GroupId==x.id){
-          // console.log(dataMembers);
-          x.members.push(dataMembers[i].name);
+  static findAll(){
+    return new Promise(function(resolve,reject){
+      db.all('SELECT * FROM groups ORDER BY name',function (err,data){
+        if (!err) {
+          resolve(data)
+        } else {
+          reject(err)
         }
-      }
-      return x
+      })
     })
-    cb(newData);
-    // let length=dataGroups.length-1;
-    // let newData=[]
-    // dataGroups.forEach((x,index)=>{
-    //   x["members"]=[]
-    //   for (var i = 0; i < dataMembers.length; i++) {
-    //     // console.log(dataMembers[i].GroupId,'==',x.id);
-    //     if (dataMembers[i].GroupId==x.id){
-    //       // console.log(dataMembers);
-    //       x.members.push(dataMembers[i].name);
-    //     }
-    //   }
-    //   newData.push(x)
-    //   if (index==length){
-    //     console.log(newData);
-    //     cb(newData);
-    //   }
-    // })
+  }
+  static insertData(data){
+    return new Promise(function(resolve,reject){
+      db.run(`INSERT INTO groups (name) VALUES ('${data.name}')`,function(err,result){
+        if (!err) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+  static deleteData(params){
+    return new Promise(function(resolve,reject){
+      db.run(`DELETE FROM groups WHERE id=${params.id}`,function(err,result){
+        if (!err) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+  static findById(id){
+    return new Promise(function(resolve,reject){
+      db.each(`SELECT * FROM groups WHERE id=${id}`,(err,data)=>{
+        if (!err) {
+          resolve(data)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+  static findBy(param){
+    return new Promise(function(resolve,reject){
+      db.all(`SELECT * FROM groups WHERE ${param}`,(err,data)=>{
+        if (!err) {
+          resolve(err)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+  static updateData(data,params){
+    return new Promise(function(resolve,reject){
+      db.run(`UPDATE groups SET name='${data.name}' WHERE id=${params.id}`,function(err,result){
+        if (!err) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+  static joinDataGroupsMembers(dataGroups,dataMembers){
+    // console.log('data members',dataMembers);
+    return new Promise(function(resolve,reject){
+      let newData=dataGroups.map(x=>{
+        x["members"]=[];
+        // console.log(dataMembers.length);
+        for (var i = 0; i < dataMembers.length; i++) {
+          // console.log(dataMembers[i].GroupId,'==',x.id);
+          if (dataMembers[i].GroupId==x.id){
+            // console.log(dataMembers);
+            x.members.push(dataMembers[i].name);
+          }
+        }
+        return x
+      })
+      resolve(newData)
+    })
   }
 }
 

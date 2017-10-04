@@ -5,53 +5,94 @@ const modelsContacts = require('../models/contacts')
 class Addresses {
   constructor() {
   }
-  static findAll(cb){
-    db.all('SELECT * FROM addresses ORDER BY street',function(err,data){
-      // let newAddresses=new Addresses(data);
-      cb(err,data);
-    });
+  static findAll(){
+    return new Promise(function(resolve,reject){
+      db.all('SELECT * FROM addresses ORDER BY street',function(err,data){
+        if (!err) {
+          resolve(data)
+        } else{
+          reject(err)
+        }
+      });
+    })
   }
-  static insertData(data,cb){
-    db.run(`INSERT INTO addresses (street,city,zipcode,contactId) VALUES ('${data.street}','${data.city}',${data.zipcode},${data.contactId})`,function(err,result){
-      cb(err,result)
-    });
+  static insertData(data){
+    return new Promise(function(resolve,reject){
+      db.run(`INSERT INTO addresses (street,city,zipcode,contactId) VALUES ('${data.street}','${data.city}',${data.zipcode},${data.contactId})`,function(err,result){
+        if (!err) {
+          resolve(this);
+        } else {
+          reject(err)
+        }
+      })
+    })
   }
-  static deleteData(params,cb){
-    db.run(`DELETE FROM addresses WHERE id=${params.id}`,function(err,result){
-      cb(err,result)
-    });
+  static deleteData(params){
+    return new Promise(function(resolve,reject){
+      db.run(`DELETE FROM addresses WHERE id=${params.id}`,function(err,result){
+        if (!err){
+          resolve(this)
+        } else {
+          reject(err)
+        }
+      });
+    })
   }
-  static findById(id,cb){
-    db.each(`SELECT * FROM addresses WHERE id=${id}`,function(err,data){
-      cb(err,data);
-    });
+  static findById(id){
+    return new Promise(function(resolve,reject){
+      db.each(`SELECT * FROM addresses WHERE id=${id}`,function(err,data){
+        if (!err) {
+          resolve(data)
+        } else {
+          reject(err)
+        }
+      });
+    })
   }
   static findBy(param,cb){
-    db.all(`SELECT * FROM addresses WHERE ${param}`,function(err,data){
-      cb(err,data);
+    return new Promise(function(resolve,reject){
+      db.all(`SELECT * FROM addresses WHERE ${param}`,function(err,data){
+      if (!err) {
+        resolve(data)
+      } else {
+        reject(err)
+      }
     });
+  })
   }
   static updateData(data,params,cb){
-    db.run(`UPDATE addresses SET street='${data.street}',city='${data.city}',zipcode=${data.zipcode}, contactId=${data.contactId} WHERE id=${params.id}`,function(err,data){
-      cb(err,result)
-    });
-  }
-  static findContact(dataAddress,cb){
-    if (dataAddress.length==0) {
-      cb([])
-    } else {
-      let count=0;
-      dataAddress.forEach((data)=>{
-        modelsContacts.findById(data.contactId,(err,rows)=>{
-          data["name"]=rows.name;
-          data["company"]=rows.company;
-          count++;
-          if (count==dataAddress.length) {
-            cb(dataAddress);
-          }
-        })
+    return new Promise(function(resolve,reject){
+      db.run(`UPDATE addresses SET street='${data.street}',city='${data.city}',zipcode=${data.zipcode}, contactId=${data.contactId} WHERE id=${params.id}`,function(err,result){
+        if (!err) {
+          resolve(this)
+        } else {
+          reject(err)
+        }
       })
-    }
+    })
+  }
+  static findContact(dataAddress){
+    return new Promise(function(resolve,reject){
+      if (dataAddress.length==0) {
+        resolve([])
+      } else {
+        let count=0;
+        dataAddress.forEach((data)=>{
+          modelsContacts.findById(data.contactId,(err,rows)=>{
+            if (!err) {
+              data["name"]=rows.name;
+              data["company"]=rows.company;
+              count++;
+              if (count==dataAddress.length) {
+                resolve(dataAddress);
+              }
+            } else {
+              reject(err)
+            }
+          })
+        })
+      }
+    })
   }
 }
 
