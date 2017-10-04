@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Contact</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <td>
+        <th>name</th>
+        <th>company</th>
+        <th>email</th>
+        <th>telp</th>
+        </td>
+      </thead>
+      <tbody>
+        <td>
+        <form action="/contact/edit/<%=dataContact.id%>" method="post">
+          <td><input type="text" name="name" value="<%=dataContact.name%>"placeholder="name"></td>
+          <td><input type="text" name="company" value="<%=dataContact.company%>" placeholder="company"></td>
+          <td><input type="text" name="telp_number"value="<%=dataContact.telp_number%>" placeholder="telp"></td>
+          <td><input type="text" name="email" value="<%=dataContact.email%>"placeholder="email"></td>
+          <td><input type="submit" value="submit"></td>
+        </form>
+        </td>
+      </tbody>
+    </table>
+  </body>
+</html>

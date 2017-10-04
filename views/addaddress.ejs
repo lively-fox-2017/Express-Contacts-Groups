@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Address</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <td>
+        <th>Street</th>
+        <th>city</th>
+        <th>zipcode</th>
+        </td>
+      </thead>
+      <tbody>
+        <td>
+        <form action="/address/addaddress" method="post">
+          <td><input type="text" name="street" placeholder="street"></td>
+          <td><input type="text" name="city" placeholder="city"></td>
+          <td><input type="text" name="zipcode" placeholder="zipcode"></td>
+          <select name="Contactsid">
+            <%dataContact.forEach(data=>{%>
+              <option value="<%=data.id%>"><%=data.name%></option>
+            <%})%>
+          </select>
+          <td><input type="submit" value="submit"></td>
+        </form>
+        </td>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/">back</a>
+    <table border="2px">
+      <thead>
+        <th>id</th>
+        <th>name_of_group</th>
+
+        <th>action</th>
+      </thead>
+      <tbody>
+          <%dataGroup.forEach(data=>{%>
+            <tr>
+            <td><%=data.id%></td>
+            <td><%=data.name_of_group%></td>
+
+            <td>
+              <a href="/group/addgroup">Add Contact</a>
+            <a href="/group/edit/<%=data.id%>">edit</a>
+            <a href="/group/delete/<%=data.id%>">delete</a></td>
+          <%})%>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>

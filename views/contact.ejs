@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/">back</a>
+    <table border="2px">
+      <thead>
+        <th>id</th>
+        <th>name</th>
+        <th>company</th>
+        <th>telp</th>
+        <th>email</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+          <%dataContact.forEach(data=>{%>
+            <tr>
+            <td><%=data.id%></td>
+            <td><%=data.name%></td>
+            <td><%=data.company%></td>
+            <td><%=data.telp_number%></td>
+            <td><%=data.email%></td>
+            <td>
+              <a href="/contact/addcontact">Add Contact</a>
+            <a href="/contact/edit/<%=data.id%>">edit</a>
+            <a href="/contact/delete/<%=data.id%>">delete</a></td>
+          <%})%>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>

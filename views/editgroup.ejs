@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Group</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <td>
+        <th>name Of Group</th>
+        </td>
+      </thead>
+      <tbody>
+        <td>
+        <form action="/group/edit/<%=dataGroup.id%>" method="post">
+          <td><input type="text" name="name_of_group" value="<%=dataGroup.name_of_group%>"placeholder="name Of Group"></td>
+          <td><input type="submit" value="submit"></td>
+        </form>
+        </td>
+      </tbody>
+    </table>
+  </body>
+</html>

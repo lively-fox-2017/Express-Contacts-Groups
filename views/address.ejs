@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/">back</a>
+    <table border="2px">
+      <thead>
+        <th>id</th>
+        <th>street</th>
+        <th>city</th>
+        <th>zipcode</th>
+        <th>idContacts</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+          <%dataAddress.forEach(data=>{%>
+            <tr>
+            <td><%=data.id%></td>
+            <td><%=data.street%></td>
+            <td><%=data.city%></td>
+            <td><%=data.zipcode%></td>
+            <td><%=data.idContacts%></td>
+
+            <td>
+              <a href="/address/addaddress">Add Address</a>
+            <a href="/address/edit/<%=data.id%>">edit</a>
+            <a href="/address/delete/<%=data.id%>">delete</a></td>
+          <%})%>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>
