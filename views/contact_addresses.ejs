@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contacts List of <%=data.name%></title>
+  </head>
+  <body>
+    <h1>Adresses List of <%=data.name%></h1>
+    <a href="/contacts">Return to Contacts</a><br><br>
+    <table>
+      <thead>
+        <th>No</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Zipcode</th>
+        <th>Options</th>
+      </thead>
+      <tbody>
+        <% let urut=0; if (dataAddresses){dataAddresses.forEach(rows=>{ urut++;%>
+        <tr>
+          <td><%=urut%></td>
+          <td><%=rows.street%></td>
+          <td><%=rows.city%></td>
+          <td><%=rows.zipcode%></td>
+          <td>
+            <a href="/addresses/edit/<%=rows.id%>">Edit</a>
+            <a href="#">|</a>
+            <a onclick="return confirm('Are you sure to delete this data?')" href="/addresses/delete/<%=rows.id%>">Delete</a>
+          </td>
+        </tr>
+        <%})}%>
+      </tbody>
+    </table>
+    <br>
+    <form class="" action="/contacts/<%=data.id%>/addresses" method="post">
+      Street <br>
+      <input type="text" name="street" placeholder="street"><br>
+      City <br>
+      <input type="text" name="city" placeholder="city"><br>
+      Zipcode <br>
+      <input type="text" name="zipcode" placeholder="zipcode"><br><br>
+      <button type="post" name="button">Add Data</button>
+    </form>
+  </body>
+</html>

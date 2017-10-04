@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Profile List</title>
+    <style media="screen">
+      h4 {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Profile List</h1>
+    <a href="/">Return to Home</a><br><br>
+    <table>
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Options</th>
+      </thead>
+      <tbody>
+        <%urut=0; if (data){data.forEach(rows=>{ urut++;%>
+        <tr>
+          <td><%=urut%></td>
+          <td><%=rows.name%></td>
+          <td><%=rows.company%></td>
+          <td><%=rows.username%></td>
+          <td><%=rows.password%></td>
+          <td>
+            <a href="/profiles/edit/<%=rows.id%>">Edit</a>
+            <a href="#">|</a>
+            <a onclick="return confirm('Are you sure to delete this data?')" href="/profiles/delete/<%=rows.id%>">Delete</a>
+          </td>
+        </tr>
+        <%})}%>
+      </tbody>
+    </table>
+    <br>
+    <h4><%=sendError%></h4>
+    <form class="" action="/profiles" method="post">
+      Name <br>
+      <select class="" name="contactId">
+        <%if (dataContacts) {dataContacts.forEach(rows=>{%>
+          <option value="<%=rows.id%>"><%=rows.name%></option>
+        <%})}%>
+      </select><br>
+      Username <br>
+      <input type="text" name="username" placeholder="username"><br>
+      Password <br>
+      <input type="password" name="password" placeholder="password"><br><br>
+      <button type="post" name="button">Add Data</button>
+    </form>
+  </body>
+</html>

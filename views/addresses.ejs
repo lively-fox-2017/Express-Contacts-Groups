@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Adresses List</title>
+  </head>
+  <body>
+    <h1>Adresses List</h1>
+    <a href="/">Return to Home</a><br><br>
+    <table>
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Zipcode</th>
+        <th>Options</th>
+      </thead>
+      <tbody>
+        <% let urut=0; data.forEach(rows=>{ urut++;%>
+        <tr>
+          <td><%=urut%></td>
+          <td><%=rows.name%></td>
+          <td><%=rows.company%></td>
+          <td><%=rows.street%></td>
+          <td><%=rows.city%></td>
+          <td><%=rows.zipcode%></td>
+          <td>
+            <a href="/addresses/edit/<%=rows.id%>">Edit</a>
+            <a href="#">|</a>
+            <a onclick="return confirm('Are you sure to delete this data?')" href="/addresses/delete/<%=rows.id%>">Delete</a>
+          </td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+    <br>
+    <form class="" action="/addresses" method="post">
+      Name <br>
+      <select class="" name="contactId">
+        <%if (dataContacts){dataContacts.forEach(rows=>{%>
+          <option value="<%=rows.id%>"><%=rows.name%></option>
+        <%})}%>
+      </select><br>
+      Street <br>
+      <input type="text" name="street" placeholder="street"><br>
+      City <br>
+      <input type="text" name="city" placeholder="city"><br>
+      Zipcode <br>
+      <input type="text" name="zipcode" placeholder="zipcode"><br><br>
+      <button type="post" name="button">Add Data</button>
+    </form>
+  </body>
+</html>

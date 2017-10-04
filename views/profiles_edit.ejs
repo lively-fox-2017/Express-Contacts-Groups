@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Profile Edit</title>
+    <style media="screen">
+      h4 {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Profile Edit</h1>
+    <h4><%=sendError%></h4>
+    <a href="/profiles">Return to Profile</a><br><br>
+    <form class="" action="/profiles/edit/<%=data.id%>" method="post">
+      Name <br>
+      <select class="" name="contactId">
+        <%if (dataContacts){dataContacts.forEach(rows=>{%>
+          <%if (data.contactId==rows.id){%>
+            <option value="<%=rows.id%>" selected><%=rows.name%></option>
+          <%} else {%>
+            <option value="<%=rows.id%>"><%=rows.name%></option>
+          <%}%>
+        <%})}%>
+      </select><br>
+      Username <br>
+      <input type="text" name="username" value="<%=data.username%>" placeholder="username"><br>
+      Password <br>
+      <input type="password" name="password" value="<%=data.password%>" placeholder="password"><br><br>
+      <button type="submit" name="button">Edit Data</button>
+    </form>
+  </body>
+</html>
