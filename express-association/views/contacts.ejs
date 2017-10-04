@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h3>Welcome, ? (Contacts)</h3>
+
+  <table border="1" cellpadding="5">
+    <thead>
+      <th>No</th>
+      <th>Name</th>
+      <th>Company</th>
+      <th>Telp Number</th>
+      <th>Email</th>
+      <th>Action</th>
+    </thead>
+    <% let j = 1
+      for(let i = 0; i < data.length; i++){ %>
+      <thead>
+        <td><%= j %></td>
+        <td><%= data[i].name %></td>
+        <td><%= data[i].company %></td>
+        <td><%= data[i].telp_number %></td>
+        <td><%= data[i].email %></td>
+        <td>
+          <a href="/contacts/edit/<%= data[i].id %>">Edit</a>
+          <a href="/contacts/delete/<%= data[i].id %>">Delete</a>
+          <a href="/contacts/address/<%= data[i].id %>">Address</a>
+        </td>
+      </thead>
+    <% j++ } %>
+  </table>
+
+  <form class="" action="/contacts" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Name: </td>
+        <td>
+          <input type="text" name="name" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Company: </td>
+        <td>
+          <input type="text" name="company" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Telp Number: </td>
+        <td>
+          <input type="text" name="telp_number" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td>
+          <input type="email" name="email" value="">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <br>
+
+  <a href="/"> << back to home </a>
+
+</body>
+</html>

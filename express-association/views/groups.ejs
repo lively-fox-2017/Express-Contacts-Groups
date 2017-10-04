@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+</head>
+<body>
+
+	<h2>Welcome, ? (Groups)</h2>
+
+	<table border="1" cellpadding="5">
+		<thead>
+			<th>No</th>
+			<th>Name Of Groups</th>
+			<th>Contact Name</th>
+			<th>Contact</th>
+			<th>Action</th>
+		</thead>
+		<% let j = 1
+			for(let i = 0; i < dataGro.length; i++){ %>
+			<tbody>
+				<td><%= j %></td>
+				<td><%= dataGro[i].name_of_group %></td>
+				<td>
+					<a href="/groups/contact/<%= dataGro[i].id %>">Assign Contact</a>
+				</td>
+				<td>
+					<a href="/groups/edit/<%= dataGro[i].id %>">Edit</a>
+					<a href="/groups/delete/<%= dataGro[i].id %>">Delete</a>
+				</td>
+			</tbody>
+		<% j++ } %>
+	</table>
+
+	<form action="/groups" method="POST" style="margin-top:20px">
+		<table>
+			<tr>
+				<td>Name Of Group: </td>
+				<td>
+					<input type="text" name="nog">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" value="Save">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<br>
+
+	<a href="/"> << back to home </a>
+	
+</body>
+</html>

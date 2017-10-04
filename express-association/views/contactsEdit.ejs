@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h3>Welcome, ? (Contacts Edit)</h3>
+
+  <form class="" action="/contacts/edit/<%= data.id %>" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Name: </td>
+        <td>
+          <input type="text" name="name" value="<%= data.name %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Company: </td>
+        <td>
+          <input type="text" name="company" value="<%= data.company %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Telp Number: </td>
+        <td>
+          <input type="text" name="telp_number" value="<%= data.telp_number %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td>
+          <input type="email" name="email" value="<%= data.email %>">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <br>
+
+  <a href="/contacts"> << back to contacts </a>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+</head>
+<body>
+
+	<h2>Welcome, ? (Groups Contact)</h2>
+
+	<table border="1" cellpadding="5">
+		<thead>
+			<th>No</th>
+			<th>Name Of Group</th>
+		</thead>
+		<tbody>
+			<td>1</td>
+			<td><%= dataGro.name_of_group %></td>
+		</tbody>
+	</table>
+
+	<form action="/groups/contact/<%= dataGro.id %>" method="post">
+		<table style="margin-top: 20px">
+			<tr>
+				<td>Contact Name: </td>
+				<td>
+					<select name="contactName">
+						<option value=""> - choose - </option>
+						<% for(let i = 0; i < dataCon.length; i++){ %>
+							<option value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+						<% } %>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" value="Save">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<br>
+
+	<a href="/groups"> << back to groups </a>
+	
+</body>
+</html>

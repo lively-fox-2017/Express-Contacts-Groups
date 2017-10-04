@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <h2>Welcome, ? (Profiles)</h2>
+
+  <form class="" action="/profiles/edit/<%= dataProId[0].id %>" method="post" style="margin-top:20px">
+    <table>
+      <tr>
+        <td>Username: </td>
+        <td>
+          <input type="text" name="user" value="<%= dataProId[0].username %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Password: </td>
+        <td>
+          <input type="password" name="pass" value="<%= dataProId[0].password %>">
+        </td>
+      </tr>
+      <tr>
+        <td>Contact Name</td>
+        <td>
+          <select name="contactName">
+            <option value=""> - choose - </option>
+            <% for(let i = 0; i < dataCon.length; i++){ %>
+              <% let selected = 'selected' %>
+              <% if(dataProId[0].contact_id === dataCon[i].id){ %>
+                <option <%= selected %> value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+              <% }else{ %>
+                <option value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
+              <% } %>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="submit" name="" value="Save">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <br>
+
+  <a href="/profiles"> << back to profiles </a>
+
+</body>
+</html>
