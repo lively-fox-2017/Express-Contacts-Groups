@@ -54,6 +54,39 @@ function createTableAddresses(){
 
 }
 
+function createTableGroups(){
+
+  let query = `CREATE TABLE Groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_of_group VARCHAR(50)
+  )`
+
+  db.run(query, function(err){
+    if(!err){
+      console.log(`Create table groups berhasil!`)
+    }
+  })
+
+}
+
+function createTableGroupContact(){
+
+  let query = `CREATE TABLE GroupsContacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    contact_id INTEGER,
+    group_id INTEGER,
+    FOREIGN KEY (contact_id) REFERENCES Contacts (id),
+    FOREIGN KEY (group_id) REFERENCES Groups (id)
+  )`
+
+  db.run(query, function(err){
+    if(!err){
+      console.log(`Create table groupcontact berhasil!`)
+    }
+  })
+
+}
+
 function addContactID(){
 
   let query = `ALTER TABLE Adresses ADD COLUMN contact_id REFERENCES Contacts(id)`
@@ -90,6 +123,14 @@ function renameTableAdresses(){
 
 }
 
+function deleteContactID(){
+
+  let query = `DELETE FROM Groups `
+
+}
+
+// createTableGroupContact()
+// createTableGroups()
 // createTableContacts()
 // createTableProfiles()
 // createTableAddresses()

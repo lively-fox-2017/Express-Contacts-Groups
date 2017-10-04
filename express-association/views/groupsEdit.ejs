@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+</head>
+<body>
+
+	<h2>Welcome, ? (Groups)</h2>
+
+	<form action="/groups/edit/<%= data.id %>" method="POST" style="margin-top:20px">
+		<table>
+			<tr>
+				<td>Name Of Group: </td>
+				<td>
+					<input type="text" name="nog" value="<%= data.name_of_group %>">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" value="Save">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<br>
+
+	<a href="/groups"> << back to groups </a>
+	
+</body>
+</html>

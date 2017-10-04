@@ -10,24 +10,24 @@
 
   <h3>Welcome, ? (Addresses Edit)</h3>
 
-  <form class="" action="/addresses/edit/<%= dataAdd[0].id %>" method="post" style="margin-top:20px">
+  <form class="" action="/addresses/edit/<%= dataAdd.id %>" method="post" style="margin-top:20px">
     <table>
       <tr>
         <td>Street: </td>
         <td>
-          <input type="text" name="street" value="<%= dataAdd[0].street %>">
+          <input type="text" name="street" value="<%= dataAdd.street %>">
         </td>
       </tr>
       <tr>
         <td>City: </td>
         <td>
-          <input type="text" name="city" value="<%= dataAdd[0].city %>">
+          <input type="text" name="city" value="<%= dataAdd.city %>">
         </td>
       </tr>
       <tr>
         <td>Zipcode: </td>
         <td>
-          <input type="text" name="zipcode" value="<%= dataAdd[0].zipcode %>">
+          <input type="text" name="zipcode" value="<%= dataAdd.zipcode %>">
         </td>
       </tr>
       <tr>
@@ -37,7 +37,7 @@
             <option value=""> - choose - </option>
             <% for(let i = 0; i < dataCon.length; i++){ %>
               <% let selected = 'selected'
-                if(dataAdd[0].contact_id === dataCon[i].id){ %>
+                if(dataAdd.contact_id === dataCon[i].id){ %>
                 <option <%= selected %> value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>
               <% }else{ %>
                 <option value="<%= dataCon[i].id %>"><%= dataCon[i].name %></option>

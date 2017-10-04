@@ -8,61 +8,84 @@
 </head>
 <body>
 
-  <h3>Welcome, ? (Address Contact)</h3>
+  <h2>Welcome, ? (Address Contact)</h2>
 
   <table border="1" cellpadding="5">
     <thead>
       <th>No</th>
       <th>Name</th>
       <th>Company</th>
-      <th>Addresses</th>
+      <th>Telp</th>
+      <th>Email</th>
     </thead>
-    <% let j = 1
-      for(let i = 0; i < dataCon.length; i++){ %>
-      <tbody>
-        <td><%= j %></td>
-        <td><%= dataCon[i].name %></td>
-        <td><%= dataCon[i].company %></td>
-        <td>
-          <% for(let k = 0; k < dataAdd.length; k++){ %>
-            <%= dataAdd[k].street %>,
-          <% } %>
-        </td>
-      </tbody>
-    <% } %>
+    <tbody>
+      <td>1</td>
+      <td><%= dataCon['name'] %></td>
+      <td><%= dataCon['company'] %></td>
+      <td><%= dataCon['telp_number'] %></td>
+      <td><%= dataCon['email'] %></td>
+    </tbody>
   </table>
-  <% if (dataAdd.length > 0) {%>
-  <form class="" action="/contacts/address/<%= dataAdd[0].id %>" method="post" style="margin-top:20px">
-    <table>
-      <tr>
-        <td>Street: </td>
-        <td>
-          <input type="text" name="street" value="">
-        </td>
-      </tr>
-      <tr>
-        <td>City: </td>
-        <td>
-          <input type="text" name="city" value="">
-        </td>
-      </tr>
-      <tr>
-        <td>Zipcode:</td>
-        <td>
-          <input type="text" name="zipcode" value="">
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <input type="submit" name="" value="Save">
-        </td>
-      </tr>
-    </table>
-  </form>
-  <% } else {%>
-    <a href="/addresses" style="margin: 20px 0; display:inline-block">Address</a>
+
+
+  <h3>address</h3>
+  <% if (dataAdd.length > 0) { %>
+    <table border="1" cellpadding="5">
+      <thead>
+        <th>No</th>
+        <th>ID</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Zip code</th>
+      </thead>
+      <tbody>
+        <% let j = 1
+          for(let i = 0; i < dataAdd.length; i++) { %>
+          <tr>
+            <td><%= j %></td>
+            <td><%= dataAdd[i]['id'] %></td>
+            <td><%= dataAdd[i]['street'] %></td>
+            <td><%= dataAdd[i]['city'] %></td>
+            <td><%= dataAdd[i]['zipcode'] %></td>
+          </tr>
+        <% j++ } %> 
+      </tbody>
+    </table> 
   <% } %>
+
+  <% if(dataAdd.length !== 0){ %>
+    <form action="/contacts/address/<%= dataCon.id %>" method="post" style="margin-top:20px">
+      <table>
+        <tr>
+          <td>Street: </td>
+          <td>
+            <input type="text" name="street">
+          </td>
+        </tr>
+        <tr>
+          <td>City: </td>
+          <td>
+            <input type="text" name="city">
+          </td>
+        </tr>
+        <tr>
+          <td>Zipcode: </td>
+          <td>
+            <input type="text" name="zipcode">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="Save">
+          </td>
+        </tr>
+      </table>
+    </form>
+  <% }else{ %>
+    <a href="/addresses" style="margin:0 0 20px; display: inline-block">Address</a>
+  <% } %>
+
   <br>
 
   <a href="/contacts"> << back to contacts </a>

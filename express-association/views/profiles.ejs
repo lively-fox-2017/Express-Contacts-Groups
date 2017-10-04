@@ -13,6 +13,7 @@
   <table border="1" cellpadding="5">
     <thead>
       <th>No</th>
+      <th>ID</th>
       <th>Username</th>
       <th>Password</th>
       <th>Contact Name</th>
@@ -23,12 +24,13 @@
       for(let i = 0; i < dataPro.length; i++){ %>
       <tbody>
         <td><%= j %></td>
+        <td><%= dataPro[i].id %></td>
         <td><%= dataPro[i].username %></td>
         <td><%= dataPro[i].password %></td>
-        <td><%= dataPro[i].name %></td>
+        <td><%= dataPro[i].contact_name %></td>
         <td>
-          <a href="/profiles/edit/<%= dataPro[i].ids %>">Edit</a>
-          <a href="/profiles/delete/<%= dataPro[i].ids %>">Delete</a>
+          <a href="/profiles/edit/<%= dataPro[i].id %>">Edit</a>
+          <a href="/profiles/delete/<%= dataPro[i].id %>">Delete</a>
         </td>
       </tbody>
     <% j++ }} %>
@@ -36,6 +38,8 @@
 
   <% if(dataErr) { %>
     <p style="color: red; font-size: 13px"><%= dataErr %></p>
+  <% }else{ %>
+    <p style="color: green; font-size: 13px"><%= dataNoErr %></p>
   <% } %>
 
   <form class="" action="/profiles" method="post" style="margin-top:20px">

@@ -26,10 +26,10 @@
         <td><%= dataAdd[i].street %></td>
         <td><%= dataAdd[i].city %></td>
         <td><%= dataAdd[i].zipcode %></td>
-        <td><%= dataAdd[i].name %></td>
+        <td><%= dataAdd[i].contact_name %></td>
         <td>
-          <a href="/addresses/edit/<%= dataAdd[i].ids %>">Edit</a>
-          <a href="/addresses/delete/<%= dataAdd[i].ids %>">Delete</a>
+          <a href="/addresses/edit/<%= dataAdd[i].id %>">Edit</a>
+          <a href="/addresses/delete/<%= dataAdd[i].id %>">Delete</a>
         </td>
       </tbody>
     <% j++ } %>
