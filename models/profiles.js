@@ -10,39 +10,52 @@ class Profile {
 		this.id_contacts = id_contacts
 	}
 
-	static getAllProfiles(callback) {
-		db.all('SELECT * FROM profiles', function(err, rows){
+	static getAllProfiles() {
+		return new Promise((resolve, reject) => {
+			db.all('SELECT * FROM profiles', function(err, rows){
 			let profiles = [];
 			rows.forEach((row) => {
 				let profile = new Profile(row.id, row.username, row.password, row.id_contacts);
 				profiles.push(profile);	
 			});
-				callback(profiles);
-  		});
+				resolve(profiles);
+  			});
+		});
 	}
 
-	static getByIDProfile(reqParams, callback) {
-		db.get(`SELECT * FROM profiles WHERE id = ${reqParams}`, function(err, rows){
+	static getByIDProfile(reqParams) {
+		return new Promise((resolve, reject) => {
+			db.get(`SELECT * FROM profiles WHERE id = ${reqParams}`, function(err, rows){
 			let profile = new Profile(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
-			callback(profile);
+			resolve(profile);
+			});
 		});
 	}
 
-	static insertProfile(username, password, id_contacts, callback){
-		db.run(`INSERT INTO profiles (username, password, id_contacts) VALUES ('${username}', '${password}', '${id_contacts}')`, function(err, rows){
-			callback(err);
+	static insertProfile(username, password, id_contacts){
+		return new Promise((resolve, reject) => {
+			db.run(`INSERT INTO profiles (username, password, id_contacts) VALUES ('${username}', '${password}', '${id_contacts}')`, function(err, rows){
+			if (err) {
+				reject(err);
+			}
+			resolve(rows);
+			});
 		});
 	}
 
-	static updateProfile(username, password, reqParams, callback){
-		db.run(`UPDATE profiles SET username = '${username}', password = '${password}' WHERE id = ${reqParams}`, function(err, rows){
-			callback();
+	static updateProfile(username, password, reqParams){
+		return new Promise((resolve, reject) => {
+			db.run(`UPDATE profiles SET username = '${username}', password = '${password}' WHERE id = ${reqParams}`, function(err, rows){
+			resolve(rows);
+			});
 		});
 	}
 
-	static deleteProfile(reqParams, callback) {
-		db.run(`DELETE FROM profiles WHERE id = ${reqParams}`, function(err, rows){
-			callback();
+	static deleteProfile(reqParams) {
+		return new Promise((resolve, reject) => {
+			db.run(`DELETE FROM profiles WHERE id = ${reqParams}`, function(err, rows){
+			resolve(rows);
+			});
 		});
 	}
 }

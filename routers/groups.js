@@ -12,31 +12,31 @@ app.use(bodyParser.json());
 const Group = require('../models/groups');
 
 router.get('/groups', function(req, res){
-  Group.getAllGroups(function(groups){
-    res.render('groups/index', {groups: groups});
+  Group.getAllGroups().then((rows) => {
+    res.render('groups/index', {groups: rows});
   });
 });
 
 router.get('/groups/edit/:id', function(req, res){
-  Group.getByIDGroup(req.params.id, function(rows){
+  Group.getByIDGroup(req.params.id).then((rows) => {
     res.render('groups/edit', {groups: rows});
   });
 });
 
 router.post('/groups', function(req, res){
-  Group.insertGroup(req.body.name_of_group, function(){
+  Group.insertGroup(req.body.name_of_group).then((rows) => {
     res.redirect('/groups');
   });
 });
 
 router.post('/groups/edit/:id', function(req, res){
-  Group.updateGroup(req.body.name_of_group, req.params.id, function(){
+  Group.updateGroup(req.body.name_of_group, req.params.id).then((rows) => {
     res.redirect('/groups');
   });
 });
 
 router.get('/groups/delete/:id', function(req, res){
-  Group.deleteGroup(req.params.id, function(){
+  Group.deleteGroup(req.params.id).then((rows) => {
     res.redirect('/groups');
   });
 });

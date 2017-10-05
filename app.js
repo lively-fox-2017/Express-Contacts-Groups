@@ -2,9 +2,9 @@
 const express = require('express');
 const app = express();
 
-// sqlite3
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data.db');
+// // sqlite3
+// const sqlite3 = require('sqlite3').verbose();
+// const db = new sqlite3.Database('./data.db');
 
 // body parser
 const bodyParser = require('body-parser');

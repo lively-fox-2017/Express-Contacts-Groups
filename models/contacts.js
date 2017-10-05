@@ -11,48 +11,50 @@ class Contact {
 		this.email = email
 	}
 
-	static getAllContacts(callback) {
-		db.all('SELECT * FROM contacts', function(err, rows){
+	static getAllContacts() {
+		return new Promise((resolve, reject) => {
+			db.all('SELECT * FROM contacts', function(err, rows){
 			let contacts = [];
 			rows.forEach((row) => {
 				let contact = new Contact(row.id, row.name, row.company, row.telp_number, row.email);
 				contacts.push(contact);	
-			})
-				callback(contacts);
-  		});
-	}
-
-	static getByIDContact(reqParams, callback) {
-		db.get(`SELECT * FROM contacts WHERE id = ${reqParams}`, function(err, rows){
-			let address = new Contact(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
-			callback(address);
+			});
+				resolve(contacts);
+  			});
 		});
 	}
 
-	static insertContact(name, company, telp_number, email, callback){
-		db.run(`INSERT INTO contacts (name, company, telp_number, email) VALUES ('${name}', '${company}', '${telp_number}', '${email}')`, function(err, rows){
-			callback();
+	static getByIDContact(reqParams) {
+		return new Promise((resolve, reject) => {
+			db.get(`SELECT * FROM contacts WHERE id = ${reqParams}`, function(err, rows){
+			let contact = new Contact(rows.id, rows.name, rows.company, rows.telp_number, rows.email);
+			resolve(contact);
+			});
 		});
 	}
 
-	static updateContact(name, company, telp_number, email, reqParams, callback){
-		db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${reqParams}`, function(err, rows){
-			callback();
+	static insertContact(name, company, telp_number, email){
+		return new Promise((resolve, reject) => {
+			db.run(`INSERT INTO contacts (name, company, telp_number, email) VALUES ('${name}', '${company}', '${telp_number}', '${email}')`, function(err, rows){
+			resolve(rows);
+			});
 		});
 	}
 
-	static deleteContact(reqParams, callback) {
-		db.run(`DELETE FROM contacts WHERE id = ${reqParams}`, function(err, rows){
-			callback();
+	static updateContact(name, company, telp_number, email, reqParams){
+		return new Promise((resolve, reject) => {
+			db.run(`UPDATE contacts SET name = '${name}', company = '${company}', telp_number = '${telp_number}', email = '${email}' WHERE id = ${reqParams}`, function(err, rows){
+			resolve(rows);
+			});
 		});
 	}
 
-	static getaddresses(params, cb) {
-		db.all(`SELECT * FROM addresses WHERE id_contacts = ${params}`, function(err, rows1){
-    		db.all(`SELECT * FROM contacts WHERE id = ${params}`, function(err, rows2){
-    			cb(rows1, rows2);
-    		});
-  		});
+	static deleteContact(reqParams) {
+		return new Promise((resolve, reject) => {
+			db.run(`DELETE FROM contacts WHERE id = ${reqParams}`, function(err, rows){
+			resolve(rows);
+			});
+		});
 	}
 }
 

@@ -14,11 +14,11 @@ db.serialize((err, rows) => {
 	}
 	  console.log('Table groups created!!');
 
-  db.run('CREATE TABLE IF NOT EXISTS profile (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)');
+  db.run('CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)');
 	if (err) {
-	  console.log('Error create table profile!');
+	  console.log('Error create table profiles!');
 	}
-	  console.log('Table profile created!!');
+	  console.log('Table profiles created!!');
 
   db.run('CREATE TABLE IF NOT EXISTS addresses (id INTEGER PRIMARY KEY AUTOINCREMENT, street TEXT, city TEXT, zipcode INTEGER)');
 	if (err) {
@@ -26,21 +26,21 @@ db.serialize((err, rows) => {
 	}
 	  console.log('Table addresses created!!');
   
-  // db.run('ALTER TABLE profile ADD id_contacts INTEGER REFERENCES contacts(id)');
-  //   if (err) {
-  //     console.log('Error alter table profile');
-  //   }
-  //     console.log('Alter table profile success');
+  db.run('ALTER TABLE profiles ADD id_contacts INTEGER REFERENCES contacts(id)');
+    if (err) {
+      console.log('Error alter table profiles');
+    }
+      console.log('Alter table profiles success');
 
-  // db.run('CREATE UNIQUE INDEX id_contacts ON profile (id_contacts)');
-  //   if (err) {
-  //     console.log('Error create unique index');
-  //   }
-  //     console.log('Create unique index success');
+  db.run('CREATE UNIQUE INDEX id_contacts ON profiles (id_contacts)');
+    if (err) {
+      console.log('Error create unique index');
+    }
+      console.log('Create unique index success');
 
-//   db.run('ALTER TABLE addresses ADD id_contacts INTEGER REFERENCES contacts(id)');
-//     if (err) {
-//       console.log('Error alter table addresses');
-//     }
-//       console.log('Alter table addresses success');
+  db.run('ALTER TABLE addresses ADD id_contacts INTEGER REFERENCES contacts(id)');
+    if (err) {
+      console.log('Error alter table addresses');
+    }
+      console.log('Alter table addresses success');
 });
