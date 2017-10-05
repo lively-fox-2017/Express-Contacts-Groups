@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PROFILE</title>
+  </head>
+  <body>
+    <h1>PROFILE</h1>
+    <!-- Menu -->
+    <table>
+      <tr>
+        <td><a href="/contacts">Contacts</a></td>
+      </tr>
+      <tr>
+        <td><a href="/groups">Groups</a></td>
+      </tr>
+      <tr>
+        <td><a href="/addresses">Addresses</a></td>
+      </tr>
+      <tr>
+        <td><a href="/profile">Profile</a></td>
+      </tr>
+    </table>
+
+    <!-- Table -->
+    <table border="1px solid gray">
+      <thead>
+      	<tr>
+      	  <th>ID</th>
+      	  <th>Name</th>
+      	  <th>Username</th>
+          <th>Password</th>
+          <th>ID Contacts</th>
+      	  <th>Options</th>
+      	</tr>
+      </thead>
+      <tbody>
+      	<% for (let i = 0; i < profile.length; i++) { %>
+      	<tr>
+      	  <td><%= profile[i].id %></td>
+          <td><%= profile[i].name %></td>
+      	  <td><%= profile[i].username %></td>
+      	  <td><%= profile[i].password %></td>
+          <td><%= profile[i].id_contacts %></td>
+      	  <td>
+      	  	<a href="/profile/edit/<%= profile[i].id%>">Edit</a>
+      	  	<a href="/profile/delete/<%= profile[i].id%>">Delete</a>
+      	  </td>
+      	</tr>
+      	<% } %>
+      </tbody>
+    </table>
+
+    <!-- Form -->
+    
+    <form action="/profile" method="POST">
+      Username:<br>
+      <input type="text" name="username" value="">
+      <br>
+      Password:<br>
+      <input type="password" name="password" value="">
+      <br>
+      Name:<br>
+      <select name="id_contacts">
+      <% for(let i = 0; i < contacts.length; i++) { %>
+      <option value="<%= contacts[i].id %>"><%= contacts[i].name %></option>
+      <% } %>
+      </select><br>
+    <br>
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>

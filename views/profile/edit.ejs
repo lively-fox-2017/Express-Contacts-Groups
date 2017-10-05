@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PROFILE</title>
+  </head>
+  <body>
+    <h1>EDIT PROFILE</h1>
+    <!-- Form -->
+    <form action="/profile/edit/<%= profile.id %>" method="POST">
+      Username:<br>
+      <input type="text" name="username" value="<%= profile.username %>">
+      <br>
+      Password:<br>
+      <input type="password" name="password" value="<%= profile.password %>">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>

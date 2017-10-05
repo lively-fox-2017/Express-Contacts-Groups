@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EXPRESS DEMO</title>
+  </head>
+  <body>
+    <h1>EDIT GROUP</h1>
+
+    <!-- Form -->
+    <form action="/groups/edit/<%= groups.id %>" method="POST">
+      Group Name:<br>
+      <input type="text" name="name_of_group" value="<%= groups.name_of_group %>">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+  </body>
+</html>
