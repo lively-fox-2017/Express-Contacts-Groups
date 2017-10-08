@@ -1,0 +1,32 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div>
+            <form action="/editContactFinal" method="POST">
+                <input type="text" value=<%= temp.id%> name="id">
+                <input type="text" value=<%= temp.name%> name="name">
+                <input type="text" value=<%= temp.company%> name="company">
+                <input type="text" value=<%= temp.telp_number%> name="telp_number">
+                <input type="text" value=<%= temp.email%> name="email">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>
