@@ -26,7 +26,11 @@
                     <tr>
                         <td><%= temps.id%></td>
                         <td><%= temps.name_of_group%></td>
-                        <td><%= temps.name%></td>
+                        <td>
+                        <% temps.name.forEach(function(temps1) { %>
+                            <%= temps1%>
+                        <% }); %>
+                        </td>
                         <td>
                             <a href="/deleteGroup/<%= temps.id%>">Delete</a>
                             <a href="/editGroup/<%= temps.id%>">Edit</a> 

@@ -32,7 +32,9 @@
                     <td><%= temps.company%></td>
                     <td><%= temps.telp_number%></td>
                     <td><%= temps.email%></td>
-                    <td><%= temps.name_of_group%></td>
+                    <% temps.name_of_group.forEach(function(nog) { %>
+                    <td><%= nog%></td>
+                    <% }); %>
                     <td>
                         <a href="/addressDetail/<%= temps.id%>">Detail Address</a> 
                         <a href="/deleteContact/<%= temps.id%>">Delete</a> 

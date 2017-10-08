@@ -13,13 +13,11 @@
 
     <main>
         <div>
-        <% temp.forEach(function(temps) { %>
             <form action="/editGroupFinal" method="POST">
-                <input type="text" value=<%= temps.id%> name="id">
-                <input type="text" value=<%= temps.name_of_group%> name="name_of_group">
+                <input type="text" value=<%= group.id%> name="id">
+                <input type="text" value=<%= group.name_of_group%> name="name_of_group">
                 <button type="submit">Submit</button>
             </form>
-        <% }); %>
         </div>
     </main>
 

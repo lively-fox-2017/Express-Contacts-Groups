@@ -13,7 +13,6 @@ const profiles = require('./routes/profiles')
 const addresses = require('./routes/addresses')
  
 //buat index
-
 app.use('/', contacts)
 
 app.use('/', groups)

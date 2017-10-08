@@ -3,61 +3,45 @@ const router = express.Router()
 var sqlite3 = require('sqlite3').verbose()
 var db = new sqlite3.Database('data.db');
 const Models = require('../models/profilesModels')
+const MContact = require('../models/contactsModel')
+
 
 router.get('/profile', (req, res) => {
 
-  Models.getAllProfile((resultProfile, contacts, err) =>{
-    if(err){
-      console.log('gagal guys')
-    }else{
-      res.render('pages/profile', {temp : resultProfile, temp1 : contacts , message : ''})
-    }
+  Models.getAllProfile().then((result) =>{
+    res.render('pages/profile', {temp : result.resultProfile, temp1 : result.contacts, message :''})
   })
 })
 
 router.post('/profile', (req, res) => {
 
-  	Models.insertProfile(req.body.username, req.body.password, req.body.id_contact, (err) =>{
-      if(!err){
-        res.redirect('profile')
-      }else{
-        Models.getAllProfile((resultProfile, contacts, err) =>{
-          if(err){
-          console.log('gagal guys')
-          }else{
-            res.render('pages/profile', {temp : resultProfile, temp1 : contacts , message : 'Data sudah ada guys'})
-          }
-        })      
-      }
-    })
-})
-
-router.get('/deleteProfile/:id', (req, res) => {
-
-  Models.deleteProfile(req.params.id, err =>{
+  Models.insertProfile(req.body.username, req.body.password, req.body.id_contact).then(err =>{
     if(!err){
-      res.redirect('/profile')
+      res.redirect('profile')
+    }else{
+      Models.getAllProfile().then((result)=>{
+        res.render('pages/profile', {temp : result.resultProfile, temp1 : result.contacts, message :'Data sudah ada guys'})
+      })
     }
   })
 })
 
+router.get('/deleteProfile/:id', (req, res) => {
+
+  Models.deleteProfile(req.params.id).then(res.redirect('/profile'))
+})
+
 router.get('/editProfile/:id', function(req, res) {
 
-  Models.getProfile(req.params.id, (err, profiles) =>{
-    if(!err){
-      res.render('pages/editProfile', {temp : profiles})
-    }
+  Models.getProfileById(req.params.id).then((result) =>{
+    res.render('pages/editProfile', {temp : result})
   }) 
 })
 
 
 router.post('/editProfileFinal', (req, res) => {
 
-  Models.updateProfile(req.body.username, req.body.password, req.body.id, err =>{
-    if(!err){
-      res.redirect('/profile')
-    }
-  })
+  Models.updateProfile(req.body.username, req.body.password, req.body.id).then(res.redirect('/profile'))
 })
 
 module.exports = router

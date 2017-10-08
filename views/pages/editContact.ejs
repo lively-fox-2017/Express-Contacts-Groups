@@ -13,16 +13,14 @@
 
     <main>
         <div>
-        <% temp.forEach(function(temps) { %>
             <form action="/editContactFinal" method="POST">
-                <input type="text" value=<%= temps.id%> name="id">
-                <input type="text" value=<%= temps.name%> name="name">
-                <input type="text" value=<%= temps.company%> name="company">
-                <input type="text" value=<%= temps.telp_number%> name="telp_number">
-                <input type="text" value=<%= temps.email%> name="email">
+                <input type="text" value=<%= temp.id%> name="id">
+                <input type="text" value=<%= temp.name%> name="name">
+                <input type="text" value=<%= temp.company%> name="company">
+                <input type="text" value=<%= temp.telp_number%> name="telp_number">
+                <input type="text" value=<%= temp.email%> name="email">
                 <button type="submit">Submit</button>
             </form>
-        <% }); %>
         </div>
     </main>
 
