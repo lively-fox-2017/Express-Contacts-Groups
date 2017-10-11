@@ -11,45 +11,104 @@ class Group {
     var tes = this.id + this.name_of_group;
     return tes
   }
-  static findAll(cb) {
-    db.all('select * from groups', function(err, rows) {
-      var objRows = rows.map((row) => {
-        return new Group(row)
+  static findAll() {
+    var promise = new Promise((resolve, reject) => {
+      db.all('select * from groups', function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows.length == 0) {
+            resolve(rows);
+          } else {
+            var objRows = rows.map((row) => {
+              return new Group(row)
+            });
+            resolve(objRows);
+          }
+        }
       });
-      cb(err, objRows);
-    });
-  }
-  static findById(id, cb) {
-    db.get('select * from groups where id="' + id + '"', function(err, rows) {
-      cb(err, rows);
-    });
-  }
-  static findBy(id, column, cb) {
-    db.all(`select * from groups where ${column}='${id}'`, function(err, rows) {
-      cb(err, rows);
-    });
-  }
-  static insertData(data, cb) {
-    var column = [];
-    for (let prop in data) {
-      column.push("'" + data[prop] + "'");
-    }
-    db.run(`insert into groups values(null, ${column.join(', ')})`, function(err) {
-      cb(err);
-    });
-  }
-  static editData(data, cb) {
-    var sqlQ = "update Groups set ";
-    sqlQ += "name_of_group = '" + data.name_of_group + "' "
-    sqlQ += "where id='" + data.id + "'";
-    db.run(sqlQ, function(err) {
-      cb(err);
-    });
-  }
-  static deleteData(id, cb) {
-    db.run('delete from Groups where id="' + id + '"', function(err) {
-      cb(err);
     })
+    return promise;
+  }
+  static findById(id) {
+    var obj_promise = new Promise((resolve, reject) => {
+      db.get('select * from groups where id="' + id + '"', function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows != undefined) {
+            var objRows = new Group(rows);
+            resolve(objRows);
+          } else {
+            resolve(rows);
+          }
+        }
+      });
+    })
+    return obj_promise
+  }
+  static findBy(id, column) {
+    var promise = new Promise((resolve, reject) => {
+      db.all(`select * from groups where ${column}='${id}'`, function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows !== undefined) {
+            var objRows = rows.map((row) => {
+              return Group(row)
+            });
+            resolve(objRows);
+          } else {
+            resolve(rows);
+          }
+        }
+      });
+    })
+    return promise;
+  }
+  static insertData(data) {
+    var promise = new Promise((resolve, reject) => {
+      var column = [];
+      for (let prop in data) {
+        column.push("'" + data[prop] + "'");
+      };
+      db.run(`insert into groups values(null, ${column.join(', ')})`, function(err) {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve();
+        };
+      });
+    })
+    return promise;
+  }
+  static editData(data) {
+    var promise = new Promise((resolve, reject) => {
+      var sqlQ = "update Groups set ";
+      sqlQ += "name_of_group = '" + data.name_of_group + "' "
+      sqlQ += "where id='" + data.id + "'";
+      db.run(sqlQ, function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    })
+    return promise;
+  }
+  static deleteData(id) {
+    var promise = new Promise((resolve, reject) => {
+      db.run('delete from Groups where id="' + id + '"', function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      })
+    })
+    return promise;
   }
 }
 

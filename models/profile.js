@@ -9,44 +9,108 @@ class Profile {
     this.password = data.password;
     this.Contact_ID = data.Contact_ID;
   }
-  static findAll(cb) {
-    db.all('select * from profile', function(err, rows) {
-      cb(err, rows);
-    });
-  }
-  static findById(id, cb) {
-    db.get('select * from profile where id="' + id + '"', function(err, rows) {
-      cb(err, rows);
-    });
-  }
-  static findBy(id, column, cb) {
-    db.all(`select * from profile where ${column}='${id}'`, function(err, rows) {
-      cb(err, rows);
-    });
-  }
-  static insertData(data, cb) {
-    var column = [];
-    for (let prop in data) {
-      column.push("'" + data[prop] + "'");
-    }
-    db.run(`insert into profile values(null, ${column.join(', ')})`, function(err) {
-      cb(err, this.lastID);
-    });
-  }
-  static editData(data, cb) {
-    var sqlQ = "update Profile set ";
-    sqlQ += "username = '" + data.username + "', "
-    sqlQ += "password = '" + data.password + "', "
-    sqlQ += "Contact_ID = '" + data.contact_id + "' "
-    sqlQ += "where id='" + data.id + "'";
-    db.all(sqlQ, function(err) {
-      res.redirect('../../profiles')
-    });
-  }
-  static deleteData(id, cb) {
-    db.run('delete from Profile where id="' + id + '"', function(err) {
-      cb(err);
+  static findAll() {
+    var promise = new Promise((resolve, reject) => {
+      db.all('select * from profile', function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows !== undefined) {
+            var objRows = rows.map((row) => {
+              return new Profile(row)
+            });
+            resolve(objRows);
+          } else {
+            resolve(rows);
+          }
+        }
+      });
     })
+    return promise;
+  }
+  static findById(id) {
+    var promise = new Promise((resolve, reject) => {
+      db.get('select * from profile where id="' + id + '"', function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows !== undefined) {
+            var objRows = new Profile(rows);
+            resolve(objRows);
+          } else {
+            resolve(rows);
+          }
+        }
+      });
+    })
+    return promise;
+  }
+  static findBy(id, column) {
+    var promise = new Promise((resolve, reject) => {
+      db.all(`select * from profile where ${column}='${id}'`, function(err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          if (rows !== undefined) {
+            var objRows = rows.map((row) => {
+              return new Profile(row)
+            });
+            resolve(objRows)
+          } else {
+            resolve(rows);
+          }
+        }
+      });
+    })
+    return promise;
+  }
+  static insertData(data) {
+    var promise = new Promise((resolve, reject)=>{
+      var column = [];
+      for (let prop in data) {
+        column.push("'" + data[prop] + "'");
+      }
+      db.run(`insert into profile values(null, ${column.join(', ')})`, function(err) {
+        if(err) {
+          reject(err);
+        }
+        else {
+          resolve(this.id);
+        }
+      });
+    })
+    return promise;
+  }
+  static editData(data) {
+    var promise = new Promise((resolve, reject)=>{
+      var sqlQ = "update Profile set ";
+      sqlQ += "username = '" + data.username + "', "
+      sqlQ += "password = '" + data.password + "', "
+      sqlQ += "Contact_ID = '" + data.contact_id + "' "
+      sqlQ += "where id='" + data.id + "'";
+      db.all(sqlQ, function(err) {
+        if(err) {
+          reject(err)
+        }
+        else{
+          resolve()
+        }
+      });
+    })
+    return promise;
+  }
+  static deleteData(id) {
+    var promise = new Promise((resolve, reject)=>{
+      db.run('delete from Profile where id="' + id + '"', function(err) {
+        if(err) {
+          reject(err);
+        }
+        else {
+          resolve();
+        }
+      })
+    })
+    return promise;
   }
 }
 
