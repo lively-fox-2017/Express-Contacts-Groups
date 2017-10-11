@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  
+  <title>Edit Profile</title>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                </div>
+                <div class="column">
+                    <form action="/profiles/edit/<%= dataJsonProfiles.id %>" 
+                      method="post">
+                      <div class="field-body">
+                          <div class="field is-narrow">
+                            <div class="control">
+                              <div class="select is-fullwidth">
+                                <select name='name'>
+                                    <% for(let data = 0; data < dataContacts.length; data++) { %>
+                                    
+                                  <option value='<%= dataContacts[data].id %>'
+                                      <% if(dataJsonProfiles.ContactsId === dataContacts[data].id){ %>
+                                        <%='selected'%>
+                                      <%}%> 
+                                    ><%= dataContacts[data].nama %></option>
+                                  <%}%>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br/>
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                              <input class="input" type="text" name="username" value="<%= dataJsonProfiles.username %>">
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-envelope"></i>
+                              </span>
+                              <span class="icon is-small is-right">
+                                <i class="fa fa-check"></i>
+                              </span>
+                            </p>
+                          </div>
+                          <div class="field">
+                            <p class="control has-icons-left">
+                              <input class="input" type="password" name="password"value="<%= dataJsonProfiles.password %>">
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-lock"></i>
+                              </span>
+                            </p>
+                          </div>
+                          <div class="field">
+                            <p class="control">
+                            <button class="button is-success">
+                                Edit
+                            </button>
+                          </p>
+                      </div>
+                </div>
+                <div class="column">
+                </div>
+              </div>
+        </div>
+    </section>
+</body>
+</html>

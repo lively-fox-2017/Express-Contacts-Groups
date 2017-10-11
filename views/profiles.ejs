@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  <title>Home</title>
+</head>
+<body>     
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href="contacts">Contacts</a></li>
+          <li><a href="groups">Groups</a></li> 
+          <li><a href="addresses">Addresses</a></li>
+          <li class="is-active"><a href="profiles" aria-current="page">Profiles</a></li>
+          <li><a href="addresses_with_contact">Address with Contacts</a></li>
+        </ul>
+      </nav>
+      <br/><br/>
+      <div class="columns">
+      <div class="column">
+          <form action="/profiles" method="post" >
+            <div class="field-body">
+                <div class="field is-narrow">
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select name='name'>
+                          <% for(let data = 0; data < dataContacts.length; data++) { %>
+                        <option value='<%= dataContacts[data].id %>'><%= dataContacts[data].nama %></option>
+                        <%}%>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="username" placeholder="Username">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="password" name="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control">
+                  <button class="button is-success">
+                      Simpan
+                  </button>
+                </p>
+            </div>
+      </div>
+      <div class="column">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let data = 0; data < dataJsonProfiles.length; data++) { %>
+                <tr>
+                  <td><%= dataJsonProfiles[data].id %></td>
+                  <td><%= dataJsonProfiles[data].nama %></td>
+                  <td><%= dataJsonProfiles[data].username %></td>
+                  <td><%= dataJsonProfiles[data].password %></td>
+                  <td><a href='/profiles/edit/<%= dataJsonProfiles[data].id %>'>Edit</a></td>
+                  <td><a href='/profiles/delete/<%= dataJsonProfiles[data].id %>'>Delete</a></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+                <%=pesanError%>
+            </form>
+      </div>
+    </div>
+     
+      
+     
+
+    </div>
+  </section>
+</body>
+</html>
+  
+        
+  </div>
+</body>
+</html>
