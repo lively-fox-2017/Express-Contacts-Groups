@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit Kontak</title>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body> 
+    <div class="landing-page">
+      <div class="form-appointment">
+        <div class="wpcf7" 
+          id="wpcf7-f560-p590-o1">
+          <form action="/contacts/edit/<%= dataJsonContact[0].id %>" 
+          method="post" 
+          class="wpcf7-form">
+          <div class="group">
+          <div style="width: 48%; float: left;">
+          <span class="wpcf7-form-control-wrap text-680">
+              Name: <input 
+              type="text" 
+            name="nama"
+            value="<%= dataJsonContact[0].nama %>"
+            size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+          </span>
+          <br>
+          <span class="wpcf7-form-control-wrap email-680">
+              Company: <input type="text" 
+            name="company" 
+            value="<%= dataJsonContact[0].company %>"
+            size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+          </span>
+          <br>
+          <span class="wpcf7-form-control-wrap tel-630">
+              Telepon: <input type="text" 
+            name="phone" 
+            value="<%= dataJsonContact[0].telp_number %>"
+            size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+          </span>
+          <br>
+          <span class="wpcf7-form-control-wrap tel-630">
+            Email: <input type="text" 
+          name="email" 
+          value="<%= dataJsonContact[0].email %>"
+          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+        </span>
+        <br>
+            <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
+            <input type="submit" 
+            value="Edit" 
+            class="wpcf7-form-control wpcf7-submit">
+            </div>
+          </div>          
+          </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit Profile</title>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="landing-page">
+    <div class="form-appointment">
+      <div class="wpcf7" 
+        id="wpcf7-f560-p590-o1">
+        <form action="/profiles/edit/<%= dataJsonProfiles[0].id %>" 
+        method="post" 
+        class="wpcf7-form">
+        <div class="group">
+        <div style="width: auto;">
+            <span class="wpcf7-form-control-wrap text-680"></span>
+            <select 
+            name='name'>
+              <% for(let data = 0; data < NamaContacts.length; data++) { %>
+              <option 
+              class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
+              size="45"
+              aria-required="true"
+              value='<%= NamaContacts[data].id %>'
+              ><%= NamaContacts[data].nama %></option> 
+              <%}%>
+            </select>
+          </span>
+          <br/>
+        <span class="wpcf7-form-control-wrap text-680">
+            Username: <input 
+            type="text" 
+          name="username"
+          value="<%= dataJsonProfiles[0].username %>"
+          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+        </span>
+        <br>
+        <span class="wpcf7-form-control-wrap email-680">
+            Password: <input type="text" 
+          name="password" 
+          value="<%= dataJsonProfiles[0].password %>"
+          size="45" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true">
+        </span>
+      <br>
+          <div style="text-align: center; padding-top: 2em; border-top: 1px solid rgb(153, 202, 129); margin-top: 1em;">
+          <input type="submit" 
+          value="Edit" 
+          class="wpcf7-form-control wpcf7-submit">
+          </div>
+        </div>          
+        </form>
+  </div>
+</body>
+</html>
