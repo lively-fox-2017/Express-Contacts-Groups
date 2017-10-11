@@ -1,5 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('db/database.db');
+const Contact = require('../models/contacts')
+// const ContactGroup = require('../models/contactgroups')
 
 class Group {
   constructor() {
@@ -18,6 +20,13 @@ class Group {
     })
     return promise
   }
+  // static getDataGroup(row) {
+  //   let promise = new Promise(function(resolve,reject) {
+  //     db.all(`SELECT * FROM Groups`, (err,rowGroups) => {
+  //       ContactGroup.findAll()
+  //     })
+  //   })
+  // }
 
   static findById(req) {
     let promise = new Promise(function(resolve,reject) {
