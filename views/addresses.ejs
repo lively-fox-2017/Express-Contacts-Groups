@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Addresses Database</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>STREET</th>
+      <th>CITY</th>
+      <th>ZIPCODE</th>
+      <th>Contact ID</th>
+      <th>Contact Name</th>
+    </tr>
+    <% for (var i = 0; i < dataJsonAddresses.length; i++) { %>
+      <tr>
+        <td><%= dataJsonAddresses[i].id %></td>
+        <td><%= dataJsonAddresses[i].street %></td>
+        <td><%= dataJsonAddresses[i].city %></td>
+        <td><%= dataJsonAddresses[i].zipcode %></td>
+        <td><%= dataJsonAddresses[i].contact_id %></td>
+        <td><%= dataJsonAddresses[i].name %></td>
+        <td><a href="/addresses/edit/<%= dataJsonAddresses[i].id %>">edit</a></td>
+        <td><a href="/addresses/delete/<%= dataJsonAddresses[i].id %>">delete</a></td>
+      </tr>
+    <% } %>
+  </table>
+  <br><br>
+  <form action="/addresses" method="post">
+    Street:
+    <br>
+    <input type="text" name="street">
+    <br>
+    City:
+    <br>
+    <input type="text" name="city">
+    <br>
+    Zipcode:
+    <br>
+    <input type="text" name="zipcode">
+    <br>
+    Contact Name:
+    <br>
+    <select name="contact_id">
+      <% for(var y = 0; y < dataJsonContactId.length; y++){ %>
+      <option value="<%= dataJsonContactId[y].id %>"><%= dataJsonContactId[y].name %></option>
+      <% } %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <h4>Navigate to Another Path Here:</h4>
+  <ul>
+    <li><a href="/contacts">View Contacts Database</a></li>
+    <li><a href="/groups">View Groups Database</a></li>
+    <li><a href="/profile">View Profiles Database</a></li>
+    <li><a href="/addresses">View Addresses Database</a></li>
+  </ul>
+</body>
+</html>

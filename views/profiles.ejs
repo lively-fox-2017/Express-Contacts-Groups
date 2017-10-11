@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Profiles</title>
+</head>
+<body>
+  <% if(error){ %>
+  <h1>NAH KANNNN UDA ADA YG SAMA KOK DI ADD LAGI ?!?!?!!?</h1>
+  <% } %>
+  <h1>Profiles Database</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>USERNAME</th>
+      <th>PASSWORD</th>
+      <th>CONTACT ID</th>
+      <th>CONTACT NAME</th>
+    </tr>
+    <% for (var i = 0; i < dataJsonProfiles.length; i++) { %>
+      <tr>
+        <td><%= dataJsonProfiles[i].id %></td>
+        <td><%= dataJsonProfiles[i].username %></td>
+        <td><%= dataJsonProfiles[i].password %></td>
+        <td><%= dataJsonProfiles[i].contact_id %></td>
+        <td><%= dataJsonProfiles[i].name %></td>
+        <td><a href="/profile/edit/<%= dataJsonProfiles[i].id %>">edit</a></td>
+        <td><a href="/profile/delete/<%= dataJsonProfiles[i].id %>">delete</a></td>
+      </tr>
+    <% } %>
+  </table>
+  <br><br>
+  <form action="/profile" method="post">
+    Username:
+    <br>
+    <input type="text" name="username">
+    <br>
+    Password:
+    <br>
+    <input type="text" name="password">
+    <br>
+    Contact Name:
+    <br>
+    <select name="contact_id">
+      <% for(var y = 0; y < dataJsonContactId.length; y++){ %>
+      <option value="<%= dataJsonContactId[y].id %>"><%= dataJsonContactId[y].name %></option>
+      <% } %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <h4>Navigate to Another Path Here:</h4>
+  <ul>
+    <li><a href="/contacts">View Contacts Database</a></li>
+    <li><a href="/groups">View Groups Database</a></li>
+    <li><a href="/profile">View Profiles Database</a></li>
+    <li><a href="/addresses">View Addresses Database</a></li>
+  </ul>
+</body>
+</html>
