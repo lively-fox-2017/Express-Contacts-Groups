@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  <title>Contacts</title>
+</head>
+<body>     
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li class="is-active"><a href="contacts" aria-current="page">Contacts</a></li>
+          <li><a href="groups">Groups</a></li> 
+          <li><a href="addresses">Addresses</a></li>
+          <li><a href="profiles">Profiles</a></li>
+          <li><a href="addresses_with_contact">Address with Contacts</a></li>
+        </ul>
+      </nav>
+      <br/>
+      <form action="/contacts" method="post"></form>
+      <div class="tile is-ancestor">
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+              <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name="nama" placeholder="Name">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <br>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name="company"  placeholder="Company">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <br>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name="phone"  placeholder="Phone">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <br>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name="email"  placeholder="Email">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <br/>
+                <div class="field-body">
+                    <div class="field is-narrow">
+                      <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name='name'>
+                                <% for(let data = 0; data < dataJsonGroups.length; data++) { %>
+                                <option value='<%= dataJsonGroups[data].id %>'>
+                                <%= dataJsonGroups[data].name_of_group %></option> 
+                                <%}%>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br/>
+                <div class="field">
+                  <p class="control">
+                  <button class="button is-success">
+                      Simpan
+                  </button>
+                </p>
+              </div> 
+           </div>
+        </div>
+        <div class="tile is-parent">
+          <div class="tile is-child box">
+            <!-- TABEL -->
+           <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Addresses</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let data = 0; data < dataJsonContact.length; data++) { %>
+                <tr>
+                  <td data-label=""><%= dataJsonContact[data].id %></td>
+                  <td data-label=""><%= dataJsonContact[data].nama %></td>
+                  <td data-label=""><%= dataJsonContact[data].company %></td>
+                  <td data-label=""><%= dataJsonContact[data].telp_number %></td>
+                  <td data-label=""><%= dataJsonContact[data].email %></td>
+                  <td data-label=""><%= dataJsonContact[data].addresses %></td>
+                  <td><a href='/contacts/edit/<%= dataJsonContact[data].id %>'>Edit</a></td>
+                  <td><a href='/contacts/delete/<%= dataJsonContact[data].id %>'>Delete</a></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+            </div>
+        </div>
+      </div>             
+  </form>
+</body>
+</html>

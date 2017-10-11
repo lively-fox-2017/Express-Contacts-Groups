@@ -47,5 +47,9 @@ Input fields untuk contact id nya harus dalam bentuk drop down yang menampilkan 
 Ketika edit, data address harus di populate ke masing-masing input form nya, termasuk selected drop down nya.
 
 - Release 3 - Callback -
-Buatlah routing baru /addresses_with_contact yang isinya menampilkan list dari addresses (boleh copy dari /addresses), kemudian tambahkan name dan company dari Contact yang sesuai, dengan cara memanipulasi object di routing sebelum dikirimkan ke view menggunakan callback (tidak boleh menggunakan join)
+Buatlah routing baru /addresses_with_contact yang isinya menampilkan list dari
+ addresses
+ (boleh copy dari /addresses), kemudian tambahkan name dan company dari Contact 
+ yang sesuai, dengan cara memanipulasi object di routing sebelum dikirimkan ke 
+ view menggunakan callback (tidak boleh menggunakan join)
 **/
