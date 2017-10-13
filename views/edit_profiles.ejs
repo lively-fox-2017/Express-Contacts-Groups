@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pages Edit Profiles</title>
+  </head>
+  <body>
+    <%if(dataError){ %>
+      <p><%=dataError%></p>
+    <%}%>
+  <table>
+    <form action="/profiles/edit/<%=dataProfiles.id%>" method="post">
+      Username:<br>
+      <input type="text" name="username" value="<%=dataProfiles.username%>">
+      <br>
+      Password:<br>
+      <input type="text" name="password" value="<%=dataProfiles.password%>">
+      <br>
+      <select class="" name="idContacts">
+      <% dataContacts.forEach(row => { %>
+       <option value="<%=row.id%>"><%=row.name%></option>
+      <% })%>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+  </table>
+  </body>
+</html>
