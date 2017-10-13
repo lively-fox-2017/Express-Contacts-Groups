@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GROUPS</title>
+  </head>
+  <body>
+    <% include partials/nav.ejs%>
+    <h1>HALAMAN Groups</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name_Of_Group</th>
+
+        </tr>
+      </thead>
+    </tbody>
+      <%data.forEach (row=> {%>
+      <tr>
+        <td><%= row.id%></td>
+        <td><%= row.name_of_group%></td>
+
+        <td>
+          <a href="groups/edit/<%=row.id%>">EDIT</a>
+          <a href="groups/delete/<%=row.id%>">DELETE</a>
+        </td>
+      </tr>
+    <%})%>
+  </tbody>
+    </table>
+    <form action="/groups" method="POST">
+      <input type="text" name=name_of_group placeholder="Name Of Group">
+      <input type="submit" name="" value="submit">
+    </form>
+  </body>
+</html>

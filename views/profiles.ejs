@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>PROFILES</title>
+  </head>
+  <body>
+  <style>
+
+html, body {font-family: Lobster, Monospace;} h1 { border-left: 2px solid #00f28f ;font-size: 48px;font-weight: 400;padding-left: 20px}
+.main{margin-top: 20px;margin-left: 20px;}.thead{padding-left: 20px;}.box, form input{
+  margin-top: 20px;  margin-left: 0px;  background: #f0f0f0;  border: none;  border-left: 20px solid #fff;  font-size: 20px;
+  padding: 2px;
+  width: 300px;
+}
+ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;} li {float: left;}
+li a {display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;}
+/* Change the link color to #111 (black) on hover */
+li a:hover {background-color: #111;}th { padding-right: 30px;}
+</style>
+<% include partials/nav.ejs%>
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+
+    <h1>Profiles</h1>
+  </div>
+</div>
+</div>
+</header>
+    <div class="main">
+      <div class="cointainer">
+        <div class="row">
+
+    <table>
+      <thead>
+        <div class="thead">
+          <tr>
+          <th>ID</th>
+          <th>USERNAME</th>
+          <th>PASSWORD</th>
+          <th>CONTACT ID</th>
+          <th>CONTACT NAME </th>
+        </tr>
+      </div>
+      </thead>
+    </tbody>
+      <%dataProfile.forEach (row=> {%>
+      <tr>
+        <td><%= row.id%></td>
+        <td><%= row.username%></td>
+        <td><%= row.password%></td>
+        <td><%= row.ContactsID%></td>
+        <td><%= row.name%></td>
+
+        <td>
+          <a href="profiles/edit/<%=row.id%>">EDIT</a>
+          <a href="profiles/delete/<%=row.id%>">DELETE</a>
+        </td>
+      </tr>
+    <%})%>
+  </tbody>
+</table>
+  </div>
+</div>
+    <form class="form" action="/profiles" method="POST">
+      <div class="col-xs-8 col-md-10">
+      <input id="username" type="text" name=username placeholder="Username">
+      <br>
+      <input id="password"type="password" name=password placeholder="Password">
+      <br>
+      <select class="box" name="ContactsID">
+
+      <% for(let i = 0; i < dataContact.length; i++) {%>
+      <option value="<%=dataContact[i].id%>"><%=dataContact[i].name%></option>
+      <%}%>
+      </select>
+      </div>
+      <br>
+      <div class="col-xs-4 col-md-2">
+        <br>
+      <input type="submit" name="" value="submit">
+    </div>
+
+    </form>
+
+  </body>
+</html>
