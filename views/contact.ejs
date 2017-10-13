@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONTACT</title>
+  <style>
+    html,body {margin: 0; padding: 0; font-family: arial; letter-spacing: 1px;}
+    .container {display:block; width: 80%; margin:auto;}
+    .c10{clear: both; height: 10px;}
+    a {text-decoration: none;}
+    h3 {font-size: 22px; color: red; text-align: left; margin: 5px;}
+    ul {display: block; height: 40px; margin: 0; padding: 0; text-align: center; background: #333; }
+    ul li {list-style: none; float: left; margin-right: 20px; margin-left: 5px; padding: 10px}
+    ul li a{text-decoration: none; color: #fff; font-weight: bold;}
+    ul li a:hover{color: #ccc;}
+    table{width:100%;border:1px solid #333;}
+    table th{padding:5px;background: #ccc; text-align: left;}
+    table td{padding:5px;}
+    select{border: 1px solid #ccc; height: 30px; padding: 5px;}
+    input[type='text']{border: 1px solid #ccc; height: 20px; padding: 5px;}
+    .btn{border: 1px solid #ccc; height: 30px; padding: 5px; background: #fff; color: #999; text-decoration: none; margin: 10px 0; cursor: pointer; padding: 0 10px;}
+    .btn:hover {background: #ccc}
+  </style>
+</head>
+  <body>
+    <div class="container">
+      <h3>Contacts</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contacts">Contact</a></li>
+        <li><a href="/profiles">Profile</a></li>
+        <li><a href="/address">Address</a></li>
+        <li><a href="/groups">Group</a></li>
+      </ul>
+      <div class="c10"></div>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Tlp. Number</th>
+          <th>Email</th>
+          <th>Groups</th>
+          <th colspan="4" align="center">Action</th>
+        </tr>
+        <% contact.forEach (i =>{%>
+          <tr>
+            <td>&nbsp<%= i.id %></td>
+            <td>&nbsp<%= i.name %></td>
+            <td>&nbsp<%= i.company %></td>
+            <td>&nbsp<%= i.tlp_number %></td>
+            <td>&nbsp<%= i.email %></td>
+            <td>&nbsp<%= i.id_group %></td>
+            <td><a href="/contacts/address/<%= i.id %>">Address</a></td>
+            <td><a href="/contacts/groups/<%= i.id %>">Groups</a></td>
+            <td><a href="/contacts/edit/<%= i.id %>">Edit</a></td>
+            <td><a href="/contacts/delete/<%= i.id %>">Delete</a></td>
+          </tr>
+          <% }) %>
+      </table>
+      <form action="/contacts" method="post">
+        <div>
+          <p>Name</p>
+          <input type="text" name="name" placeholder="your name">
+        </div>
+        <div>
+          <p>Company</p>
+          <input type="text" name="company" placeholder="your company">
+        </div>
+        <div>
+          <p>Tlp Number</p>
+          <input type="text" name="tlp_number" placeholder="your phone number">
+        </div>
+        <div>
+          <p>Email</p>
+          <input type="text" name="email" placeholder="your email">
+        </div>
+        <div>
+          <p>Groups</p>
+          <select name="id_group">
+            <option value="">--- NONE ---</option>
+            <%group.forEach(i => {%>
+            <option value="<%-i.id%>"><%-i.names_of_groups%></option>
+            <%})%>
+          </select>
+        </div>
+        <input class="btn" type="submit" value="Add">
+      </form>
+    </div>
+  </body>
+</html>
